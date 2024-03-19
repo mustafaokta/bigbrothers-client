@@ -994,3 +994,80 @@ export const productsMenu = {
 	companyC: { id: 'companyC', text: 'Company C', path: '/', subMenu: null },
 	companyD: { id: 'companyD', text: 'Company D', path: '/', subMenu: null },
 };
+
+// Yeniler
+export const dashboardMenu = {
+	dashboard: {
+		id: 'dashboard',
+		text: 'Dashboard',
+		path: '/',
+		icon: 'Dashboard',
+		subMenu: null,
+	},
+
+};
+export const adminMenu = {
+	admin: {
+		id: 'admin',
+   text: 'Admin',
+   path: 'admin',
+   icon: 'admin_panel_settings',
+   subMenu: {
+				adminUsers: {
+		   id: 'adminUsers',
+		   text: 'Kullanıcılar',
+		   path: 'admin/kullanicilar',
+		   icon: 'people',
+	   },
+		   adminDrivers: {
+		   id: 'adminDrivers',
+		   text: 'Sürücüler',
+		   path: 'admin/suruculer',
+		   icon: 'TransferWithinAStation'
+	   },
+		   adminPilots: {
+		   id: 'adminPilots',
+		   text: 'Pilots',
+		   path: 'admin/pilotlar',
+		   icon: 'Paragliding'
+	   },
+		   adminTourTypes : {
+		   id: 'adminTourType',
+		   text: 'Tur Tipleri',
+		   path: 'admin/tur-tipleri',
+		   icon: 'ListAlt'
+	   },
+		   adminTour : {
+		   id: 'adminTours',
+		   text: 'Turlar',
+		   path: 'admin/turlar',
+		   icon: 'Surfing'
+	   },
+		   adminAgencies: {
+		   id: 'adminAgency',
+		   text: 'Acenteler',
+		   path: 'admin/acenteler',
+		   icon: 'HomeWork'
+			 },
+		   adminHotels: {
+		   id: 'adminHotel',
+		   text: 'Oteller',
+		   path: 'admin/oteller',
+		   icon: 'Business'
+			 },
+		   adminVehicles: {
+		   id: 'adminVehicle',
+		   text: 'Araçlar',
+		   path: 'admin/araclar',
+		   icon: 'CarRental'
+			 },
+		   adminRegions: {
+		   id: 'adminRegion',
+		   text: 'Bölgeler',
+		   path: 'admin/bolgeler',
+			icon: 'AddLocationAlt'
+		   },
+   
+ }
+},
+}

@@ -83,7 +83,7 @@ const TableRow: FC<ITableRowProps> = ({
 		<tr>
 			<th scope='row'>{id}</th>
 			<td>
-				<Link href={`../${demoPagesMenu.sales.subMenu.productID.path}/${id}`}>
+				<Link href={`../`}>
 					{/* eslint-disable-next-line @next/next/no-img-element */}
 					<img src={image} alt='' width={54} height={54} />
 				</Link>
@@ -91,7 +91,7 @@ const TableRow: FC<ITableRowProps> = ({
 			<td>
 				<div>
 					<Link
-						href={`../${demoPagesMenu.sales.subMenu.productID.path}/${id}`}
+						href={`../`}
 						className={classNames('fw-bold', {
 							'link-dark': !darkModeStatus,
 							'link-light': darkModeStatus,

@@ -74,7 +74,7 @@ const CommonTopSales = () => {
 						isLink
 						icon='Summarize'
 						tag='a'
-						to={`../${demoPagesMenu.sales.subMenu.salesList.path}`}>
+						to={``}>
 						Detailed Report
 					</Button>
 				</CardActions>

@@ -135,7 +135,7 @@ const CommonLatestTransActions = () => {
 						isLink
 						icon='Summarize'
 						tag='a'
-						to={`../${demoPagesMenu.sales.subMenu.transactions.path}`}>
+						to={``}>
 						All Transactions
 					</Button>
 				</CardActions>

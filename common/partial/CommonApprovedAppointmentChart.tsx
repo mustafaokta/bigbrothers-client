@@ -113,7 +113,7 @@ const CommonApprovedAppointmentChart = () => {
 					<Button
 						color='success'
 						tag='a'
-						to={`../${demoPagesMenu.appointment.subMenu.appointmentList.path}`}>
+						>
 						View Appointments
 					</Button>
 				</CardActions>

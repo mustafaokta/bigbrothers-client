@@ -7,7 +7,9 @@ import Brand from '../../../layout/Brand/Brand';
 import Navigation, { NavigationLine } from '../../../layout/Navigation/Navigation';
 import User from '../../../layout/User/User';
 import {
+	adminMenu,
 	componentPagesMenu,
+	dashboardMenu,
 	dashboardPagesMenu,
 	demoPagesMenu,
 	pageLayoutTypesPagesMenu,
@@ -40,25 +42,17 @@ const DefaultAside = () => {
 				<Brand asideStatus={asideStatus} setAsideStatus={setAsideStatus} />
 			</AsideHead>
 			<AsideBody>
-				<Navigation menu={dashboardPagesMenu} id='aside-dashboard' />
-				{!doc && (
+				<Navigation menu={dashboardMenu} id='aside-dashboard' />
+				
 					<>
 						<NavigationLine />
-						<Navigation menu={demoPagesMenu} id='aside-demo-pages' />
-						<NavigationLine />
-						<Navigation menu={pageLayoutTypesPagesMenu} id='aside-menu' />
+						<Navigation menu={adminMenu} id='aside-menu' />
 					</>
-				)}
+				
 
-				{doc && (
-					<>
-						<NavigationLine />
-						<Navigation menu={componentPagesMenu} id='aside-menu-two' />
-						<NavigationLine />
-					</>
-				)}
+			
 
-				{asideStatus && doc && (
+				{asideStatus  && (
 					<Card className='m-3 '>
 						<CardBody className='pt-0'>
 							{/* eslint-disable-next-line @next/next/no-img-element */}

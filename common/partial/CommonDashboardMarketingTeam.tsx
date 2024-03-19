@@ -19,7 +19,7 @@ const CommonDashboardMarketingTeam = () => {
 
 	const router = useRouter();
 	const handleOnClickToEmployeeListPage = useCallback(
-		() => router.push(`../${demoPagesMenu.appointment.subMenu.employeeList.path}`),
+		() => null,
 		[router],
 	);
 

@@ -47,7 +47,11 @@
 		"react-toastify": "^10.0.3",
 		"react-use": "^17.4.3",
 		"sass": "^1.70.0",
-		"use-clipboard-copy": "^0.2.0"
+		"use-clipboard-copy": "^0.2.0",
+		"jwt-decode": "^4.0.0",
+		"react-hook-form": "^7.50.1",
+		"axios": "^1.6.7",
+		"swr": "^2.2.4"
 	},
 	"devDependencies": {
 		"@next/eslint-plugin-next": "^14.0.4",
