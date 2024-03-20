@@ -12,11 +12,13 @@ import useNavigationItemHandle from '../../hooks/useNavigationItemHandle';
 import AuthContext from '../../context/authContext';
 
 import ThemeContext from '../../context/themeContext';
+import { useUserContext } from '../../context/UserContext';
 
 const User = () => {
 	const { width } = useWindowSize();
 	const { setAsideStatus } = useContext(ThemeContext);
 	const { userData, setUser } = useContext(AuthContext);
+	const {user, logoutUser} = useUserContext();
 
 	const router = useRouter();
 
@@ -41,7 +43,7 @@ const User = () => {
 				</div>
 				<div className='user-info'>
 					<div className='user-name d-flex align-items-center'>
-						{`${userData?.name} ${userData?.surname}`}
+					{`${user?.name} ${user?.surname}`}
 						<Icon icon='Verified' className='ms-1' color='info' />
 					</div>
 					<div className='user-sub-title'>{userData?.position}</div>

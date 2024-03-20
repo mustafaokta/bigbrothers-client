@@ -1071,3 +1071,76 @@ export const adminMenu = {
  }
 },
 }
+export const reservationMenu = {
+	pages: {
+		id: 'pages',
+		text: 'Rezerasyonlar',
+		icon: 'Extension',
+	},
+	singlePages: {
+		id: 'singlePages',
+		text: 'Tour',
+		path: 'single-pages',
+		icon: 'Surfing',
+		subMenu: {
+			boxedSingle: {
+				id: 'boxedSingle',
+				text: 'Incoming',
+				path: 'tur/gelen',
+				icon: 'CallReceived',
+			},
+			fluidSingle: {
+				id: 'fluidSingle',
+				text: 'Outgoing',
+				path: 'tur/giden',
+				icon: 'CallMade',
+			},
+		},
+	},
+	listPages: {
+		id: 'listPages',
+		text: 'Paragliding',
+		path: 'list-pages',
+		icon: 'Paragliding',
+		subMenu: {
+			listBoxed: {
+				id: 'listBoxed',
+				text: 'Daily Entry',
+				path: 'yamac-parasutu/gunluk-giris',
+				icon: 'AdsClick',
+			},
+/* 			listFluid: {
+				id: 'listFluid',
+				text: 'Pilots',
+				path: 'yamac-parasutu/pilotlar',
+				icon: 'ViewDay',
+			}, */
+			listFluid2: {
+				id: 'listFluid2',
+				text: 'Media',
+				path: 'yamac-parasutu/medya',
+				icon: 'Camera',
+			},
+		},
+	},
+	gridPages: {
+		id: 'gridPages',
+		text: 'Transfer',
+		path: 'grid-pages',
+		icon: 'EmojiTransportation',
+		subMenu: {
+			gridBoxed: {
+				id: 'gridBoxed',
+				text: 'Transferler',
+				path: 'transfer/transferler',
+				icon: 'ViewArray',
+			},
+		},
+	},
+	editPages: {
+		id: 'atvSafari',
+		text: 'Atv Safari',
+		path: 'atv-safari',
+		icon: 'SportsScore',
+	},	
+};

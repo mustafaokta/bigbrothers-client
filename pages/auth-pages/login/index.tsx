@@ -20,6 +20,9 @@ import Alert from '../../../components/bootstrap/Alert';
 import FormGroup from '../../../components/bootstrap/forms/FormGroup';
 import Input from '../../../components/bootstrap/forms/Input';
 import Spinner from '../../../components/bootstrap/Spinner';
+import { registerUser } from '../../../helpers/connections/auth';
+import { toast } from "react-toastify";
+import { useUserContext } from '../../../context/UserContext';
 
 interface ILoginHeaderProps {
 	isNewUser?: boolean;
@@ -35,8 +38,8 @@ const LoginHeader: FC<ILoginHeaderProps> = ({ isNewUser }) => {
 	}
 	return (
 		<>
-			<div className='text-center h1 fw-bold mt-5'>Welcome,</div>
-			<div className='text-center h4 text-muted mb-5'>Sign in to continue!</div>
+			<div className='text-center h1 fw-bold mt-5'>Merhaba,</div>
+			<div className='text-center h4 text-muted mb-5'>Devam etmek için giriş yapınız!</div>
 		</>
 	);
 };
@@ -48,6 +51,7 @@ const Login: NextPage<ILoginProps> = ({ isSignUp }) => {
 	const router = useRouter();
 
 	const { setUser } = useContext(AuthContext);
+	const { user, loginUser } = useUserContext();
 
 	const { darkModeStatus } = useDarkMode();
 
@@ -55,6 +59,30 @@ const Login: NextPage<ILoginProps> = ({ isSignUp }) => {
 	const [singUpStatus, setSingUpStatus] = useState<boolean>(!!isSignUp);
 
 	const handleOnClick = useCallback(() => router.push('/'), [router]);
+	const handleRegisterAction = (params:any)=> {
+		const name =   params.signupName; // tbName?.current?.value;
+		const surname =   params.signupSurname; // tbName?.current?.value;
+		const email =   params.signupEmail;// tbEmail?.current?.value;
+		const password = params.signupPassword; // tbPassword?.current?.value;
+
+		const postData = {
+		  name: String(name),
+		  surname: String(surname),
+		  email: String(email),
+		  password: String(password),
+		};
+
+		registerUser(postData)
+		  .then((res) => {
+			// toast.success(`Başarıyla kayıt oldunuz. Girişe yönlendiriliyorsunuz.`);
+			router.push("/login");
+		  })
+		  .catch((err) => {
+			console.log("error");
+		// 	toast.error(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+		  });
+	  };
+
 
 	const usernameCheck = (username: string) => {
 		return !!getUserDataWithUsername(username);
@@ -64,11 +92,53 @@ const Login: NextPage<ILoginProps> = ({ isSignUp }) => {
 		return getUserDataWithUsername(username).password === password;
 	};
 
-	const formik = useFormik({
+	const formikSignUp = useFormik({
 		enableReinitialize: true,
 		initialValues: {
-			loginUsername: USERS.JOHN.username,
-			loginPassword: USERS.JOHN.password,
+			signupEmail:"",
+			signupName: "",
+			signupSurname: "",
+			signupPassword:""
+		},
+		validate: (values) => {
+			const errors: { signupEmail?: string; signupName?: string; signupSurname?: string; signupPassword?: string } = {};
+
+			if (!values.signupEmail) {
+				errors.signupEmail = 'Required';
+			}
+
+			if (!values.signupName) {
+				errors.signupName = 'Required';
+			}
+			if (!values.signupSurname) {
+				errors.signupSurname = 'Required';
+			}
+			if (!values.signupPassword) {
+				errors.signupSurname = 'Required';
+			}
+
+			return errors;
+		},
+		validateOnChange: false,
+		onSubmit: (values) => { handleRegisterAction(values);
+	/* 		if (usernameCheck(values.loginUsername)) {
+				if (passwordCheck(values.loginUsername, values.loginPassword)) {
+					if (setUser) {
+						setUser(values.loginUsername);
+					}
+
+					handleOnClick();
+				} else {
+					formikLogin.setFieldError('loginPassword', 'Username and password do not match.');
+				}
+			} */
+		},
+	});
+	const formikLogin = useFormik({
+		enableReinitialize: true,
+		initialValues: {
+			loginUsername: '',
+			loginPassword: '',
 		},
 		validate: (values) => {
 			const errors: { loginUsername?: string; loginPassword?: string } = {};
@@ -85,7 +155,8 @@ const Login: NextPage<ILoginProps> = ({ isSignUp }) => {
 		},
 		validateOnChange: false,
 		onSubmit: (values) => {
-			if (usernameCheck(values.loginUsername)) {
+			handleLoginAction();
+			/* if (usernameCheck(values.loginUsername)) {
 				if (passwordCheck(values.loginUsername, values.loginPassword)) {
 					if (setUser) {
 						setUser(values.loginUsername);
@@ -93,28 +164,41 @@ const Login: NextPage<ILoginProps> = ({ isSignUp }) => {
 
 					handleOnClick();
 				} else {
-					formik.setFieldError('loginPassword', 'Username and password do not match.');
+					formikLogin.setFieldError('loginPassword', 'Username and password do not match.');
 				}
-			}
+			} */
 		},
 	});
-
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const handleContinue = () => {
 		setIsLoading(true);
-		setTimeout(() => {
+
+
+		/* setTimeout(() => {
 			if (
 				!Object.keys(USERS).find(
-					(f) => USERS[f].username.toString() === formik.values.loginUsername,
+					(f) => USERS[f].username.toString() === formikLogin.values.loginUsername,
 				)
 			) {
-				formik.setFieldError('loginUsername', 'No such user found in the system.');
+				formikLogin.setFieldError('loginUsername', 'No such user found in the system.');
 			} else {
 				setSignInPassword(true);
 			}
 			setIsLoading(false);
-		}, 1000);
+		}, 1000); */
 	};
+
+
+	const handleLoginAction = () => {
+		 // const email = tbEmail?.current?.value;
+		 // const password = tbPassword?.current?.value;
+
+		const postData = {
+		  email: String(formikLogin.values.loginUsername),
+		  password: String(formikLogin.values.loginPassword),
+		};
+		loginUser(postData);
+	  };
 
 	return (
 		<PageWrapper
@@ -138,15 +222,17 @@ const Login: NextPage<ILoginProps> = ({ isSignUp }) => {
 												'text-light': darkModeStatus,
 											},
 										)}>
-										<Logo width={200} />
+										<Logo width={250} />
 									</Link>
 								</div>
+
+								{/* Tab menu */}
 								<div
 									className={classNames('rounded-3', {
 										'bg-l10-dark': !darkModeStatus,
 										'bg-dark': darkModeStatus,
 									})}>
-									<div className='row row-cols-2 g-3 pb-3 px-3 mt-0'>
+									<div className='row g-3 pb-3 px-3 mt-0'>
 										<div className='col'>
 											<Button
 												color={darkModeStatus ? 'light' : 'dark'}
@@ -154,13 +240,13 @@ const Login: NextPage<ILoginProps> = ({ isSignUp }) => {
 												className='rounded-1 w-100'
 												size='lg'
 												onClick={() => {
-													setSignInPassword(false);
-													setSingUpStatus(!singUpStatus);
+													/* setSignInPassword(false);
+													setSingUpStatus(!singUpStatus); */
 												}}>
-												Login
+												BigBrothers ERP System
 											</Button>
 										</div>
-										<div className='col'>
+								{/* 		<div className='col'>
 											<Button
 												color={darkModeStatus ? 'light' : 'dark'}
 												isLight={!singUpStatus}
@@ -172,183 +258,88 @@ const Login: NextPage<ILoginProps> = ({ isSignUp }) => {
 												}}>
 												Sign Up
 											</Button>
-										</div>
+										</div> */}
 									</div>
 								</div>
 
 								<LoginHeader isNewUser={singUpStatus} />
 
-								<Alert isLight icon='Lock' isDismissible>
+								<Alert isLight  isDismissible>
 									<div className='row'>
-										<div className='col-12'>
-											<strong>Username:</strong> {USERS.JOHN.username}
-										</div>
-										<div className='col-12'>
-											<strong>Password:</strong> {USERS.JOHN.password}
-										</div>
+									<div className='col-12' style={{ textAlign: 'center' }}>
+										Sisteme kayıtlı kullanıcınız yok ise lütfen yöneticiniz ile iletişime geçiniz.
+									</div>
+
 									</div>
 								</Alert>
 								<form className='row g-4'>
-									{singUpStatus ? (
-										<>
-											<div className='col-12'>
-												<FormGroup
-													id='signup-email'
-													isFloating
-													label='Your email'>
-													<Input type='email' autoComplete='email' />
-												</FormGroup>
-											</div>
-											<div className='col-12'>
-												<FormGroup
-													id='signup-name'
-													isFloating
-													label='Your name'>
-													<Input autoComplete='given-name' />
-												</FormGroup>
-											</div>
-											<div className='col-12'>
-												<FormGroup
-													id='signup-surname'
-													isFloating
-													label='Your surname'>
-													<Input autoComplete='family-name' />
-												</FormGroup>
-											</div>
-											<div className='col-12'>
-												<FormGroup
-													id='signup-password'
-													isFloating
-													label='Password'>
-													<Input
-														type='password'
-														autoComplete='password'
-													/>
-												</FormGroup>
-											</div>
-											<div className='col-12'>
-												<Button
-													color='info'
-													className='w-100 py-3'
-													onClick={handleOnClick}>
-													Sign Up
-												</Button>
-											</div>
-										</>
-									) : (
+
 										<>
 											<div className='col-12'>
 												<FormGroup
 													id='loginUsername'
 													isFloating
-													label='Your email or username'
+													label='E-posta'
 													className={classNames({
 														'd-none': signInPassword,
 													})}>
 													<Input
 														autoComplete='username'
-														value={formik.values.loginUsername}
-														isTouched={formik.touched.loginUsername}
+														value={formikLogin.values.loginUsername}
+														isTouched={formikLogin.touched.loginUsername}
 														invalidFeedback={
-															formik.errors.loginUsername
+															formikLogin.errors.loginUsername
 														}
-														isValid={formik.isValid}
-														onChange={formik.handleChange}
-														onBlur={formik.handleBlur}
+														isValid={formikLogin.isValid}
+														onChange={formikLogin.handleChange}
+														onBlur={formikLogin.handleBlur}
 														onFocus={() => {
-															formik.setErrors({});
+															formikLogin.setErrors({});
 														}}
 													/>
 												</FormGroup>
-												{signInPassword && (
+												{/*signInPassword && (
 													<div className='text-center h4 mb-3 fw-bold'>
-														Hi, {formik.values.loginUsername}.
+														Hi, {formikLogin.values.loginUsername}.
 													</div>
-												)}
+												)*/}
 												<FormGroup
 													id='loginPassword'
 													isFloating
-													label='Password'
-													className={classNames({
-														'd-none': !signInPassword,
-													})}>
+													label='Parola'
+												/* 	className={classNames({	'd-none': !signInPassword,})} */
+													>
 													<Input
 														type='password'
 														autoComplete='current-password'
-														value={formik.values.loginPassword}
-														isTouched={formik.touched.loginPassword}
+														value={formikLogin.values.loginPassword}
+														isTouched={formikLogin.touched.loginPassword}
 														invalidFeedback={
-															formik.errors.loginPassword
+															formikLogin.errors.loginPassword
 														}
 														validFeedback='Looks good!'
-														isValid={formik.isValid}
-														onChange={formik.handleChange}
-														onBlur={formik.handleBlur}
+														isValid={formikLogin.isValid}
+														onChange={formikLogin.handleChange}
+														onBlur={formikLogin.handleBlur}
 													/>
 												</FormGroup>
 											</div>
 											<div className='col-12'>
-												{!signInPassword ? (
 													<Button
 														color='warning'
 														className='w-100 py-3'
-														isDisable={!formik.values.loginUsername}
-														onClick={handleContinue}>
-														{isLoading && (
-															<Spinner isSmall inButton isGrow />
-														)}
-														Continue
+														onClick={formikLogin.handleSubmit}>
+														Giriş Yap
 													</Button>
-												) : (
-													<Button
-														color='warning'
-														className='w-100 py-3'
-														onClick={formik.handleSubmit}>
-														Login
-													</Button>
-												)}
-											</div>
-										</>
-									)}
 
-									{/* BEGIN :: Social Login */}
-									{!signInPassword && (
-										<>
-											<div className='col-12 mt-3 text-center text-muted'>
-												OR
-											</div>
-											<div className='col-12 mt-3'>
-												<Button
-													isOutline
-													color={darkModeStatus ? 'light' : 'dark'}
-													className={classNames('w-100 py-3', {
-														'border-light': !darkModeStatus,
-														'border-dark': darkModeStatus,
-													})}
-													icon='CustomApple'
-													onClick={handleOnClick}>
-													Sign in with Apple
-												</Button>
-											</div>
-											<div className='col-12'>
-												<Button
-													isOutline
-													color={darkModeStatus ? 'light' : 'dark'}
-													className={classNames('w-100 py-3', {
-														'border-light': !darkModeStatus,
-														'border-dark': darkModeStatus,
-													})}
-													icon='CustomGoogle'
-													onClick={handleOnClick}>
-													Continue with Google
-												</Button>
 											</div>
 										</>
-									)}
-									{/* END :: Social Login */}
+
+
 								</form>
 							</CardBody>
 						</Card>
+						{/* Footer */}
 						<div className='text-center'>
 							<Link
 								href='/'
@@ -383,5 +374,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
 		...(await serverSideTranslations(locale, ['common', 'menu'])),
 	},
 });
+
 
 export default Login;

@@ -13,6 +13,7 @@ import {
 	dashboardPagesMenu,
 	demoPagesMenu,
 	pageLayoutTypesPagesMenu,
+	reservationMenu,
 } from '../../../menu';
 import ThemeContext from '../../../context/themeContext';
 import Card, { CardBody } from '../../../components/bootstrap/Card';
@@ -44,10 +45,12 @@ const DefaultAside = () => {
 			<AsideBody>
 				<Navigation menu={dashboardMenu} id='aside-dashboard' />
 				
-					<>
-						<NavigationLine />
-						<Navigation menu={adminMenu} id='aside-menu' />
-					</>
+				<>
+					<NavigationLine />
+					<Navigation menu={adminMenu} id='aside-menu' />
+					<NavigationLine />
+					<Navigation menu={reservationMenu} id='aside-menu' />
+				</>
 				
 
 			
