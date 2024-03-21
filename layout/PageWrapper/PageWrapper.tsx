@@ -5,6 +5,8 @@ import { ISubHeaderProps } from '../SubHeader/SubHeader';
 import { IPageProps } from '../Page/Page';
 import AuthContext from '../../context/authContext';
 import Mounted from '../../components/Mounted';
+import { useUserContext } from '../../context/UserContext';
+import { useRouter } from 'next/router';
 
 interface IPageWrapperProps {
 	isProtected?: boolean;
@@ -16,16 +18,41 @@ interface IPageWrapperProps {
 }
 const PageWrapper = forwardRef<HTMLDivElement, IPageWrapperProps>(
 	({ isProtected, className, children }, ref) => {
-		const { user } = useContext(AuthContext);
+		//const { user } = useContext(AuthContext);
+		
+
+		const { user,  verifyToken } = useUserContext();
+		const router = useRouter();
 
 		// const navigate = useNavigate();
 		useEffect(() => {
-			if (isProtected && user === '') {
-				// navigate(`../${demoPages.login.path}`);
-			}
+		 			console.log('isProtected : ', isProtected);
+		/* 	if (isProtected && !!user.id) {
+				// navigate(`../auth-pages/login`);
+				router.push(`../auth-pages/login`);
+			} */
+		console.log('user : ', user);
+		console.log('localStorage.: ', JSON.parse(localStorage.getItem('agency-web-user') || '{}').token );
+
+		if (!user.token && (!localStorage.getItem('agency-web-user')|| !JSON.parse(localStorage.getItem('agency-web-user') || '{}').token )) {
+			if (!isProtected) {
+				console.log('unprotected routed to login ....')
+				router.push(`../auth-pages/login`);
+			}else{
+				console.log('protected routed to login ....')}
+				router.push(`../auth-pages/login`);
+		} else if (!user.token && localStorage.getItem('agency-web-user') && JSON.parse(localStorage.getItem('agency-web-user') || '{}').token) {
+			
+			console.log('verifiy token ....');
+			
+			verifyToken();
+		}else {
+		console.log('else girildi ....');
+		
+		}
 			return () => {};
 			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, []);
+		}, [user]);
 
 		return (
 			<div ref={ref} className={classNames('page-wrapper', 'container-fluid', className)}>
