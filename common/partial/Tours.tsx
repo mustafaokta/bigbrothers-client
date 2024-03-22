@@ -78,7 +78,6 @@ if (!agencyIsLoading || !agencyIsError) {
 
 	let itemm: { [key: string]: any }=	{
 	"id": itm.id,
-    "name": itm.name,
     "typeId":itm.typeId.toString(),
     "price": itm.price,
 	"halfPrice": itm.halfPrice,
@@ -112,7 +111,6 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	
 		let itemm: { [key: string]: any }=	{
 			"id":  0,
-			"name": "",
 			"typeId": "",
 			"price": "",
 			"halfPrice": "",
@@ -212,7 +210,6 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 							<tr>
 								<td style={{ width: 60 }} />
 								<th>Tur Tipi</th>
-								<th>Tur Adı</th>
 								<th>Düzenleyen Acenta</th>
 								<th>Fiyat (Çocuk)</th>
 								<th>Fiyat (Yetişkin)</th>
@@ -238,7 +235,6 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 									</td>
 
 									<td>{typeData.content.filter((el:any)=>el.id==item.typeId)[0].name }</td>
-									<td>{item.name}</td>
 									<td>{agencyData.content.filter((el:any)=>el.id===item.agencyId)[0].name }</td>
 									<td>{item.halfPrice} {item.unit}</td>
 									<td>{item.price} {item.unit}</td>
@@ -311,21 +307,6 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 								/>
 							</FormGroup>
 							 {errors.typeId && <span>Bu alan gerekli</span>}
-							</div>
-						    <div className='col-6'>
-								<FormGroup id='name' label='Tur Adı' isFloating>
-								<Controller name="name"
-                                            rules={{ required: true }}
-                                             control={ control}
-                                            render={({ field }) => (
-												<Input
-												placeholder='Tur Adı'
-												{...field}
-											/>
-                                             )}
-                                    />
-								</FormGroup>
-								{errors.name && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-6'>
 								<FormGroup id='agencyId' label='Düzenleyen Acenta' isFloating>
@@ -486,21 +467,6 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 								/>
 							</FormGroup>
 							 {errors.typeId && <span>Bu alan gerekli</span>}
-							</div>
-						    <div className='col-6'>
-								<FormGroup id='name' label='Tur Adı' isFloating>
-								<Controller name="name"
-                                            rules={{ required: true }}
-                                             control={ control}
-                                            render={({ field }) => (
-												<Input
-												placeholder='Tur Adı'
-												{...field}
-											/>
-                                             )}
-                                    />
-								</FormGroup>
-								{errors.name && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-6'>
 								<FormGroup id='agencyId' label='Düzenleyen Acenta' isFloating>

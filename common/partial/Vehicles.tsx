@@ -182,9 +182,9 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 						<thead>
 							<tr>
 								<td style={{ width: 60 }} />
-								<th>Tür</th>
 								<th>Model</th>
 								<th>Marka</th>
+								<th>Plaka</th>
 								<th>Kapasite</th>
 								<td />
 							</tr>

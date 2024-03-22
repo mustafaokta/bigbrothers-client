@@ -243,7 +243,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 						<OffCanvasTitle id='newRecordIncomingTitle'>Kayıt Düzenle</OffCanvasTitle>
 					</ModalHeader>
 				<form onSubmit={handleSubmit((data) => handleEditAction(data))}>
-					<OffCanvasBody>
+					<ModalBody>
 					<div className='row g-4'>
 					
 						    <div className='col-12'>
@@ -264,7 +264,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 				
 
 						</div>
-					</OffCanvasBody>
+					</ModalBody>
 					<div className='row m-0'>
 					<div className='col-12 p-3'>
 						<Button

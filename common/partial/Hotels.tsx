@@ -21,6 +21,8 @@ import { useUserContext } from '../../context/UserContext';
 import { deleteHotel, updateHotel, addHotel, listHotel } from '../../helpers/connections/admin';
 import { useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
+import { useDataRegions } from '../../helpers/connections/tour';
+import Select from '../../components/bootstrap/forms/Select';
 
 
 
@@ -36,6 +38,7 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [listData, setListData] = useState<any>({content:[]});
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [isError, setIsError] = useState<null|string>(null);
+	const { data: regionData, isLoading: regionIsLoading, isError: regionIsError } = useDataRegions();
 	
 	const [newItemOffcanvas, setNewItemOffcanvas] = useState<boolean>(false);
 	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState(false);
@@ -70,7 +73,11 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	let itemm: { [key: string]: any }=	{
 	"id": itm.id,
     "name": itm.name,
-    "address": itm.address
+    "address": itm.addressi,
+    "regionId": itm.region.id,
+	"contactPhone": itm.contactInformation.emergencyContactPhone,
+	"contactEmail": itm.contactInformation.emergencyContactEmail,
+	"contactPerson": itm.contactInformation.emergencyContactFullName,
 			}
 
 
@@ -87,7 +94,12 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 		let itemm: { [key: string]: any }=	{
 			"id":  0,
 			"name": "",
-			"address": ""
+			"address": "",
+			"regionId": "",
+			"contactPhone": "",
+			"contactEmail": "",
+			"contactPerson": "",
+			 
 					}
 					reset(itemm);
 		setNewItemOffcanvas(!newItemOffcanvas);
@@ -180,6 +192,10 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 								<td style={{ width: 60 }} />
 								<th>Otel Adı</th>
 								<th>Adres</th>
+								<th>Bölge</th>
+								<th>İletişim Telefonu</th>
+								<th>İletişim E-posta</th>
+								<th>İletişim Personel</th>
 								<td />
 							</tr>
 						</thead>
@@ -200,11 +216,12 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 											aria-label='Detailed information'
 										/>
 									</td>
-
 									<td>{item.name}</td>
-						
-									<td></td>
-
+									<td>{item.address}</td>
+									<td>{item.region.name}</td>
+									<td>{item.contactInformation.emergencyContactPhone}</td>
+									<td>{item.contactInformation.emergencyContactEmail}</td>
+									<td>{item.contactInformation.emergencyContactFullName}</td>
 									<td>
 										<Button
 											isOutline={!darkModeStatus}
@@ -246,17 +263,17 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 						<OffCanvasTitle id='newRecordIncomingTitle'>Kayıt Düzenle</OffCanvasTitle>
 					</ModalHeader>
 				<form onSubmit={handleSubmit((data) => handleEditAction(data))}>
-					<OffCanvasBody>
+					<ModalBody>
 					<div className='row g-4'>
 					
 						    <div className='col-12'>
-								<FormGroup id='name' label='Tur Tipi Adı' isFloating>
+								<FormGroup id='name' label='Otel Adı' isFloating>
 								<Controller name="name"
                                             rules={{ required: true }}
                                              control={ control}
                                             render={({ field }) => (
 												<Input
-												placeholder='Tur Tipi Adı'
+												placeholder='Otel Adı'
 												{...field}
 											/>
                                              )}
@@ -279,10 +296,53 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 								</FormGroup>
 								{errors.address && <span>Bu alan gerekli</span>}
 							</div>
-				
-
+							<div className='col-12'>
+								<FormGroup id='contactPhone' label='İletişim Telefonu' isFloating>
+								<Controller name="contactPhone"
+                                            rules={{ required: true }}
+                                             control={ control}
+                                            render={({ field }) => (
+												<Input
+												placeholder='İletişim Telefonu'
+												{...field}
+											/>
+                                             )}
+                                    />
+								</FormGroup>
+								{errors.name && <span>Bu alan gerekli</span>}
+							</div>
+							<div className='col-12'>
+								<FormGroup id='contactEmail' label='İletişim E-posta' isFloating>
+								<Controller name="contactEmail"
+                                            rules={{ required: true }}
+                                             control={ control}
+                                            render={({ field }) => (
+												<Input
+												placeholder='İletişim E-posta'
+												{...field}
+											/>
+                                             )}
+                                    />
+								</FormGroup>
+								{errors.contactEmail && <span>Bu alan gerekli</span>}
+							</div>
+							<div className='col-12'>
+								<FormGroup id='contactPerson' label='İletişim Personel' isFloating>
+								<Controller name="contactPerson"
+                                            rules={{ required: true }}
+                                             control={ control}
+                                            render={({ field }) => (
+												<Input
+												placeholder='İletişim Personel'
+												{...field}
+											/>
+                                             )}
+                                    />
+								</FormGroup>
+								{errors.contactPerson && <span>Bu alan gerekli</span>}
+							</div>
 						</div>
-					</OffCanvasBody>
+					</ModalBody>
 					<div className='row m-0'>
 					<div className='col-12 p-3'>
 						<Button
@@ -310,7 +370,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 					</ModalHeader>
 					<form onSubmit={handleSubmit((data) => handleNewAction(data))}>
 					<ModalBody>
-						<div className='row g-4'>
+					<div className='row g-4'>
 					
 						    <div className='col-12'>
 								<FormGroup id='name' label='Otel Adı' isFloating>
@@ -319,7 +379,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
                                              control={ control}
                                             render={({ field }) => (
 												<Input
-												placeholder='Tur Tipi Adı'
+												placeholder='Otel Adı'
 												{...field}
 											/>
                                              )}
@@ -327,8 +387,8 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 								</FormGroup>
 								{errors.name && <span>Bu alan gerekli</span>}
 							</div>
-						    <div className='col-12'>
-								<FormGroup id='address' label='Adres' isFloating>
+							<div>
+							<FormGroup id='address' label='Adres' isFloating>
 								<Controller name="address"
                                             rules={{ required: true }}
                                              control={ control}
@@ -342,10 +402,76 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 								</FormGroup>
 								{errors.address && <span>Bu alan gerekli</span>}
 							</div>
-	
-		
-
-
+							<div className='col-4'>
+						    <FormGroup id='regionId' label='Bölge' isFloating>
+						        <Controller name="regionId"
+	                                            control={control}
+	                                            rules={{ required: true }}
+	                                            render={({ field }) => (
+						                                                <Select
+																		size='sm'
+																		placeholder='Seçiniz'
+																		ariaLabel='Seçiniz'
+																		list={regionData.content.map((el: any) => ({
+																			value: el.id.toString(),
+																			text: el.name,
+																			label: el.name,
+																		}))}
+																		className={classNames('rounded-1', {
+																		'bg-white': !darkModeStatus,
+																		})}
+																		{...field}
+																			/>
+                                                         )}
+								/>
+							</FormGroup>
+							 {errors.regionId && <span>Bu alan gerekli</span>}
+							</div>
+							<div className='col-12'>
+								<FormGroup id='contactPhone' label='İletişim Telefonu' isFloating>
+								<Controller name="contactPhone"
+                                            rules={{ required: true }}
+                                             control={ control}
+                                            render={({ field }) => (
+												<Input
+												placeholder='İletişim Telefonu'
+												{...field}
+											/>
+                                             )}
+                                    />
+								</FormGroup>
+								{errors.name && <span>Bu alan gerekli</span>}
+							</div>
+							<div className='col-12'>
+								<FormGroup id='contactEmail' label='İletişim E-posta' isFloating>
+								<Controller name="contactEmail"
+                                            rules={{ required: true }}
+                                             control={ control}
+                                            render={({ field }) => (
+												<Input
+												placeholder='İletişim E-posta'
+												{...field}
+											/>
+                                             )}
+                                    />
+								</FormGroup>
+								{errors.contactEmail && <span>Bu alan gerekli</span>}
+							</div>
+							<div className='col-12'>
+								<FormGroup id='contactPerson' label='İletişim Personel' isFloating>
+								<Controller name="contactPerson"
+                                            rules={{ required: true }}
+                                             control={ control}
+                                            render={({ field }) => (
+												<Input
+												placeholder='İletişim Personel'
+												{...field}
+											/>
+                                             )}
+                                    />
+								</FormGroup>
+								{errors.contactPerson && <span>Bu alan gerekli</span>}
+							</div>
 						</div>
 					</ModalBody>
 					<ModalFooter className='bg-transparent'>
