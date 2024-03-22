@@ -353,8 +353,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		ariaLabel='Seçiniz'
 																		list={tourData.content.map((el: any) => ({
 																			value: el.id.toString(),
-																			text: el.name+'-'+el.agency.name,
-																			label: el.name+'-'+el.agency.name,
+																			text: el.type.name+'-'+el.agency.name,
+																			label: el.type.name+'-'+el.agency.name,
 																		}))}
 																		className={classNames('rounded-1', {
 																		'bg-white': !darkModeStatus,
@@ -717,8 +717,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		ariaLabel='Seçiniz'
 																		list={tourData.content.map((el: any) => ({
 																			value: el.id,
-																			text: el.name+'-'+el.agency.name,
-																			label: el.name+'-'+el.agency.name,
+																			text: el.type.name+'-'+el.agency.name,
+																			label: el.type.name+'-'+el.agency.name,
 																		}))}
 																		className={classNames('rounded-1', {
 																		'bg-white': !darkModeStatus,

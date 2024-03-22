@@ -65,17 +65,19 @@ const DefaultAside = () => {
 									'text-dark': !darkModeStatus,
 									'text-light': darkModeStatus,
 								})}>
-								{t('Everything is ready!')}
+								{/* {t('Everything is ready!')} */}
+								Bilet Satışı
 							</p>
 							<Button
 								color='info'
 								isLight
 								className='w-100'
 								onClick={() => {
-									localStorage.setItem('facit_asideDocStatus', 'false');
-									setDoc(false);
+									/* localStorage.setItem('facit_asideDocStatus', 'false');
+									setDoc(false); */
 								}}>
-								{t('Demo Pages')}
+							{/* 	{t('Demo Pages')} */}
+							Satış Yap
 							</Button>
 						</CardBody>
 					</Card>
