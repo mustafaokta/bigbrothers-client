@@ -73,7 +73,7 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	let itemm: { [key: string]: any }=	{
 	"id": itm.id,
     "name": itm.name,
-    "address": itm.addressi,
+    "address": itm.address,
     "regionId": itm.region.id,
 	"contactPhone": itm.contactInformation.emergencyContactPhone,
 	"contactEmail": itm.contactInformation.emergencyContactEmail,
@@ -295,6 +295,31 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
                                     />
 								</FormGroup>
 								{errors.address && <span>Bu alan gerekli</span>}
+							</div>
+							<div className='col-4'>
+						    <FormGroup id='regionId' label='Bölge' isFloating>
+						        <Controller name="regionId"
+	                                            control={control}
+	                                            rules={{ required: true }}
+	                                            render={({ field }) => (
+						                                                <Select
+																		size='sm'
+																		placeholder='Seçiniz'
+																		ariaLabel='Seçiniz'
+																		list={regionData.content.map((el: any) => ({
+																			value: el.id.toString(),
+																			text: el.name,
+																			label: el.name,
+																		}))}
+																		className={classNames('rounded-1', {
+																		'bg-white': !darkModeStatus,
+																		})}
+																		{...field}
+																			/>
+                                                         )}
+								/>
+							</FormGroup>
+							 {errors.regionId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-12'>
 								<FormGroup id='contactPhone' label='İletişim Telefonu' isFloating>
