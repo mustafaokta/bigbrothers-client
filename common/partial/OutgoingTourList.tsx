@@ -122,6 +122,7 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
       id: itm.id,
       type: "giden",
       tourId: itm.tourId,
+      tourTypeId: itm.tour.typeId,
       tourDate: itm.tourDate.split("T")[0],
       tourTime: itm.tourTime,
       extraLocation: itm.extraLocation,

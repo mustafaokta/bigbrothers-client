@@ -53,10 +53,25 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [newItemOffcanvas, setNewItemOffcanvas] = useState<boolean>(false);
 	const [tourDate, setTourDate] = useState<any>(null);
 	const [transferData, setTransferData] = useState<any>(null);
+	const [filteredTourData, setFilteredTourData] = useState({content:[]});
+	 // Filter tour data on change of tourTypeId
+	 useEffect(() => {
+		const selectedTourTypeId = getValues('tourTypeId');
+		console.log('selectedTourTypeId', selectedTourTypeId);
+		
+		if (tourData && selectedTourTypeId) {
+		console.log('tourData', tourData);
+		
+		  const filteredTours = tourData.content.filter((tour:any) => tour.type.id == selectedTourTypeId);
+		  console.log('filteredTours', filteredTours);
+		  
+		  setFilteredTourData({content:filteredTours});
+		} else {
+		  setFilteredTourData(tourData); // Reset filter if tourTypeId is not selected
+		}
+	  }, [watch('tourTypeId'), tourData]);
 	useEffect(() => {
-	console.log('tekrar çalıştı');
-
-		listTourReservation({ data : {reservationType:'gelen'} }, user.token!).then((res:any) => {
+	listTourReservation({ data : {reservationType:'gelen'} }, user.token!).then((res:any) => {
 		 			// console.log('listTourReservation', res);
 		 								setIncomingTourData(res);
 		 								setIncomingIsLoading(false)
@@ -80,6 +95,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						        id: itm.id,
 						        type: 'gelen',
 							 tourId: itm.tourId,
+							  tourTypeId: itm.tour.typeId,
 							  tourDate: itm.tourDate.split('T')[0],
 							  tourTime: itm.tourTime,
 							  extraLocation: itm.extraLocation,
@@ -375,7 +391,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		size='sm'
 																		placeholder='Seçiniz'
 																		ariaLabel='Seçiniz'
-																		list={tourData.content.map((el: any) => ({
+																		list={filteredTourData.content.map((el: any) => ({
 																			value: el.id.toString(),
 																			text: el.type.name+'-'+el.agency.name,
 																			label: el.type.name+'-'+el.agency.name,
@@ -760,7 +776,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		size='sm'
 																		placeholder='Seçiniz'
 																		ariaLabel='Seçiniz'
-																		list={tourData.content.map((el: any) => ({
+																		list={filteredTourData.content.map((el: any) => ({
 																			value: el.id,
 																			text: el.type.name+'-'+el.agency.name,
 																			label: el.type.name+'-'+el.agency.name,
