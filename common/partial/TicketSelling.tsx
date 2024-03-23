@@ -165,7 +165,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	};
 	const handleUpdateAction = (post_data: any) => {
 		let postData = post_data;
-	 console.log('post_data update', postData);
+	
 
 	postUpdateTourReservation({ tour: postData }, user.token!)
 			.then((res) => {
@@ -181,7 +181,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			});
 	};
 	const handleSaveAction = (data: any) => {
-	console.log('post_data', data);
+
 
 	postAddTourReservation({ data : data }, user.token!)
 			.then((res) => {
@@ -201,6 +201,15 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		{ value: 'GBP', label: 'Sterlin' },
 
 		]
+		const sellingMethod = [
+			{ value: 'office', label: 'Ofis' },
+			{ value: 'online', label: 'Online' }
+			]
+		const sellerCompany = [
+			{ value: 'bigbrothersTravel', label: '' },
+			{ value: 'oludenizTravel', label: '' },
+			{ value: 'fethiyeTatilTurlari', label: '' }	
+			]
 
 
 
@@ -211,6 +220,15 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	if (tourIsError || hotelIsError || userListIsError || paymentMethodIsError || agencyIsError || tourTypeIsError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	// console.log('userListData', userListData);
 	// console.log('tourData', tourData);
+/* 	const handleDeleteAction = (postData: any) => {
+		deleteTicketSelling({ data: postData}, user.token!)
+			.then((res) => {
+				setListData(res);
+		})
+		.catch((err:any) => {
+			console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+		});
+	} */
 
 	let items = incomingTourData.content;
 	return (
@@ -218,7 +236,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			<Card stretch={isFluid}>
 				<CardHeader borderSize={1}>
 					<CardLabel icon='Alarm' iconColor='info'>
-						<CardTitle>Gelen Turlar</CardTitle>
+						<CardTitle>Bilet Satışı</CardTitle>
 					</CardLabel>
 					<div className='d-flex gap-2'>
 					<CardActions>
@@ -251,6 +269,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						<thead>
 							<tr>
 								<td style={{ width: 60 }} />
+								<th>Satış Methodu</th>
+								<th>Şirket</th>
 								<th
 									//onClick={() => requestSort('date')}
 									onClick={() => null}
@@ -266,8 +286,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								<th>Yetişkin</th>
 								<th>Çocuk</th>
 								<th>Bebek</th>
-								<th>Otel Adı</th>
-								<th>Oda No</th>
 								<th>Bilet No</th>
 								<th>Ödeme Türü</th>
 								<th>Ücret</th>
@@ -289,10 +307,12 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 												'border-light': !darkModeStatus,
 											})}
 											icon='Delete'
-										//onClick={()=>handleUpcomingEdit(item)}
+											//onClick={()=> handleDeleteAction(item)}
 											aria-label='Detailed information'
 										/>
 									</td>
+									<td>{'Satış Methodu'}</td>
+									<td>{'Şirket'}</td>
 									<td>{item.tourDate + item.tourTime}</td>
 									<td>
 										<div>
@@ -305,8 +325,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 									<td>{item.adult}</td>
 									<td>{item.child}</td>
 									<td>{item.baby}</td>
-									<td>{hotelData.content.filter((el:any)=>el.id==item.hotelId)[0].name}</td>
-									<td>{item.roomNumber}</td>
 									<td>{item.ticketNumber}</td>
 									<td>{paymentMethodsData.content.filter((el:any)=>el.id==item.paymentMethodId)[0].name} - {item.currency}</td>
 									<td>{item.price}</td>

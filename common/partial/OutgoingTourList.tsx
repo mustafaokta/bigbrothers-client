@@ -333,8 +333,8 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                       className={classNames({
                         "border-light": !darkModeStatus,
                       })}
-                      icon="Info"
-                      onClick={() => handleUpcomingEdit(item)}
+                      icon="Delete"
+                     // onClick={() => handleUpcomingEdit(item)}
                       aria-label="Detailed information"
                     />
                   </td>
@@ -734,6 +734,7 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                 errors={errors}
                 fragments={fragments}
                 setFragments={setFragments}
+                setValue={setValue}
               />
 
               <div className="col-3">
@@ -1200,7 +1201,6 @@ const DynamicFragments = ({
       setFragments((prev: any[]) =>
         prev.filter((fragment) => fragment.id !== id)
       );
-      setValue(`customerName${indexDeleted + 1}`, undefined);
       setValue(`customerName${indexDeleted + 1}`, undefined);
       setValue(`customerSurname${indexDeleted + 1}`, undefined);
       setValue(`customerIdentityNumber${indexDeleted + 1}`, undefined);
