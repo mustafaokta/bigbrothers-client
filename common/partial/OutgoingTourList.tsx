@@ -33,6 +33,7 @@ import {
   useDataTourList,
   listTourReservation,
   postUpdateTourReservation,
+  useDataTourType,
 } from "../../helpers/connections/tour";
 import { useUserContext } from "../../context/UserContext";
 import { useDataUserList } from "../../helpers/connections/user";
@@ -44,6 +45,8 @@ interface ICommonUpcomingEventsProps {
 }
 const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
   const { themeStatus, darkModeStatus } = useDarkMode();
+  const { data: tourTypeData, isLoading: tourTypeIsLoading, isError: tourTypeIsError } = useDataTourType();
+
   const [incomingTourData, setIncomingTourData] = useState<any>({
     content: [],
   });
@@ -235,7 +238,8 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
     userListIsLoading ||
     paymentMethodsIsLoading ||
     agencyIsLoading ||
-    incomingIsLoading
+    incomingIsLoading || 
+    tourTypeIsLoading
   )
     return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
   if (
@@ -243,7 +247,8 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
     hotelIsError ||
     userListIsError ||
     paymentMethodIsError ||
-    agencyIsError
+    agencyIsError ||
+    tourTypeIsError
   )
     return (
       <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>
@@ -420,6 +425,31 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
         <form onSubmit={handleSubmit((data) => handleUpdateAction(data))}>
           <ModalBody>
             <div className="row g-4">
+            <div className='col-4'>
+						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
+						        <Controller name="tourTypeId"
+	                                            control={control}
+	                                            rules={{ required: true }}
+	                                            render={({ field }) => (
+						                                                <Select
+																		size='sm'
+																		placeholder='Seçiniz'
+																		ariaLabel='Seçiniz'
+																		list={tourTypeData.content.map((el: any) => ({
+																			value: el.id,
+																			text: el.name,
+																			label: el.name,
+																		}))}
+																		className={classNames('rounded-1', {
+																		'bg-white': !darkModeStatus,
+																		})}
+																		{...field}
+																			/>
+                                                         )}
+								/>
+							</FormGroup>
+							 {errors.typeId && <span>Bu alan gerekli</span>}
+							</div>
               <div className="col-4">
                 <FormGroup id="tourId" label="Tur Adı" isFloating>
                   <Controller
@@ -778,6 +808,31 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
         <form onSubmit={handleSubmit((data) => handleSaveAction(data))}>
           <ModalBody>
             <div className="row g-4">
+              <div className='col-4'>
+						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
+						        <Controller name="tourTypeId"
+	                                            control={control}
+	                                            rules={{ required: true }}
+	                                            render={({ field }) => (
+						                                                <Select
+																		size='sm'
+																		placeholder='Seçiniz'
+																		ariaLabel='Seçiniz'
+																		list={tourTypeData.content.map((el: any) => ({
+																			value: el.id,
+																			text: el.name,
+																			label: el.name,
+																		}))}
+																		className={classNames('rounded-1', {
+																		'bg-white': !darkModeStatus,
+																		})}
+																		{...field}
+																			/>
+                                                         )}
+								/>
+							</FormGroup>
+							 {errors.typeId && <span>Bu alan gerekli</span>}
+							</div>
               <div className="col-4">
                 <FormGroup id="tourId" label="Tur Adı" isFloating>
                   <Controller
