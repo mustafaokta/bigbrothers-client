@@ -106,7 +106,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		setNewItemOffcanvas(!newItemOffcanvas);
 		reset({
 			id: 0,
-		 	tourId: 9,
+		 	tourId: 2,
 			tourDate: dayjs().format('YYYY-MM-DD'),
 			tourTime: '',
 			extraLocation: '',
@@ -135,7 +135,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	};
 
 	const tourData = [
-		{ value: 9, label: 'Bigbrothers Yamaç Paraşütü' },
+		{ value: 2, label: 'Bigbrothers Yamaç Paraşütü' },
 	];
 
 	//console.log('pilotListData', pilotListData);
