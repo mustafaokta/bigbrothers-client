@@ -25,7 +25,6 @@ const PageWrapper = forwardRef<HTMLDivElement, IPageWrapperProps>(
 
     // const navigate = useNavigate();
     useEffect(() => {
-      console.log("isProtected : ", isProtected);
       /* 	if (isProtected && !!user.id) {
 				// navigate(`../auth-pages/login`);
 				router.push(`../auth-pages/login`);

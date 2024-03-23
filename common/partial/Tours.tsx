@@ -47,7 +47,6 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState(false);
 	const [upcomingEventsInfoOffcanvas, setUpcomingEventsInfoOffcanvas] = useState(false);
 	const [displayPeriodQuantity, setDisplayPeriodQuantity] = useState(0);
-	console.log('displayPeriodQuantity', displayPeriodQuantity);
 
 	useEffect(() => {
 		console.log('tekrar çalıştı');

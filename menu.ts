@@ -1144,3 +1144,65 @@ export const reservationMenu = {
 		icon: 'SportsScore',
 	},	
 };
+export const ticketMenu = {
+	pages: {
+		id: 'tickets',
+		text: 'Bilet Satışı',
+		icon: 'Extension',
+	},
+	officeSalesPages: {
+		id: 'office-sales',
+		text: 'Ofis Satışı',
+		path: 'bilet-ofis',
+		icon: 'Surfing',
+		subMenu: {
+			bigbrothers: {
+				id: 'bigbrothers',
+				text: 'Bigbrothers',
+				path: 'bilet/ofis/bigbrothers',
+				icon: 'CallReceived',
+			},
+			oludenizTravel: {
+				id: 'oludenizTravel',
+				text: 'Ölüdeniz Travel',
+				path: 'bilet/ofis/oludeniz-travel',
+				icon: 'CallMade',
+			},
+			// Fethiye Tatil Turları
+			fethiyeTatilTurlari: {
+				id: 'fethiyeTatilTurlari',
+				text: 'Fethiye Tatil Turları',
+				path: 'bilet/ofis/fethiye-tatil-turlari',
+				icon: 'CallMade',
+			},
+		},
+	},
+	onlineSalesPages: {
+		id: 'online-sales',
+		text: 'Online Satış',
+		path: 'bilet/online',
+		icon: 'Surfing',
+		subMenu: {
+			bigbrothers: {
+				id: 'bigbrothers',
+				text: 'Bigbrothers',
+				path: 'bilet/online/bigbrothers',
+				icon: 'CallReceived',
+			},
+			oludenizTravel: {
+				id: 'oludenizTravel',
+				text: 'Ölüdeniz Travel',
+				path: 'bilet/online/oludeniz-travel',
+				icon: 'CallMade',
+			},
+			// Fethiye Tatil Turları
+			fethiyeTatilTurlari: {
+				id: 'fethiyeTatilTurlari',
+				text: 'Fethiye Tatil Turları',
+				path: 'bilet/online/fethiye-tatil-turlari',
+				icon: 'CallMade',
+			},
+		},
+	},
+	
+};

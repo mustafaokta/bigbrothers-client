@@ -14,6 +14,7 @@ import {
 	demoPagesMenu,
 	pageLayoutTypesPagesMenu,
 	reservationMenu,
+	ticketMenu,
 } from '../../../menu';
 import ThemeContext from '../../../context/themeContext';
 import Card, { CardBody } from '../../../components/bootstrap/Card';
@@ -47,9 +48,11 @@ const DefaultAside = () => {
 				
 				<>
 					<NavigationLine />
-					<Navigation menu={adminMenu} id='aside-menu' />
+					<Navigation menu={adminMenu} id='aside-menu1' />
 					<NavigationLine />
-					<Navigation menu={reservationMenu} id='aside-menu' />
+					<Navigation menu={reservationMenu} id='aside-menu2' />
+					<NavigationLine />
+					<Navigation menu={ticketMenu} id='aside-menu3' />
 				</>
 				
 
@@ -90,8 +93,8 @@ const DefaultAside = () => {
 							role='presentation'
 							className='navigation-item cursor-pointer'
 							onClick={() => {
-								localStorage.setItem('facit_asideDocStatus', String(!doc));
-								setDoc(!doc);
+								//localStorage.setItem('facit_asideDocStatus', String(!doc));
+								//setDoc(!doc);
 							}}
 							data-tour='documentation'>
 							<span className='navigation-link navigation-link-pill'>
