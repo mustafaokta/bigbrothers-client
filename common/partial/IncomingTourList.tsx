@@ -20,7 +20,7 @@ import useDarkMode from '../../hooks/useDarkMode';
 import Modal, { ModalBody, ModalFooter, ModalHeader } from '../../components/bootstrap/Modal';
 import { useForm, Controller } from 'react-hook-form';
 import Select from '../../components/bootstrap/forms/Select';
-import { postAddTourReservation, useDataAgency, useDataPaymentMethods,useDataHotelList, useDataTourList, listTourReservation, postUpdateTourReservation } from '../../helpers/connections/tour';
+import { postAddTourReservation, useDataAgency, useDataPaymentMethods,useDataHotelList, useDataTourList, listTourReservation, postUpdateTourReservation, useDataTourType } from '../../helpers/connections/tour';
 import { useUserContext } from '../../context/UserContext';
 import { useDataUserList } from '../../helpers/connections/user';
 import showNotification from '../../components/extras/showNotification';
@@ -42,6 +42,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const { data:userListData, isLoading:userListIsLoading, isError:userListIsError } = useDataUserList();
 	const { data:paymentMethodsData, isLoading:paymentMethodsIsLoading, isError:paymentMethodIsError } = useDataPaymentMethods();
 	const { data: agencyData, isLoading: agencyIsLoading, isError: agencyIsError } = useDataAgency();
+	const { data: tourTypeData, isLoading: tourTypeIsLoading, isError: tourTypeIsError } = useDataTourType();
 	const [incomingIsLoading, setIncomingIsLoading] = useState(true);
 
 
@@ -190,8 +191,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [perPage, setPerPage] = useState(PER_COUNT['5']);
 	// const { items, requestSort, getClassNamesFor } = useSortableData(data);
-	if (tourIsLoading || hotelIsLoading || userListIsLoading || paymentMethodsIsLoading || agencyIsLoading || incomingIsLoading) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
-	if (tourIsError || hotelIsError || userListIsError || paymentMethodIsError || agencyIsError) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
+	if (tourIsLoading || hotelIsLoading || userListIsLoading || paymentMethodsIsLoading || agencyIsLoading || incomingIsLoading || tourTypeIsLoading) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+	if (tourIsError || hotelIsError || userListIsError || paymentMethodIsError || agencyIsError || tourTypeIsError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	// console.log('userListData', userListData);
 	// console.log('tourData', tourData);
 
@@ -339,6 +340,31 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					<form onSubmit={handleSubmit((data) => handleUpdateAction(data))}>
 					<ModalBody>
 						<div className='row g-4'>
+						<div className='col-4'>
+						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
+						        <Controller name="tourTypeId"
+	                                            control={control}
+	                                            rules={{ required: true }}
+	                                            render={({ field }) => (
+						                                                <Select
+																		size='sm'
+																		placeholder='Seçiniz'
+																		ariaLabel='Seçiniz'
+																		list={tourTypeData.content.map((el: any) => ({
+																			value: el.id,
+																			text: el.name,
+																			label: el.name,
+																		}))}
+																		className={classNames('rounded-1', {
+																		'bg-white': !darkModeStatus,
+																		})}
+																		{...field}
+																			/>
+                                                         )}
+								/>
+							</FormGroup>
+							 {errors.typeId && <span>Bu alan gerekli</span>}
+							</div>
 							<div className='col-4'>
 						    <FormGroup id='tourId' label='Tur Adı' isFloating>
 						        <Controller name="tourId"
@@ -404,10 +430,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						</FormGroup>
 						 {errors.salesman && <span>Bu alan gerekli</span>}
 						</div>
-
-
-
-
 							<div className='col-3'>
 							<FormGroup id='roomNumber' label='Oda/Kapı Numarası' isFloating>
 						        <Controller name="roomNumber"
@@ -703,6 +725,31 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					<form onSubmit={handleSubmit((data) => handleSaveAction(data))}>
 					<ModalBody>
 						<div className='row g-4'>
+							<div className='col-4'>
+						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
+						        <Controller name="tourTypeId"
+	                                            control={control}
+	                                            rules={{ required: true }}
+	                                            render={({ field }) => (
+						                                                <Select
+																		size='sm'
+																		placeholder='Seçiniz'
+																		ariaLabel='Seçiniz'
+																		list={tourTypeData.content.map((el: any) => ({
+																			value: el.id,
+																			text: el.name,
+																			label: el.name,
+																		}))}
+																		className={classNames('rounded-1', {
+																		'bg-white': !darkModeStatus,
+																		})}
+																		{...field}
+																			/>
+                                                         )}
+								/>
+							</FormGroup>
+							 {errors.typeId && <span>Bu alan gerekli</span>}
+							</div>
 							<div className='col-4'>
 						    <FormGroup id='tourId' label='Tur Adı' isFloating>
 						        <Controller name="tourId"
