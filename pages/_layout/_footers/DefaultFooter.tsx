@@ -11,7 +11,7 @@ const DefaultFooter = () => {
 			<div className='container-fluid'>
 				<div className='row'>
 					<div className='col'>
-						<span className='fw-light'>Copyright © 2023 - Version 4.3.4</span>
+						<span className='fw-light'>Copyright © 2024 - Version 1.0.0</span>
 					</div>
 					<div className='col-auto'>
 						<a
@@ -20,7 +20,7 @@ const DefaultFooter = () => {
 								'link-dark': !darkModeStatus,
 								'link-light': darkModeStatus,
 							})}>
-							<small className='fw-bold'>Facit Theme</small>
+							<small className='fw-bold'>fluxesoft.com</small>
 						</a>
 					</div>
 				</div>

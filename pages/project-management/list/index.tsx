@@ -162,7 +162,7 @@ const Index: NextPage = () => {
 				</SubHeaderLeft>
 				<SubHeaderRight>
 					<CommonAvatarTeam>
-						<strong>Facit</strong> Team
+						<strong>Bigbrothers</strong> Seyahat Acentesi
 					</CommonAvatarTeam>
 				</SubHeaderRight>
 			</SubHeader>

@@ -73,8 +73,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 	const handleUpcomingEdit = (itm:any) => {
 		console.log('handleUpcomingEdit', itm);
-
-
 					  setFragments(itm.customers.length>0?itm.customers:[{ id: 0 }]);
 
 			   let itemm : { [key: string]: any }=	{
