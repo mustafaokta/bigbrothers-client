@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import  { JwtPayload, jwtDecode } from "jwt-decode";
 import { useRouter } from "next/router";
 import { postLogin } from "../helpers/connections/auth"; // connections/auth"
+import showNotification from "../components/extras/showNotification";
 
 interface IUserContext {
   iat: number | undefined | null;
@@ -58,8 +59,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         router.push("/");
       })
       .catch((err) => {
-        console.log("error");
-        toast.error(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+        console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+        showNotification(
+          'warning',
+          'Giriş Başarısız',
+          'Kullanıcı adı veya şifre hatalı. Lütfen tekrar deneyiniz.'
+        );
       });
   };
 

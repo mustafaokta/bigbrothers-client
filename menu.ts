@@ -999,7 +999,7 @@ export const productsMenu = {
 export const dashboardMenu = {
 	dashboard: {
 		id: 'dashboard',
-		text: 'Dashboard',
+		text: 'Yönetim Paneli',
 		path: '/',
 		icon: 'Dashboard',
 		subMenu: null,

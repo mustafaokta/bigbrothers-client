@@ -557,9 +557,9 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                 </FormGroup>
               </div>
               <div className="col-3">
-                <FormGroup id="salesmanId" label="Satıcı" isFloating>
+                <FormGroup id="agencyId" label="Satıcı Firma" isFloating>
                   <Controller
-                    name="salesmanId"
+                    name="agencyId"
                     control={control}
                     rules={{ required: true }}
                     render={({ field }) => (
@@ -567,7 +567,7 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                         size="sm"
                         placeholder="Seçiniz"
                         ariaLabel="Seçiniz"
-                        list={userListData.content.map((el: any) => ({
+                        list={agencyData.content.map((el: any) => ({
                           value: el.id,
                           text: el.name,
                           label: el.name,
@@ -940,9 +940,9 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                 </FormGroup>
               </div>
               <div className="col-3">
-                <FormGroup id="salesmanId" label="Satıcı" isFloating>
+                <FormGroup id="agencyId" label="Satıcı Firma" isFloating>
                   <Controller
-                    name="salesmanId"
+                    name="agencyId"
                     control={control}
                     rules={{ required: true }}
                     render={({ field }) => (
@@ -950,7 +950,7 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                         size="sm"
                         placeholder="Seçiniz"
                         ariaLabel="Seçiniz"
-                        list={userListData.content.map((el: any) => ({
+                        list={agencyData.content.map((el: any) => ({
                           value: el.id,
                           text: el.name,
                           label: el.name,

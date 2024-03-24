@@ -96,6 +96,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						        type: 'gelen',
 							 tourId: itm.tourId,
 							  tourTypeId: itm.tour.typeId,
+							  sellingType: itm.sellingType,
+							  sellerCompany: itm.sellerCompany,
 							  tourDate: itm.tourDate.split('T')[0],
 							  tourTime: itm.tourTime,
 							  extraLocation: itm.extraLocation,
@@ -201,14 +203,14 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		{ value: 'GBP', label: 'Sterlin' },
 
 		]
-		const sellingMethod = [
+		const sellingType = [
 			{ value: 'office', label: 'Ofis' },
 			{ value: 'online', label: 'Online' }
 			]
 		const sellerCompany = [
-			{ value: 'bigbrothersTravel', label: '' },
-			{ value: 'oludenizTravel', label: '' },
-			{ value: 'fethiyeTatilTurlari', label: '' }	
+			{ value: 'bigbrothersTravel', label: 'Bigbrothers Travel' },
+			{ value: 'oludenizTravel', label: 'Ölüdeniz Travel' },
+			{ value: 'fethiyeTatilTurlari', label: 'Fethiye Tatil Turları' }	
 			]
 
 
@@ -374,6 +376,56 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					<form onSubmit={handleSubmit((data) => handleUpdateAction(data))}>
 					<ModalBody>
 						<div className='row g-4'>
+						<div className='col-4'>
+						    <FormGroup id='sellingType' label='Satış Tipi' isFloating>
+						        <Controller name="sellingType"
+	                                            control={control}
+	                                            rules={{ required: true }}
+	                                            render={({ field }) => (
+						                                                <Select
+																		size='sm'
+																		placeholder='Seçiniz'
+																		ariaLabel='Seçiniz'
+																		list={sellingType.map((el: any) => ({
+																			value: el.value,
+																			text: el.label,
+																			label: el.label,
+																		}))}
+																		className={classNames('rounded-1', {
+																		'bg-white': !darkModeStatus,
+																		})}
+																		{...field}
+																			/>
+                                                         )}
+								/>
+							</FormGroup>
+							 {errors.typeId && <span>Bu alan gerekli</span>}
+							</div>
+							<div className='col-4'>
+						    <FormGroup id='sellerCompany' label='Şirket' isFloating>
+						        <Controller name="sellerCompany"
+	                                            control={control}
+	                                            rules={{ required: true }}
+	                                            render={({ field }) => (
+						                                                <Select
+																		size='sm'
+																		placeholder='Seçiniz'
+																		ariaLabel='Seçiniz'
+																		list={sellerCompany.map((el: any) => ({
+																			value: el.value,
+																			text: el.label,
+																			label: el.label,
+																		}))}
+																		className={classNames('rounded-1', {
+																		'bg-white': !darkModeStatus,
+																		})}
+																		{...field}
+																			/>
+                                                         )}
+								/>
+							</FormGroup>
+							 {errors.typeId && <span>Bu alan gerekli</span>}
+							</div>
 							<div className='col-4'>
 						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
 						        <Controller name="tourTypeId"
@@ -759,6 +811,56 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					<form onSubmit={handleSubmit((data) => handleSaveAction(data))}>
 					<ModalBody>
 						<div className='row g-4'>
+							<div className='col-4'>
+						    <FormGroup id='sellingType' label='Satış Tipi' isFloating>
+						        <Controller name="sellingType"
+	                                            control={control}
+	                                            rules={{ required: true }}
+	                                            render={({ field }) => (
+						                                                <Select
+																		size='sm'
+																		placeholder='Seçiniz'
+																		ariaLabel='Seçiniz'
+																		list={sellingType.map((el: any) => ({
+																			value: el.value,
+																			text: el.label,
+																			label: el.label,
+																		}))}
+																		className={classNames('rounded-1', {
+																		'bg-white': !darkModeStatus,
+																		})}
+																		{...field}
+																			/>
+                                                         )}
+								/>
+							</FormGroup>
+							 {errors.typeId && <span>Bu alan gerekli</span>}
+							</div>
+							<div className='col-4'>
+						    <FormGroup id='sellerCompany' label='Şirket' isFloating>
+						        <Controller name="sellerCompany"
+	                                            control={control}
+	                                            rules={{ required: true }}
+	                                            render={({ field }) => (
+						                                                <Select
+																		size='sm'
+																		placeholder='Seçiniz'
+																		ariaLabel='Seçiniz'
+																		list={sellerCompany.map((el: any) => ({
+																			value: el.value,
+																			text: el.label,
+																			label: el.label,
+																		}))}
+																		className={classNames('rounded-1', {
+																		'bg-white': !darkModeStatus,
+																		})}
+																		{...field}
+																			/>
+                                                         )}
+								/>
+							</FormGroup>
+							 {errors.typeId && <span>Bu alan gerekli</span>}
+							</div>
 							<div className='col-4'>
 						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
 						        <Controller name="tourTypeId"

@@ -1,0 +1,27 @@
+# FEATURES
+
+- SignUp
+    - Auth control then route home page
+
+- Login
+    - Logout button aktif et
+    
+- Admin
+
+- Reservations
+
+- Ticket Sales
+
+- Menu
+    - Documentasyon kapa
+
+- Translate (localization)
+
+- Chat
+
+- Dark Mode
+
+
+# TODOES
+
+- Nginx ve Pm2 auto restart config
