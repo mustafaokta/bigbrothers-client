@@ -4,9 +4,18 @@
     - Auth control then route home page
 
 - Login
-    - Logout button aktif et
+    + Logout button aktif et
+    - Eposta format kontrolü
+    - parola validasyon
     
 - Admin
+    - Admin yetkilerini diğerlerinde kısıtla
+    -  Salesman -satıcı rolü eklenmesi
+    - tc no hane sayısı kontrolü
+    - boş data validasyon kontrolü
+    - şifre pasword tipi kontrolü
+    - kiş profil fotosu yükleme
+    - buton yazıları ve acıklamaları düzelt
 
 - Reservations
 
@@ -24,4 +33,13 @@
 
 # TODOES
 
-- Nginx ve Pm2 auto restart config
+- Üst breadcrumb yapısı
+- Admin paneldeki tabloların düzenlenmesi
+- tarih filtreler
+- chat 
+- whatsapp
+- rapor indirilmesi
+- bilet canvas
+
+# ISSUES
+- Ana sunucuya atılacak, ssl ayarlı olacak

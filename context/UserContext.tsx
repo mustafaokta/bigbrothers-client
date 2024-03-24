@@ -71,7 +71,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const logoutUser = () => {
     localStorage.removeItem("agency-web-user");
     setUser(initialState);
-    router.push("/");
+    router.push("/auth-pages/login");
   };
 
    const verifyToken = useCallback((): boolean => {

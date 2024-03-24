@@ -99,13 +99,14 @@ const User = () => {
 							role='presentation'
 							className='navigation-item cursor-pointer'
 							onClick={() => {
-								if (setUser) {
-									setUser('');
+								if (logoutUser) {
+									logoutUser();
 								}
 								if (width < Number(process.env.REACT_APP_MOBILE_BREAKPOINT_SIZE)) {
 									setAsideStatus(false);
 								}
-								router.push(`/${demoPagesMenu.login.path}`);
+							
+								router.push(`/auth-pages/login`);
 							}}>
 							<span className='navigation-link navigation-link-pill'>
 								<span className='navigation-link-info'>

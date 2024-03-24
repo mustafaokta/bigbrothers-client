@@ -214,7 +214,7 @@ const Index: NextPage = () => {
 											isLight
 											className='w-100 p-3'
 											onClick={() =>
-												router.push(`../${demoPagesMenu.login.path}`)
+												router.push(`/auth-pages/login`)
 											}>
 											Logout
 										</Button>
