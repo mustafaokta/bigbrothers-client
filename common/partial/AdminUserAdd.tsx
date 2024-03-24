@@ -37,10 +37,11 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 		{ value:'erkek', label: 'Erkek' },
 		{ value:'kadin', label: 'Kadın' }
 	];
-
+		// Not : Databasedeki id'ler ile eşleşmeli
 	const role = [
-		{ value:1, label: 'Admin' },
-		{ value:2, label: 'Officer' }
+		{ value:1, label: 'Yönetici' },
+		{ value:2, label: 'Ofis Çalışanı' },
+		{ value:3, label: 'Satıcı'}
 	];
 
 
@@ -83,7 +84,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 			<Modal isOpen={isOpen} setIsOpen={setIsOpen}
 			size='xl' titleId={id.toString()}>
 				<ModalHeader setIsOpen={setIsOpen} className='p-4'>
-					<ModalTitle id={id}>{item?.name || 'Pilot Ekle'}</ModalTitle>
+					<ModalTitle id={id}>{item?.name || 'Kullanıcı Ekle'}</ModalTitle>
 				</ModalHeader>
 				<form onSubmit={handleSubmit((data) => handleSaveAction(data))}>
 				<ModalBody className='px-4'>

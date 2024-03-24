@@ -57,10 +57,10 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	 // Filter tour data on change of tourTypeId
 	 useEffect(() => {
 		const selectedTourTypeId = getValues('tourTypeId');
-		console.log('selectedTourTypeId', selectedTourTypeId);
+		//console.log('selectedTourTypeId', selectedTourTypeId);
 		
 		if (tourData && selectedTourTypeId) {
-		console.log('tourData', tourData);
+		//console.log('tourData', tourData);
 		
 		  const filteredTours = tourData.content.filter((tour:any) => tour.type.id == selectedTourTypeId);
 		  console.log('filteredTours', filteredTours);
@@ -210,7 +210,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	if (tourIsLoading || hotelIsLoading || userListIsLoading || paymentMethodsIsLoading || agencyIsLoading || incomingIsLoading || tourTypeIsLoading) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
 	if (tourIsError || hotelIsError || userListIsError || paymentMethodIsError || agencyIsError || tourTypeIsError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	// console.log('userListData', userListData);
-	// console.log('tourData', tourData);
+	 console.log('tourData', tourData);
 
 	let items = incomingTourData.content;
 	return (
@@ -295,12 +295,12 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 									</td>
 									<td>{item.tourDate + item.tourTime}</td>
 									<td>
-										<div>
-											<div>{tourData.content.filter((el:any)=>el.id==item.tourId)[0].name}</div>
-											<div className='small text-muted'>
-											{agencyData.content.filter((el:any)=>el.id==item.tour.agencyId)[0].name}
-											</div>
-										</div>
+										
+										<div>{tourData.content.filter((el:any)=>String(el.id)==item.tourId)[0].name}</div>
+									 	<div className='small text-muted'>
+										{agencyData.content.filter((el:any)=>el.id==item.tour.agencyId)[0].name}
+											</div> 
+										
 									</td>
 									<td>{item.adult}</td>
 									<td>{item.child}</td>
@@ -356,7 +356,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					<form onSubmit={handleSubmit((data) => handleUpdateAction(data))}>
 					<ModalBody>
 						<div className='row g-4'>
-							<div className='col-4'>
+							<div className='col-3'>
 						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
 						        <Controller name="tourTypeId"
 	                                            control={control}
@@ -741,7 +741,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					<form onSubmit={handleSubmit((data) => handleSaveAction(data))}>
 					<ModalBody>
 						<div className='row g-4'>
-							<div className='col-4'>
+							<div className='col-3'>
 						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
 						        <Controller name="tourTypeId"
 	                                            control={control}
@@ -1202,7 +1202,7 @@ console.log('fragments', fragments);
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-2'>
 							<FormGroup id={`customerIdentityNumber${index +1}`} label='Müşteri TC/PP' isFloating>
 						        <Controller name={`customerIdentityNumber${index +1}`}
 	                                            control={control}

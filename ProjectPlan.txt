@@ -1,7 +1,7 @@
 # FEATURES
 
 - SignUp
-    - Auth control then route home page
+    + Auth control then route home page
 
 - Login
     + Logout button aktif et
@@ -9,6 +9,12 @@
     - parola validasyon
     
 - Admin
+    # Kullanıcı
+    - Ekle
+    - Sil
+    - Güncelle
+    
+    
     - Admin yetkilerini diğerlerinde kısıtla
     -  Salesman -satıcı rolü eklenmesi
     - tc no hane sayısı kontrolü
@@ -33,7 +39,9 @@
 
 # TODOES
 
-- Üst breadcrumb yapısı
+- Üst breadcrumb yapısı(inspect le)
+- fragmant delete item update etmiyor
+
 - Admin paneldeki tabloların düzenlenmesi
 - tarih filtreler
 - chat 

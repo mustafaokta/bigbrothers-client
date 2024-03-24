@@ -810,7 +810,7 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
         <form onSubmit={handleSubmit((data) => handleSaveAction(data))}>
           <ModalBody>
             <div className="row g-4">
-              <div className='col-4'>
+              <div className='col-3'>
 						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
 						        <Controller name="tourTypeId"
 	                                            control={control}
@@ -1296,7 +1296,7 @@ const DynamicFragments = ({
                   />
                 </FormGroup>
               </div>
-              <div className="col-3">
+              <div className="col-2">
                 <FormGroup
                   id={`customerIdentityNumber${index + 1}`}
                   label="Müşteri TC/PP"

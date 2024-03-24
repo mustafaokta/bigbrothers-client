@@ -4,17 +4,11 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import classNames from 'classnames';
-import useTourStep from '../../../hooks/useTourStep';
 import PageWrapper from '../../../layout/PageWrapper/PageWrapper';
-import { demoPagesMenu } from '../../../menu';
 import SubHeader, { SubHeaderLeft, SubHeaderRight } from '../../../layout/SubHeader/SubHeader';
 import Icon from '../../../components/icon/Icon';
-import Input from '../../../components/bootstrap/forms/Input';
 import Dropdown, { DropdownMenu, DropdownToggle } from '../../../components/bootstrap/Dropdown';
 import Button from '../../../components/bootstrap/Button';
-import FormGroup from '../../../components/bootstrap/forms/FormGroup';
-import Label from '../../../components/bootstrap/forms/Label';
-import Checks, { ChecksGroup } from '../../../components/bootstrap/forms/Checks';
 import Page from '../../../layout/Page/Page';
 import Card, { CardBody } from '../../../components/bootstrap/Card';
 import Badge from '../../../components/bootstrap/Badge';
@@ -27,6 +21,7 @@ import { useForm } from 'react-hook-form';
 import useDarkMode from '../../../hooks/useDarkMode';
 import showNotification from '../../../components/extras/showNotification';
 import { listUsers,deleteUsers } from '../../../helpers/connections/admin';
+import { useDataUserRoleList } from '../../../helpers/connections/tour';
 
 
 
@@ -39,6 +34,8 @@ const Index: NextPage = () => {
 	const [newModalStatus, setNewModalStatus] = useState<boolean>(false);
 	const [editModalStatus, setEditModalStatus] = useState<boolean>(false);
 	const { themeStatus, darkModeStatus } = useDarkMode();
+	//const { data: userRoleData, isLoading: userRoleIsLoading, isError: userRoleIsError } = useDataUserRoleList();
+
 
 	const handleNewItem = () => {
 		setNewModalStatus(true)
@@ -97,10 +94,14 @@ const Index: NextPage = () => {
 		console.log('tekrar çalıştı');
 
 		listUsers({ data : '' }, user.token!).then((res:any) => {
-			console.log('listTourReservation', res);
+			console.log('listUsers', res);
 			setUsersList(res.content);
 		});
 	}, [newModalStatus, editModalStatus])
+
+	//if (userRoleIsLoading ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+	//if (userRoleIsError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
+	// console.log('userListData', userListData);
 
 	return (
 		<PageWrapper>

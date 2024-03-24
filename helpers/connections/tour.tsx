@@ -23,6 +23,7 @@ const TOUR_HOTELS_SWR = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/hotels`;
 const TOUR_VEHICLES_SWR = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/vehicles`;
 const TOUR_DRIVERS_SWR = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/drivers`;
 const PAYMENT_METHODS = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/paymentMethods`;
+const USER_ROLES_SWR = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/roles`;
 
 
 
@@ -86,6 +87,16 @@ export const useDataVehicleList = () => {
   };
 export const useDataDriverList = () => {
 	const { data, error, isLoading } = useSWR<any>(TOUR_DRIVERS_SWR, fetcher, {
+	  revalidateOnFocus: false,
+	});
+	return {
+	  data: data,
+	  isLoading: isLoading,
+	  isError: error,
+	};
+  };
+export const useDataUserRoleList = () => {
+	const { data, error, isLoading } = useSWR<any>(USER_ROLES_SWR, fetcher, {
 	  revalidateOnFocus: false,
 	});
 	return {

@@ -35,10 +35,12 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 		{ value:'erkek', label: 'Erkek' },
 		{ value:'kadin', label: 'Kadın' }
 	];
-	const role = [
-		{ value:1, label: 'Admin' },
-		{ value:2, label: 'Officer' }
-	];
+		// Not : Databasedeki id'ler ile eşleşmeli
+		const role = [
+			{ value:1, label: 'Yönetici' },
+			{ value:2, label: 'Ofis Çalışanı' },
+			{ value:3, label: 'Satıcı'}
+		];
 
 	const handleSaveAction = (postData: any) => {
 

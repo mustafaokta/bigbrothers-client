@@ -64,7 +64,7 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 
 	let itemm=	{
 	    id :    itm.id,
-		format :  itm.format,
+		type :  itm.type,
 		price   :  itm.price,
 		paymentMethodId :  itm.paymentMethodId,
 		paid   : itm.paid,
@@ -106,7 +106,7 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 		 // set form to default empty values
 		reset({
 			id :  '',
-			format :  '',     // For example, "DVD", "Book", "Digital", etc.
+			type :  '',     // For example, "DVD", "Book", "Digital", etc.
 			price   :  '',
 			paymentMethodId : '',
 			paid   : '',
@@ -240,7 +240,7 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 									</div>
 										</div>
 									</td>
-									<td>{mediaPaymentTypes.filter((el:any)=>el.id==item.format)[0].name}</td>
+									<td>{mediaPaymentTypes.filter((el:any)=>el.id==item.type)[0].name}</td>
 									{/* <td>{item.isSold ? 'Evet': 'Hayır' }</td> */}
 
 									<td>{item.price}</td>
@@ -444,8 +444,8 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 							 {errors.paymentMethod && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-6'>
-						    <FormGroup id='format' label='Tipi' isFloating>
-						        <Controller name="format"
+						    <FormGroup id='type' label='Tipi' isFloating>
+						        <Controller name="type"
 	                                            control={control}
 	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
@@ -665,8 +665,8 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 							 {errors.paymentMethod && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-6'>
-						    <FormGroup id='format' label='Tipi' isFloating>
-						        <Controller name="format"
+						    <FormGroup id='type' label='Tipi' isFloating>
+						        <Controller name="type"
 	                                            control={control}
 	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
