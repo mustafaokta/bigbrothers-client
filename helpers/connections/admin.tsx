@@ -25,6 +25,11 @@ const USER_DELETE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/deleteUsers`;
 const USER_ADD = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/addUsers`;
 const USER_UPDATE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/updateUsers`;
 
+const PAYMENTS_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/listPayments`;
+const PAYMENTS_DELETE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/deletePayments`;
+const PAYMENTS_ADD = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/addPayments`;
+const PAYMENTS_UPDATE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/updatePayments`;
+
 const DRIVER_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/listDrivers`;
 const ADD_DRIVER = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/addDrivers`;
 const UPDATE_DRIVER = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/updateDrivers`;
@@ -159,7 +164,6 @@ const REGION_DELETE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/deleteRegion
 			.catch((err) => reject(err));
 		});
 	  };
-
 	export const deleteUsers= (postData: { data:  any }, token: string) => {
 		return new Promise((resolve, reject) => {
 		  axios
@@ -186,7 +190,42 @@ const REGION_DELETE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/deleteRegion
 				.catch((err) => reject(err));
 			});
 		};
-
+		
+		// PAYMENTS
+		export const listPayments= (postData: { data:  any }, token: string) => {
+			return new Promise((resolve, reject) => {
+			  axios
+				.post(PAYMENTS_LIST, postData, { headers: { Authorization: `Bearer ${token}` } })
+				.then((res) => resolve(res.data))
+				.catch((err) => reject(err));
+			});
+		  };
+		  export const deletePayments= (postData: { data:  any }, token: string) => {
+			return new Promise((resolve, reject) => {
+			  axios
+				.post(PAYMENTS_DELETE, postData, { headers: { Authorization: `Bearer ${token}` } })
+				.then((res) => resolve(res.data))
+				.catch((err) => reject(err));
+			});
+		  };
+	
+		export const addPayments= (postData: { data:  any }, token: string) => {
+				return new Promise((resolve, reject) => {
+				axios
+					.post(PAYMENTS_ADD, postData, { headers: { Authorization: `Bearer ${token}` } })
+					.then((res) => resolve(res.data))
+					.catch((err) => reject(err));
+				});
+			};
+	
+			export const updatePayments= (postData: { data:  any }, token: string) => {
+				return new Promise((resolve, reject) => {
+				axios
+					.post(PAYMENTS_UPDATE, postData, { headers: { Authorization: `Bearer ${token}` } })
+					.then((res) => resolve(res.data))
+					.catch((err) => reject(err));
+				});
+			};
 
 
    /* Vehicle */

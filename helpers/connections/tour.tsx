@@ -24,6 +24,7 @@ const TOUR_VEHICLES_SWR = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/vehicles`
 const TOUR_DRIVERS_SWR = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/drivers`;
 const PAYMENT_METHODS = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/paymentMethods`;
 const USER_ROLES_SWR = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/roles`;
+const CURRENCY = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/currency`;
 
 
 
@@ -200,6 +201,16 @@ export const useDataRegions = () => {
 
 export const useDataAgency = () => {
 	const { data, error, isLoading } = useSWR<any>(TOUR_AGENCY, fetcher, {
+	  revalidateOnFocus: false,
+	});
+	return {
+	  data: data,
+	  isLoading: isLoading,
+	  isError: error,
+	};
+  }
+export const useDataCurrency = () => {
+	const { data, error, isLoading } = useSWR<any>(CURRENCY, fetcher, {
 	  revalidateOnFocus: false,
 	});
 	return {

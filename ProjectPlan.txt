@@ -6,9 +6,12 @@
 - Login
     + Logout button aktif et
     - Eposta format kontrolü
-    - parola validasyon
+    - Parola validasyon
     
 - Admin
+    #Ödemeler
+
+
     # Kullanıcı
     - Ekle
     - Sil
@@ -38,9 +41,10 @@
 
 
 # TODOES
-
+- tüm errors. sonrası fendi form id si olacak
 - Üst breadcrumb yapısı(inspect le)
 - fragmant delete item update etmiyor
+- currency leri swrd dan okut,  ödemelerdeki gibi kullan
 
 - Admin paneldeki tabloların düzenlenmesi
 - tarih filtreler

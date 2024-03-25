@@ -1013,11 +1013,17 @@ export const adminMenu = {
    path: 'admin',
    icon: 'admin_panel_settings',
    subMenu: {
+		payments: {
+			id: 'payments',
+			text: 'Ödemeler',
+			path: 'admin/odemeler',
+			icon: 'people',
+		},
 				adminUsers: {
 		   id: 'adminUsers',
 		   text: 'Kullanıcılar',
 		   path: 'admin/kullanicilar',
-		   icon: 'people',
+		   icon: 'payment',
 	   },
 		   adminDrivers: {
 		   id: 'adminDrivers',
