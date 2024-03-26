@@ -79,7 +79,7 @@ const CommonDashboardIncome: FC<ICommonDashboardIncomeProps> = ({ activeTab }) =
 		},
 	});
 	useEffect(() => {
-		if (activeTab === TABS.YEARLY) {
+		if (activeTab === TABS.COMPANIES) {
 			startTransition(() => {
 				setSales({
 					series: [
@@ -102,7 +102,7 @@ const CommonDashboardIncome: FC<ICommonDashboardIncomeProps> = ({ activeTab }) =
 				});
 			});
 		}
-		if (activeTab === TABS.MONTHLY) {
+		if (activeTab === TABS.ACTIVITIES) {
 			startTransition(() => {
 				setSales({
 					series: [
@@ -125,38 +125,16 @@ const CommonDashboardIncome: FC<ICommonDashboardIncomeProps> = ({ activeTab }) =
 				});
 			});
 		}
-		if (activeTab === TABS.WEEKLY) {
-			startTransition(() => {
-				setSales({
-					series: [
-						{
-							data: [28, 32, 30, 29, 30],
-						},
-					],
-					sales: {
-						compare: 12,
-					},
-					campaigns: {
-						price: 94,
-						compare: 80,
-					},
-					coupons: {
-						price: 80,
-						compare: 45,
-					},
-					options: sales.options,
-				});
-			});
-		}
+	
 		return () => {};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [activeTab]);
 
 	function compareLabel(amount = -1, name = false) {
-		if (activeTab === TABS.YEARLY) {
+		if (activeTab === TABS.COMPANIES) {
 			return name ? 'year' : dayjs().add(amount, 'year').format('YYYY');
 		}
-		if (activeTab === TABS.MONTHLY) {
+		if (activeTab === TABS.ACTIVITIES) {
 			return name ? 'month' : dayjs().add(amount, 'month').format('MMMM');
 		}
 		return name ? 'week' : dayjs().add(amount, 'week').format('w [th week]');
@@ -166,7 +144,7 @@ const CommonDashboardIncome: FC<ICommonDashboardIncomeProps> = ({ activeTab }) =
 			<CardHeader>
 				<CardLabel icon='PointOfSale' iconColor='success'>
 					<CardTitle tag='h4' className='h5'>
-						Income
+						Bilet Satışları
 					</CardTitle>
 					<CardSubTitle>{activeTab}</CardSubTitle>
 				</CardLabel>
@@ -201,7 +179,7 @@ const CommonDashboardIncome: FC<ICommonDashboardIncomeProps> = ({ activeTab }) =
 							<CardHeader className='bg-transparent'>
 								<CardLabel>
 									<CardTitle tag='h4' className='h5'>
-										Sales
+										Genel Satışlar (Günlük)
 									</CardTitle>
 								</CardLabel>
 							</CardHeader>
@@ -257,7 +235,7 @@ const CommonDashboardIncome: FC<ICommonDashboardIncomeProps> = ({ activeTab }) =
 							<CardHeader className='bg-transparent'>
 								<CardLabel>
 									<CardTitle tag='h4' className='h5'>
-										Campaigns
+										Online Satışlar
 									</CardTitle>
 								</CardLabel>
 							</CardHeader>
@@ -295,7 +273,7 @@ const CommonDashboardIncome: FC<ICommonDashboardIncomeProps> = ({ activeTab }) =
 							<CardHeader className='bg-transparent'>
 								<CardLabel>
 									<CardTitle tag='h4' className='h5'>
-										Coupons
+										Paraşüt Satışları
 									</CardTitle>
 								</CardLabel>
 							</CardHeader>
