@@ -72,9 +72,9 @@ const Payments: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 	let itemm: { [key: string]: any }=	{
 	"id": itm.id,
-    "paymentDate": itm.date,
+    "paymentDate": itm.date.split('T')[0],
     "amount": itm.amount,
-    "currencyId": itm.currency.id,
+    "currencyId": itm.currency.label,
 	"paymentMethodId": itm.paymentMethod.id,
 	"paidToAgencyId": itm.paidToAgency.id,
 	"note": itm.note,
@@ -216,7 +216,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 									</td>
 									<td>{item.date}</td>
 									<td>{item.amount}</td>
-									<td>{}</td>
+									<td>{item.currency.label}</td>
 									<td>{item.paymentMethod.name}</td>
 									<td>{item.paidToAgency.name}</td>
 									<td>{item.note}</td>
