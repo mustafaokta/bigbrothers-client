@@ -22,6 +22,8 @@ interface IUserContext {
   name: string| null;
   surname: string | null;
   src: string  | null;
+  email: string | null;
+  roleId: number | null;
 }
 
 interface IUserProvider {
@@ -38,7 +40,10 @@ const initialState = {
   token: null,
   name: null,
   surname: null,
-   src:null
+   src:null,
+  email: null,
+  roleId: null,
+   
 };
 
 const UserContext = createContext<IUserProvider>({} as IUserProvider);
@@ -113,6 +118,22 @@ const isTokenActive = (exp: number): boolean => {
 const handleLoginResponse = (res: any, setUser: Dispatch<SetStateAction<IUserContext>>) => {
   try {
     const decoded = jwtDecode<JwtPayload>(res.content.accessToken);
+    /* 
+    "id": 7,
+            "email": "mustafaokta@hotmail.com",
+            "name": "Mustafa",
+            "surname": "Okta",
+            "identityNumber": "6267000000",
+            "active": true,
+            "phoneNumber": "+90 (507) 569-2149",
+            "address": null,
+            "dateOfBirth": "2024-03-15T00:00:00.000Z",
+            "gender": "erkek",
+            "nationality": null,
+            "roleId": 2,
+            "avatar": null,
+            "createdAt": "2024-03-24T17:54:17.765Z",
+            "updatedAt": "2024-03-24T17:55:06.341Z"*/
     const obj: IUserContext = {
       iat: decoded.iat,
       exp: decoded.exp,
@@ -120,7 +141,9 @@ const handleLoginResponse = (res: any, setUser: Dispatch<SetStateAction<IUserCon
       id: res.content.user.id,
       name: res.content.user.name,
       surname: res.content.user.surname,
-      src: res.content.user?.src
+      src: res.content.user?.src,
+       email: res.content.user.email,
+       roleId: res.content.user.roleId,
     };
     console.log(res.content.user, 'userrrrrr',res.content.accessToken  );
     

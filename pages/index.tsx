@@ -28,6 +28,7 @@ import CommonDashboardSalesByStore from '../common/partial/CommonDashboardSalesB
 import CommonDashboardWaitingAnswer from '../common/partial/CommonDashboardWaitingAnswer';
 import CommonDashboardTopSeller from '../common/partial/CommonDashboardTopSeller';
 import CommonMyWallet from '../common/partial/CommonMyWallet';
+import { useUserContext } from '../context/UserContext';
 
 const Index: NextPage = () => {
 	const { mobileDesign } = useContext(ThemeContext);
@@ -35,6 +36,7 @@ const Index: NextPage = () => {
 	 * Tour Start
 	 */
 	const { setIsOpen } = useTour();
+	const { user } = useUserContext();
 	useEffect(() => {
 		if (
 			typeof window !== 'undefined' &&
@@ -87,7 +89,7 @@ const Index: NextPage = () => {
 					</div>
 
 					<div className='col-xl-4'>
-						<CommonDashboardUserCard />
+						<CommonDashboardUserCard user={user} />
 					</div>
 					<div className='col-xl-4'>
 						<CommonDashboardMarketingTeam />
