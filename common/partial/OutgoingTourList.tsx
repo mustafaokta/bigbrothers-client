@@ -1324,8 +1324,8 @@ const DynamicFragments = ({
                     rules={{ required: true }}
                     render={({ field }) => (
                       <Input
-                        placeholder="Müşteri Telefon"
-                        type="tel"
+                      type='tel'
+                      mask='+90 (999) 999-9999'
                         {...field}
                       />
                     )}

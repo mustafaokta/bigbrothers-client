@@ -1,10 +1,9 @@
 # FEATURES
 
 - SignUp
-    + Auth control then route home page
+ 
 
 - Login
-    + Logout button aktif et
     - Eposta format kontrolü
     - Parola validasyon
     

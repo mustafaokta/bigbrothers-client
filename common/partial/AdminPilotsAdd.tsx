@@ -167,8 +167,6 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 								                                            render={({ field }) => (
 																				<Input
 																				type='tel'
-																				autoComplete='tel'
-																				placeholder='+90 (545) 405-1769'
 																				mask='+90 (999) 999-9999'
 																				{...field}
 																			/>
@@ -369,7 +367,8 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 								                                            rules={{ required: true }}
 								                                            render={({ field }) => (
 																				<Input
-																				placeholder='Telefon Numarası'
+																				type='tel'
+																				mask='+90 (999) 999-9999'
 																				{...field}
 																			/>
 

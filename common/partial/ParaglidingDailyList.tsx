@@ -693,8 +693,8 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
-													type='number'
-												placeholder='Müşteri Telefon'
+													type='tel'
+													mask='+90 (999) 999-9999'
 												{...field}
 											/>
                                                          )}
@@ -1074,8 +1074,8 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
-													type='number'
-												placeholder='Müşteri Telefon'
+													type='tel'
+													mask='+90 (999) 999-9999'
 												{...field}
 											/>
                                                          )}

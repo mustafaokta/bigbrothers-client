@@ -328,7 +328,8 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
                                              control={ control}
                                             render={({ field }) => (
 												<Input
-												placeholder='İletişim Telefonu'
+												type='tel'
+												mask='+90 (999) 999-9999'
 												{...field}
 											/>
                                              )}
@@ -459,7 +460,8 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
                                              control={ control}
                                             render={({ field }) => (
 												<Input
-												placeholder='İletişim Telefonu'
+												type='tel'
+												mask='+90 (999) 999-9999'
 												{...field}
 											/>
                                              )}

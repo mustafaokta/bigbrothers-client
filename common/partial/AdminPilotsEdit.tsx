@@ -151,8 +151,6 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 								                                            render={({ field }) => (
 																				<Input
 																				type='tel'
-																				autoComplete='tel'
-																				placeholder='+90 (545) 405-1769'
 																				mask='+90 (999) 999-9999'
 																				{...field}
 																			/>
@@ -353,7 +351,8 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 								                                            rules={{ required: true }}
 								                                            render={({ field }) => (
 																				<Input
-																				placeholder='Telefon Numarası'
+																				type='tel'
+																				mask='+90 (999) 999-9999'
 																				{...field}
 																			/>
 
