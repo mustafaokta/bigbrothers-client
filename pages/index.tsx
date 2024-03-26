@@ -59,11 +59,11 @@ const Index: NextPage = () => {
 	return (
 		<PageWrapper>
 			<Head>
-				<title>{demoPagesMenu.sales.subMenu.dashboard.text}</title>
+				<title>Yönetim Paneli</title>
 			</Head>
 			<SubHeader>
 				<SubHeaderLeft>
-					<span className='h4 mb-0 fw-bold'>Overview</span>
+					<span className='h4 mb-0 fw-bold'>Yönetim Paneli</span>
 					<SubheaderSeparator />
 					<ButtonGroup>
 						{Object.keys(TABS).map((key) => (
@@ -78,7 +78,7 @@ const Index: NextPage = () => {
 				</SubHeaderLeft>
 				<SubHeaderRight>
 					<CommonAvatarTeam>
-						<strong>Marketing</strong> Team
+						<strong>Aktif</strong> Personel
 					</CommonAvatarTeam>
 				</SubHeaderRight>
 			</SubHeader>

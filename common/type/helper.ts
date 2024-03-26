@@ -1,6 +1,5 @@
-export type TTabs = 'Weekly' | 'Monthly' | 'Yearly';
+export type TTabs = 'ŞİRKETLERE GÖRE' | 'AKTİVİTELERE GÖRE';
 export const TABS: { [key: string]: TTabs } = {
-	WEEKLY: 'Weekly',
-	MONTHLY: 'Monthly',
-	YEARLY: 'Yearly',
+	COMPANIES: 'ŞİRKETLERE GÖRE',
+	ACTIVITIES: 'AKTİVİTELERE GÖRE',
 };
