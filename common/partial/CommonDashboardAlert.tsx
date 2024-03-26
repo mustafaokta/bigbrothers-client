@@ -11,9 +11,9 @@ const CommonDashboardAlert = () => {
 			className='shadow-3d-primary'
 			isDismissible>
 			<AlertHeading tag='h2' className='h4'>
-				Congratulations! 🎉
+				Dikkat! 🎉
 			</AlertHeading>
-			<span>You have reached your monthly sales targets.</span>
+			<span>Yaklaşan ödemeniz bulunmaktadır.</span>
 		</Alert>
 	);
 };

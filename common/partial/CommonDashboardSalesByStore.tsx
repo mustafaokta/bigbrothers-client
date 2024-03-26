@@ -376,10 +376,10 @@ const CommonDashboardSalesByStore = () => {
 			<CardHeader>
 				<CardLabel icon='ReceiptLong'>
 					<CardTitle tag='h4' className='h5'>
-						Sales by Stores
+						Satış Grafiği
 					</CardTitle>
 					<CardSubTitle tag='h5' className='h6'>
-						Reports
+						Raporlar
 					</CardSubTitle>
 				</CardLabel>
 				<CardActions>

@@ -136,10 +136,10 @@ const CommonDashboardWaitingAnswer = () => {
 			<CardHeader>
 				<CardLabel icon='ContactSupport' iconColor='secondary'>
 					<CardTitle tag='h4' className='h5'>
-						Waiting for an Answer
+						Satıcı Performansları
 					</CardTitle>
 					<CardSubTitle tag='h5' className='h6'>
-						Customer
+						Satıcılar
 					</CardSubTitle>
 				</CardLabel>
 				<CardActions>

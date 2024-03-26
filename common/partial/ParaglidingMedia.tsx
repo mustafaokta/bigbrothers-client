@@ -356,7 +356,7 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
+							 {errors.pilotId && <span>Bu alan gerekli</span>}
 							</div>
 
 							<div className='col-6'>

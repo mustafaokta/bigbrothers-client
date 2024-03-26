@@ -165,7 +165,7 @@ const CommonDashboardTopSeller = () => {
 			<CardHeader>
 				<CardLabel icon='Storefront' iconColor='info'>
 					<CardTitle tag='h4' className='h5'>
-						Top Seller
+						Çok Satanlar
 					</CardTitle>
 				</CardLabel>
 				<CardActions>

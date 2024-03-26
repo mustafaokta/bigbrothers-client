@@ -40,6 +40,7 @@
 
 
 # TODOES
+- form yapısı scroll olacak- form kLKINCA CALISIYO
 - tüm errors. sonrası fendi form id si olacak
 - Üst breadcrumb yapısı(inspect le)
 - fragmant delete item update etmiyor
@@ -54,3 +55,4 @@
 
 # ISSUES
 - Ana sunucuya atılacak, ssl ayarlı olacak
+- paraşüt gps

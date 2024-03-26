@@ -16,7 +16,7 @@ const CommonDashboardUserCard = ({user}:any) => {
 	return (
 		<UserContact
 			name={`${user.name} ${user.surname}`}
-			position={ role.filter((el:any)=> (el.value== Number(user.roleId)))[0].label} 
+			position={ role.filter((el:any)=> (el.value== Number(user.roleId)))[0]?.label} 
 			mail={user.email}
 			phone={user.phone}
 			onChat={() => null}

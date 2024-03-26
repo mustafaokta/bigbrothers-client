@@ -28,11 +28,11 @@ const CommonDashboardUserIssue = () => {
 			color?: TColor;
 		};
 	} = {
-		NEW: { text: 'New', color: 'success' },
-		UPDATE: { text: 'Update', color: 'info' },
-		TEST: { text: 'Test', color: 'warning' },
+		NEW: { text: 'Ödendi', color: 'success' },
+		UPDATE: { text: 'Gelecek', color: 'info' },
+		TEST: { text: 'Yaklaşan', color: 'warning' },
 		REPORT: { text: 'Report', color: 'info' },
-		PRINT: { text: 'Print', color: 'danger' },
+		PRINT: { text: 'Geçmiş', color: 'danger' },
 		CONTROL: { text: 'Control', color: 'primary' },
 		MEETING: { text: 'Meeting', color: 'secondary' },
 	};
@@ -165,7 +165,7 @@ const CommonDashboardUserIssue = () => {
 			<CardHeader>
 				<CardLabel icon='AssignmentTurnedIn' iconColor='danger'>
 					<CardTitle tag='h4' className='h5'>
-						John's Issue
+						Ödemeler
 					</CardTitle>
 					<CardSubTitle>
 						<Progress
