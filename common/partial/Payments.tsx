@@ -21,7 +21,7 @@ import { useUserContext } from '../../context/UserContext';
 import { deleteHotel, updateHotel, addHotel, listHotel, addPayments, updatePayments, deletePayments, listPayments } from '../../helpers/connections/admin';
 import { useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
-import { useDataAgency, useDataPaymentMethods, useDataRegions } from '../../helpers/connections/tour';
+import { useDataAgency, useDataCurrency, useDataPaymentMethods, useDataRegions } from '../../helpers/connections/tour';
 import Select from '../../components/bootstrap/forms/Select';
 
 
@@ -41,6 +41,8 @@ const Payments: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	//const { data: regionData, isLoading: regionIsLoading, isError: regionIsError } = useDataRegions();
 	const { data:paymentMethodsData, isLoading:paymentMethodsIsLoading, isError:paymentMethodIsError } = useDataPaymentMethods();
 	const { data: agencyData, isLoading: agencyIsLoading, isError: agencyIsError } = useDataAgency();
+	const { data: currencyData, isLoading: currencyIsLoading, isError: currencyIsError } = useDataCurrency();
+	
 
 	
 	const [newItemOffcanvas, setNewItemOffcanvas] = useState<boolean>(false);
@@ -74,7 +76,7 @@ const Payments: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	"id": itm.id,
     "paymentDate": itm.date.split('T')[0],
     "amount": itm.amount,
-    "currencyId": itm.currency.label,
+    "currencyId": itm.currency.id,
 	"paymentMethodId": itm.paymentMethod.id,
 	"paidToAgencyId": itm.paidToAgency.id,
 	"note": itm.note,
@@ -146,8 +148,8 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	//let { items, requestSort, getClassNamesFor } = useSortableData(dataDummy);
 
 
-	if (  isLoading || paymentMethodsIsLoading  ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
-	if ( isError   ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
+	if (  isLoading || paymentMethodsIsLoading || currencyIsLoading  ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+	if ( isError || paymentMethodIsError || currencyIsError  ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	let items= listData.content;
 	return (
 		<>
@@ -298,12 +300,22 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 								<Controller name="currencyId"
                                             rules={{ required: true }}
                                              control={ control}
-                                            render={({ field }) => (
-												<Input
-												placeholder='Birim'
+											 render={({ field }) => (
+												<Select
+												size='sm'
+												placeholder='Seçiniz'
+												ariaLabel='Seçiniz'
+												list={currencyData.content.map((el: any) => ({
+													value: el.id,
+													text: el.label,
+													label: el.label,
+												}))}
+												className={classNames('rounded-1', {
+												'bg-white': !darkModeStatus,
+												})}
 												{...field}
-											/>
-                                             )}
+													/>
+								 )}
                                     />
 								</FormGroup>
 								{errors.currencyId && <span>Bu alan gerekli</span>}
@@ -399,7 +411,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 					<ModalHeader setIsOpen={setNewItemOffcanvas}>
 						<OffCanvasTitle id='newRecordIncomingTitle'>Yeni Kayıt</OffCanvasTitle>
 					</ModalHeader>
-					<form onSubmit={handleSubmit((data) => handleEditAction(data))}>
+					<form onSubmit={handleSubmit((data) => handleNewAction(data))}>
 					<ModalBody>
 					<div className='row g-4'>
 							<div className='col-2'>
@@ -437,12 +449,22 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 								<Controller name="currencyId"
                                             rules={{ required: true }}
                                              control={ control}
-                                            render={({ field }) => (
-												<Input
-												placeholder='Birim'
+											 render={({ field }) => (
+												<Select
+												size='sm'
+												placeholder='Seçiniz'
+												ariaLabel='Seçiniz'
+												list={currencyData.content.map((el: any) => ({
+													value: el.id,
+													text: el.label,
+													label: el.label,
+												}))}
+												className={classNames('rounded-1', {
+												'bg-white': !darkModeStatus,
+												})}
 												{...field}
-											/>
-                                             )}
+													/>
+								 )}
                                     />
 								</FormGroup>
 								{errors.currencyId && <span>Bu alan gerekli</span>}
