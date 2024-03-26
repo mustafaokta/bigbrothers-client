@@ -29,10 +29,10 @@ const CommonDashboardDesignTeam = () => {
 			<CardHeader className='bg-transparent'>
 				<CardLabel>
 					<CardTitle tag='h4' className='h5'>
-						Design Team
+						Bilet Satış Personeli
 					</CardTitle>
 					<CardSubTitle tag='h5' className='h6 text-muted'>
-						There is a meeting at 15 o'clock.
+						Bilet satmaya yetkili listesi.
 					</CardSubTitle>
 				</CardLabel>
 				<CardActions>
