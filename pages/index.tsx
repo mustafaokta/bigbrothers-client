@@ -19,7 +19,7 @@ import { TABS, TTabs } from '../common/type/helper';
 import Page from '../layout/Page/Page';
 import CommonDashboardAlert from '../common/partial/CommonDashboardAlert';
 import CommonDashboardUserCard from '../common/partial/CommonDashboardUserCard';
-import CommonDashboardMarketingTeam from '../common/partial/CommonDashboardMarketingTeam';
+import OfficeStaff from '../common/partial/OfficeStaff';
 import CommonDashboardDesignTeam from '../common/partial/CommonDashboardDesignTeam';
 import CommonDashboardIncome from '../common/partial/CommonDashboardIncome';
 import CommonDashboardRecentActivities from '../common/partial/CommonDashboardRecentActivities';
@@ -92,7 +92,7 @@ const Index: NextPage = () => {
 						<CommonDashboardUserCard user={user} />
 					</div>
 					<div className='col-xl-4'>
-						<CommonDashboardMarketingTeam />
+						<OfficeStaff />
 					</div>
 					<div className='col-xl-4'>
 						<CommonDashboardDesignTeam />
