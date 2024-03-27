@@ -56,3 +56,4 @@
 # ISSUES
 - Ana sunucuya atılacak, ssl ayarlı olacak
 - paraşüt gps
+- aynı email ile silinen kullanıcı tekrar eklenemiyor

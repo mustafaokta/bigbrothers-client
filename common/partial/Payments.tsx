@@ -23,6 +23,7 @@ import { useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { useDataAgency, useDataCurrency, useDataPaymentMethods, useDataRegions } from '../../helpers/connections/tour';
 import Select from '../../components/bootstrap/forms/Select';
+import Checks from '../../components/bootstrap/forms/Checks';
 
 
 
@@ -79,6 +80,7 @@ const Payments: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
     "currencyId": itm.currency.id,
 	"paymentMethodId": itm.paymentMethod.id,
 	"paidToAgencyId": itm.paidToAgency.id,
+	"status": itm.status,
 	"note": itm.note,
 			}
 
@@ -99,6 +101,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 			"currencyId": "",
 			"paymentMethodId": "",
 			"paidToAgencyId": "",
+			"status": "",
 			"note": ""	 
 					}
 					reset(itemm);
@@ -195,6 +198,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 								<th>Birim</th>
 								<th>Ödeme Tipi</th>
 								<th>Ödenen Firma</th>
+								<th>Durum</th>
 								<th>Not</th>
 								<td />
 							</tr>
@@ -221,6 +225,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 									<td>{item.currency.label}</td>
 									<td>{item.paymentMethod.name}</td>
 									<td>{item.paidToAgency.name}</td>
+									<td>{item.status? 'Ödendi':'Ödenmedi'}</td>
 									<td>{item.note}</td>
 									<td>
 										<Button
@@ -278,6 +283,23 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 												/>
 															 )}
 									/>
+								</FormGroup>
+							</div>
+							<div className='col-2'>
+								<FormGroup id='status' isFloating>
+								<Controller name="status"
+                                            rules={{ required: false }}
+                                             control={ control}
+                                            render={({ field }) => (
+												<Checks
+												id='status'
+												type='switch'
+												label='Ödeme Durumu'
+												onChange={(e:any) => field.onChange(e.target.checked)} // Manually handle onChange
+												checked={field.value} // Use field.value instead of {...field}
+											/>
+                                             )}
+                                    />
 								</FormGroup>
 							</div>
 						    <div className='col-4'>
@@ -427,6 +449,23 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 												/>
 															 )}
 									/>
+								</FormGroup>
+							</div>
+							<div className='col-2'>
+								<FormGroup id='status' isFloating>
+								<Controller name="status"
+                                            rules={{ required: false }}
+                                             control={ control}
+                                            render={({ field }) => (
+												<Checks
+												id='status'
+												type='switch'
+												label='Ödeme Durumu'
+												onChange={(e:any) => field.onChange(e.target.checked)} // Manually handle onChange
+												checked={field.value} // Use field.value instead of {...field}
+											/>
+                                             )}
+                                    />
 								</FormGroup>
 							</div>
 						    <div className='col-4'>

@@ -22,6 +22,7 @@ import useDarkMode from '../../../hooks/useDarkMode';
 import showNotification from '../../../components/extras/showNotification';
 import { listUsers,deleteUsers } from '../../../helpers/connections/admin';
 import { useDataUserRoleList } from '../../../helpers/connections/tour';
+import { useRouter } from 'next/router';
 
 
 
@@ -34,8 +35,9 @@ const Index: NextPage = () => {
 	const [newModalStatus, setNewModalStatus] = useState<boolean>(false);
 	const [editModalStatus, setEditModalStatus] = useState<boolean>(false);
 	const { themeStatus, darkModeStatus } = useDarkMode();
+	const [roleIdToFilter, setRoleIdToFilter] = useState("");
 	//const { data: userRoleData, isLoading: userRoleIsLoading, isError: userRoleIsError } = useDataUserRoleList();
-
+	const router = useRouter();
 
 	const handleNewItem = () => {
 		setNewModalStatus(true)
@@ -91,9 +93,10 @@ const Index: NextPage = () => {
 	}
 
 	useEffect(() => {
-		console.log('tekrar çalıştı');
-
-		listUsers({ data : '' }, user.token!).then((res:any) => {
+		setRoleIdToFilter(router.query.type?.toString() || '');
+	
+		
+		listUsers({ data : {roleId: roleIdToFilter} }, user.token!).then((res:any) => {
 			console.log('listUsers', res);
 			setUsersList(res.content);
 		});
