@@ -14,7 +14,7 @@ import { demoPagesMenu } from '../../menu';
 import USERS from '../data/userDummyData';
 import { useRouter } from 'next/router';
 
-const CommonDashboardMarketingTeam = () => {
+const StaffSalesman = () => {
 	const { darkModeStatus } = useDarkMode();
 
 	const router = useRouter();
@@ -28,7 +28,7 @@ const CommonDashboardMarketingTeam = () => {
 			<CardHeader className='bg-transparent'>
 				<CardLabel>
 					<CardTitle tag='h4' className='h5'>
-						Ofis Çalışanları
+						Bilet Satış Görevlileri
 					</CardTitle>
 					<CardSubTitle tag='h5' className='h6 text-muted'>
 						Mesai başlangıç - bitimi  09:00/17:00.
@@ -83,4 +83,4 @@ const CommonDashboardMarketingTeam = () => {
 	);
 };
 
-export default CommonDashboardMarketingTeam;
+export default StaffSalesman;

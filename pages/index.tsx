@@ -19,7 +19,7 @@ import { TABS, TTabs } from '../common/type/helper';
 import Page from '../layout/Page/Page';
 import CommonDashboardAlert from '../common/partial/CommonDashboardAlert';
 import CommonDashboardUserCard from '../common/partial/CommonDashboardUserCard';
-import OfficeStaff from '../common/partial/OfficeStaff';
+import StaffOfficer from '../common/partial/StaffOfficer';
 import CommonDashboardDesignTeam from '../common/partial/CommonDashboardDesignTeam';
 import CommonDashboardIncome from '../common/partial/CommonDashboardIncome';
 import CommonDashboardRecentActivities from '../common/partial/CommonDashboardRecentActivities';
@@ -29,6 +29,10 @@ import CommonDashboardWaitingAnswer from '../common/partial/CommonDashboardWaiti
 import CommonDashboardTopSeller from '../common/partial/CommonDashboardTopSeller';
 import CommonMyWallet from '../common/partial/CommonMyWallet';
 import { useUserContext } from '../context/UserContext';
+import StaffSalesman from '../common/partial/StaffSalesman';
+import StaffPilot from '../common/partial/StaffPilot';
+import StaffDriver from '../common/partial/StaffDriver';
+import StaffOperation from '../common/partial/StaffOperation';
 
 const Index: NextPage = () => {
 	const { mobileDesign } = useContext(ThemeContext);
@@ -92,10 +96,19 @@ const Index: NextPage = () => {
 						<CommonDashboardUserCard user={user} />
 					</div>
 					<div className='col-xl-4'>
-						<OfficeStaff />
+						<StaffOfficer />
 					</div>
 					<div className='col-xl-4'>
-						<CommonDashboardDesignTeam />
+					    <StaffSalesman />
+					</div>
+					<div className='col-xl-4'>
+					    <StaffPilot />
+					</div>
+					<div className='col-xl-4'>
+					    <StaffDriver />
+					</div>
+					<div className='col-xl-4'>
+					    <StaffOperation />
 					</div>
 
 					<div className='col-xxl-8'>
