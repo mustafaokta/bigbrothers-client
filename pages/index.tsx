@@ -54,7 +54,7 @@ const Index: NextPage = () => {
 
 	const { themeStatus } = useDarkMode();
 
-	const [activeTab, setActiveTab] = useState<TTabs>(TABS.YEARLY);
+	const [activeTab, setActiveTab] = useState<TTabs>(TABS.DAILY);
 
 	return (
 		<PageWrapper>
