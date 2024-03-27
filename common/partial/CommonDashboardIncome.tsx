@@ -79,7 +79,7 @@ const CommonDashboardIncome: FC<ICommonDashboardIncomeProps> = ({ activeTab }) =
 		},
 	});
 	useEffect(() => {
-		if (activeTab === TABS.COMPANIES) {
+		if (activeTab === TABS.DAILY) {
 			startTransition(() => {
 				setSales({
 					series: [
@@ -102,7 +102,30 @@ const CommonDashboardIncome: FC<ICommonDashboardIncomeProps> = ({ activeTab }) =
 				});
 			});
 		}
-		if (activeTab === TABS.ACTIVITIES) {
+		if (activeTab === TABS.WEEKLY) {
+			startTransition(() => {
+				setSales({
+					series: [
+						{
+							data: [32, 35, 40, 30, 32],
+						},
+					],
+					sales: {
+						compare: 27,
+					},
+					campaigns: {
+						price: 450,
+						compare: 480,
+					},
+					coupons: {
+						price: 98,
+						compare: 120,
+					},
+					options: sales.options,
+				});
+			});
+		}
+		if (activeTab === TABS.MONTHLY) {
 			startTransition(() => {
 				setSales({
 					series: [
@@ -131,11 +154,14 @@ const CommonDashboardIncome: FC<ICommonDashboardIncomeProps> = ({ activeTab }) =
 	}, [activeTab]);
 
 	function compareLabel(amount = -1, name = false) {
-		if (activeTab === TABS.COMPANIES) {
+		if (activeTab === TABS.YEARLY) {
 			return name ? 'year' : dayjs().add(amount, 'year').format('YYYY');
 		}
-		if (activeTab === TABS.ACTIVITIES) {
-			return name ? 'month' : dayjs().add(amount, 'month').format('MMMM');
+		if (activeTab === TABS.MONTHLY) {
+			return name ? 'month' : dayjs().add(amount, 'month').format('MM');
+		}
+		if (activeTab === TABS.DAILY) {
+			return name ? 'day' : dayjs().add(amount, 'day').format('DD');
 		}
 		return name ? 'week' : dayjs().add(amount, 'week').format('w [th week]');
 	}
@@ -179,7 +205,7 @@ const CommonDashboardIncome: FC<ICommonDashboardIncomeProps> = ({ activeTab }) =
 							<CardHeader className='bg-transparent'>
 								<CardLabel>
 									<CardTitle tag='h4' className='h5'>
-										Genel Satışlar (Günlük)
+										Genel Satışlar
 									</CardTitle>
 								</CardLabel>
 							</CardHeader>

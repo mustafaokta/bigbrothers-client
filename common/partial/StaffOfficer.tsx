@@ -19,7 +19,7 @@ const StaffOfficer = () => {
 
 	const router = useRouter();
 	const handleOnClickToEmployeeListPage = useCallback(
-		() => router.push(`/admin/kullanicilar?type=officer`, '/admin/kullanicilar', {
+		() => router.push(`/admin/kullanicilar?roleId=2`, '/admin/kullanicilar', {
 			shallow: false,
 		  }),
 		[router],

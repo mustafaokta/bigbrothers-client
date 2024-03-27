@@ -32,7 +32,6 @@ import { useUserContext } from '../context/UserContext';
 import StaffSalesman from '../common/partial/StaffSalesman';
 import StaffPilot from '../common/partial/StaffPilot';
 import StaffDriver from '../common/partial/StaffDriver';
-import StaffOperation from '../common/partial/StaffOperation';
 
 const Index: NextPage = () => {
 	const { mobileDesign } = useContext(ThemeContext);
@@ -108,7 +107,7 @@ const Index: NextPage = () => {
 					    <StaffDriver />
 					</div>
 					<div className='col-xl-4'>
-					    <StaffOperation />
+					    <StaffOfficer />
 					</div>
 
 					<div className='col-xxl-8'>

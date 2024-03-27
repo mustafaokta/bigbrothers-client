@@ -93,10 +93,10 @@ const Index: NextPage = () => {
 	}
 
 	useEffect(() => {
-		setRoleIdToFilter(router.query.type?.toString() || '');
+		setRoleIdToFilter(router.query.roleId?.toString() || '');
 	
 		
-		listUsers({ data : {roleId: roleIdToFilter} }, user.token!).then((res:any) => {
+		listUsers({ data : {roleId: router.query.roleId?.toString() || ''} }, user.token!).then((res:any) => {
 			console.log('listUsers', res);
 			setUsersList(res.content);
 		});

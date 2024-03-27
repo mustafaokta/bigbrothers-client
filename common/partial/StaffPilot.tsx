@@ -19,7 +19,9 @@ const StaffPilot = () => {
 
 	const router = useRouter();
 	const handleOnClickToEmployeeListPage = useCallback(
-		() => router.push('/admin/kullanicilar'),
+		() => router.push(`/admin/kullanicilar?roleId=4`, '/admin/kullanicilar', {
+			shallow: false,
+		  }),
 		[router],
 	);
 
