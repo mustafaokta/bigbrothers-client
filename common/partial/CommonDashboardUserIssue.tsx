@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar as DatePicker } from 'react-date-range';
 import dayjs from 'dayjs';
 import { useFormik } from 'formik';
@@ -20,6 +20,8 @@ import Checks, { ChecksGroup } from '../../components/bootstrap/forms/Checks';
 import Badge from '../../components/bootstrap/Badge';
 import Progress from '../../components/bootstrap/Progress';
 import { TColor } from '../../type/color-type';
+import { listPayments } from '../../helpers/connections/admin';
+import { useUserContext } from '../../context/UserContext';
 
 const CommonDashboardUserIssue = () => {
 	const TODO_BADGES: {
@@ -28,13 +30,13 @@ const CommonDashboardUserIssue = () => {
 			color?: TColor;
 		};
 	} = {
-		NEW: { text: 'Ödendi', color: 'success' },
-		UPDATE: { text: 'Gelecek', color: 'info' },
-		TEST: { text: 'Yaklaşan', color: 'warning' },
-		REPORT: { text: 'Report', color: 'info' },
-		PRINT: { text: 'Geçmiş', color: 'danger' },
-		CONTROL: { text: 'Control', color: 'primary' },
-		MEETING: { text: 'Meeting', color: 'secondary' },
+		ODENDI: { text: 'Ödendi', color: 'success' },
+		GELECEK: { text: 'Gelecek', color: 'info' },
+		YAKLASAN: { text: 'Yaklaşan', color: 'warning' },
+		BILGI: { text: 'Bilgi', color: 'info' },
+		GECMIS: { text: 'Geçmiş', color: 'danger' },
+		KONTROL: { text: 'Kontrol', color: 'primary' },
+		ODENMEDI: { text: 'Ödenmedi', color: 'secondary' },
 	};
 	const getBadgeWithText = (text: string): string => {
 		return TODO_BADGES[
@@ -45,8 +47,7 @@ const CommonDashboardUserIssue = () => {
 
 	/**
 	 * To/Do List
-	 */
-	const [list, setList] = useState<ITodoListItem[]>([
+	 [
 		{
 			id: 1,
 			status: true,
@@ -96,14 +97,15 @@ const CommonDashboardUserIssue = () => {
 			date: dayjs().add(32, 'day'),
 			badge: TODO_BADGES.MEETING,
 		},
-	]);
-	const listLength = list.length;
-	const completeTaskLength = list.filter((i) => i.status).length;
-
-	/**
-	 * Add New Modal Status
+	]
 	 */
-	const [modalStatus, setModalStatus] = useState(false);
+	//const [list, setList] = useState<ITodoListItem[]>(
+	
+	
+
+
+	
+
 
 	/**
 	 * Ann New To/Do func
@@ -111,55 +113,49 @@ const CommonDashboardUserIssue = () => {
 	 * @param date
 	 * @param badge
 	 */
-	const addTodo = (title: string, date: Date, badge: any) => {
-		const newTodos: {
-			id?: string | number;
-			status?: boolean;
-			title?: string | number;
-			date?: dayjs.ConfigType;
-			badge?: {
-				text?: string;
-				color?: TColor;
-			};
-		}[] = [{ title, date, badge }, ...list];
-		setList(newTodos);
-	};
+
 
 	/**
 	 * New To/Do Day
 	 */
 	const [date, setDate] = useState(new Date());
-
-	const validate = (values: { todoTitle: string; todoBadges: string }) => {
-		const errors: { todoTitle: string } = {
-			todoTitle: '',
-		};
-		if (!values.todoTitle) {
-			errors.todoTitle = 'Required';
-		} else if (values.todoTitle.length > 40) {
-			errors.todoTitle = 'Must be 40 characters or less';
-		}
-
-		return errors;
-	};
-	const formik = useFormik({
-		initialValues: {
-			todoTitle: '',
-			todoBadges: '',
-		},
-		validate,
-		onSubmit: (values, { resetForm }) => {
-			addTodo(values.todoTitle, date, getBadgeWithText(values.todoBadges));
-			setModalStatus(false);
-			resetForm({
-				values: {
-					todoTitle: '',
-					todoBadges: '',
-				},
+	const [listData, setListData] = useState<any>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [isError, setIsError] = useState<null|string>(null);
+	const { user } = useUserContext();
+	//const listLength = list.length;
+	//const completeTaskLength = list.filter((i) => i.status).length;
+	useEffect(() => {
+		listPayments({ data : {} }, user.token!).then((res:any) => {
+		console.log(res, 'res');
+		
+				setListData(res.content.map((item:any) => {
+				 					return {
+						id: item.id,
+						status: item.status,
+						title: item.amount,
+						date: new Date(item.date),
+						badge: item.status ? TODO_BADGES.ODENDI: TODO_BADGES.ODENMEDI,
+					}
+				}) );
+				
+				setIsLoading(false);
+				setIsError(null);
+			}
+			).catch((err) => {
+			 				setIsError(err?.response?.data?.content);
+				setIsLoading(false);
 			});
-		},
-	});
+			 
+		}, [listData.length, user.token])
 
+
+
+	if (  isLoading ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+	if ( isError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
+	console.log(listData, 'listData');
+	
+	let items= listData.content;
 	return (
 		<Card stretch>
 			<CardHeader>
@@ -170,92 +166,15 @@ const CommonDashboardUserIssue = () => {
 					<CardSubTitle>
 						<Progress
 							height={8}
-							max={listLength}
-							value={completeTaskLength}
-							color={completeTaskLength === listLength ? 'success' : 'primary'}
+							max={listData.length}
+							value={listData.filter((i:any) => i.status).length}
+							color={listData.filter((i:any) => i.status).length === listData.length ? 'success' : 'primary'}
 						/>
 					</CardSubTitle>
 				</CardLabel>
-				<CardActions>
-					<Button
-						color='info'
-						icon='Add'
-						isLight
-						onClick={() => setModalStatus(!modalStatus)}>
-						New
-					</Button>
-					<Modal setIsOpen={setModalStatus} isOpen={modalStatus} titleId='new-todo-modal'>
-						<ModalHeader setIsOpen={setModalStatus}>
-							<ModalTitle id='new-todo-modal'>New Issue</ModalTitle>
-						</ModalHeader>
-						<ModalBody>
-							<form className='row g-3' onSubmit={formik.handleSubmit}>
-								<div className='col-12'>
-									<FormGroup id='todoTitle' label='Title'>
-										<Input
-											onChange={formik.handleChange}
-											onBlur={formik.handleBlur}
-											isValid={formik.isValid}
-											isTouched={formik.touched.todoTitle}
-											invalidFeedback={formik.errors.todoTitle}
-											validFeedback='Looks good!'
-											value={formik.values.todoTitle}
-										/>
-									</FormGroup>
-								</div>
-								<div className='col-12'>
-									<div>
-										<Label>Due Date</Label>
-									</div>
-									<div className='text-center mt-n4'>
-										<DatePicker
-											onChange={(item) => setDate(item)}
-											date={date}
-											minDate={new Date()}
-											color={process.env.NEXT_PUBLIC_PRIMARY_COLOR}
-										/>
-									</div>
-								</div>
-								<div className='col-12'>
-									<FormGroup>
-										<Label>Badge</Label>
-										<ChecksGroup isInline>
-											{Object.keys(TODO_BADGES).map((i) => (
-												<Checks
-													key={TODO_BADGES[i].text}
-													type='radio'
-													name='todoBadges'
-													id={TODO_BADGES[i].text}
-													label={
-														<Badge isLight color={TODO_BADGES[i].color}>
-															{TODO_BADGES[i].text}
-														</Badge>
-													}
-													value={TODO_BADGES[i].text}
-													onChange={formik.handleChange}
-													checked={formik.values.todoBadges}
-												/>
-											))}
-										</ChecksGroup>
-									</FormGroup>
-								</div>
-								<div className='col' />
-								<div className='col-auto'>
-									<Button
-										type='submit'
-										color='info'
-										isLight
-										isDisable={!formik.isValid && !!formik.submitCount}>
-										Add Item
-									</Button>
-								</div>
-							</form>
-						</ModalBody>
-					</Modal>
-				</CardActions>
 			</CardHeader>
 			<CardBody isScrollable>
-				<Todo list={list} setList={setList} />
+				<Todo list={listData} setList={setListData} />
 			</CardBody>
 		</Card>
 	);

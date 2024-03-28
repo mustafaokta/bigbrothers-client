@@ -101,7 +101,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 			"currencyId": "",
 			"paymentMethodId": "",
 			"paidToAgencyId": "",
-			"status": "",
+			"status": false,
 			"note": ""	 
 					}
 					reset(itemm);
