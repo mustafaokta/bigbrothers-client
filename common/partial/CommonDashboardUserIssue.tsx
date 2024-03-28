@@ -86,7 +86,7 @@ const CommonDashboardUserIssue = () => {
 				setIsLoading(false);
 			});
 			 
-		}, [listData, user.token])
+		}, [listData.length, user.token])
 	
 
 
