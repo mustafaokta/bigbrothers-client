@@ -41,6 +41,7 @@
 
 # TODOES
 
+
 - Transferde fragment delete ilk item update etmiyor db yi
 - Transfer delete yok
 

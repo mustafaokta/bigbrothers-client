@@ -63,9 +63,8 @@ export const TodoItem = forwardRef<HTMLDivElement, ITodoItemProps>(
 		const handleChange = (_index: number) => {
 			const newTodos = [...list];
 			newTodos[_index].status = !newTodos[_index].status;
-			console.log(newTodos[_index]);
+			newTodos[_index].badge = newTodos[_index].status ? { text: 'Ödendi', color: 'success' } : { text: 'Ödenmedi', color: 'secondary' };
 			updatePaymentStatus({ data: {id:newTodos[_index].id , status:newTodos[_index].status  }}, user.token!).then((res:any) => {
-			 				console.log('guncellendi');
 							 setList(newTodos);
 			}
 			);
