@@ -133,7 +133,7 @@ const CommonDashboardUserIssue = () => {
 				 					return {
 						id: item.id,
 						status: item.status,
-						title: item.amount,
+						title: item.amount + ' ' + item.currency.label + '-' +item.paidToAgency.name + (item.note?(' ('+item.note+')'):''),
 						date: new Date(item.date),
 						badge: item.status ? TODO_BADGES.ODENDI: TODO_BADGES.ODENMEDI,
 					}
