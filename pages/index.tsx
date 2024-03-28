@@ -32,6 +32,7 @@ import { useUserContext } from '../context/UserContext';
 import StaffSalesman from '../common/partial/StaffSalesman';
 import StaffPilot from '../common/partial/StaffPilot';
 import StaffDriver from '../common/partial/StaffDriver';
+import VehiclePerformance from '../common/partial/VehiclePerformance';
 
 const Index: NextPage = () => {
 	const { mobileDesign } = useContext(ThemeContext);
@@ -131,7 +132,7 @@ const Index: NextPage = () => {
 						<CommonMyWallet />
 					</div> */}
 					<div className='col-xl-12'>
-						<CommonDashboardTopSeller />
+						<VehiclePerformance />
 					</div>
 				</div>
 			</Page>

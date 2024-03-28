@@ -71,12 +71,12 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						        id: itm.id,
 								transferDate: itm.transferDate.split('T')[0],
 								transferTime: itm.transferTime,
+								distanceKm: Number(itm.distanceKm),
 						        direction: itm.direction,
 						        flightNumber: itm.flightNumber,
 								startPoint: itm.startPoint,
 								endPoint: itm.endPoint,
 								vehicleId: itm.vehicle.id,
-								plate: itm.vehicle.plate,
 								driverId: itm.driver.id,
 								hotelId: itm.hotel.id,
 								roomNumber: Number(itm.roomNumber),
@@ -122,11 +122,11 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			transferDate: '',
 			transferTime: '',
 			direction: '',
+			distanceKm: '',
 			flightNumber: '',
 			startPoint: '',
 			endPoint: '',
 			vehicleId: '',
-			plate:'',
 			driverId: '',
 			hotelId: '',
 			roomNumber: '',
@@ -248,10 +248,10 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 									/> */}
 								</th>
 								<th>Yön</th>
+								<th>Mesafe</th>
 								<th>Uçuş Numarası</th>
 								<th>Kalkış</th>
 								<th>Varış</th>
-								<th>Araç Plakası</th>
 								<th>Şoför</th>
 								<th>Araç Türü</th>
 								<td />
@@ -276,10 +276,10 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 									</td>
 									<td>{item.transferDate + item.transferTime}</td>
 									<td>{item.direction}</td>
+									<td>{item.distanceKm}</td>
 									<td>{item.flightNumber}</td>
 									<td>{item.startPoint}</td>
 									<td>{item.endPoint}</td>
-									<td>{item.vehicle.plate}</td>
 									 <td>{item.driver.user.name+ ' ' + item.driver.user.surname }</td> 
 									<td>{item.vehicle.type}</td>
 									<td>
@@ -384,6 +384,21 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						</FormGroup>
 						</div>
 						<div className='col-3'>
+						<FormGroup id='distanceKm' label='Mesafe' isFloating>
+							<Controller name="distanceKm"
+											control={control}
+											rules={{ required: true}}  
+											render={({ field }) => (
+												<Input
+											placeholder='Mesafe'
+											type='number'
+											{...field}
+										/>
+													 )}
+							/>
+						</FormGroup>
+						</div>
+						<div className='col-3'>
 						<FormGroup id='startPoint' label='Kalkış' isFloating>
 							<Controller name="startPoint"
 											control={control}
@@ -411,21 +426,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							/>
 						</FormGroup>
 						</div>
-						<div className='col-3'>
-						<FormGroup id='plate' label='Araç Plakası' isFloating>
-							<Controller name="plate"
-											control={control}
-											rules={{ required: true }}
-											render={({ field }) => (
-												<Input
-											placeholder='Araç Plakası'
-											{...field}
-										/>
-													 )}
-							/>
-						</FormGroup>
-						</div>
-					
 						<div className='col-3'>
 						<FormGroup id='vehicleId' label='Araç' isFloating>
 							<Controller name="vehicleId"
@@ -789,6 +789,21 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							</FormGroup>
 							</div>
 							<div className='col-3'>
+								<FormGroup id='distanceKm' label='Mesafe' isFloating>
+									<Controller name="distanceKm"
+													control={control}
+													rules={{ required: true}}  
+													render={({ field }) => (
+														<Input
+													placeholder='Mesafe'
+													type='number'
+													{...field}
+												/>
+															 )}
+									/>
+								</FormGroup>
+						</div>
+							<div className='col-3'>
 							<FormGroup id='startPoint' label='Kalkış' isFloating>
 						        <Controller name="startPoint"
 	                                            control={control}
@@ -816,21 +831,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
-							<FormGroup id='plate' label='Araç Plakası' isFloating>
-						        <Controller name="plate"
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Araç Plakası'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-						
 							<div className='col-3'>
 						    <FormGroup id='vehicleId' label='Araç' isFloating>
 						        <Controller name="vehicleId"

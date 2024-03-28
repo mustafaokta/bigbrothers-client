@@ -40,16 +40,20 @@
 
 
 # TODOES
+- Araç plakası kaldır
+- Transferde fragment delete ilk item update etmiyor db yi
+- Transfer delete yok
 
 - Bilet sat yeni itema satıcı bilgisini gönder ki satıcı perforamnsını ölçelim
-
-
+- Transfere distance ekle
+- Operasyon görevlisi ekranı 
 - Documantasyonu kapat
 - form yapısı scroll olacak- form kLKINCA CALISIYO
 - tüm errors. sonrası fendi form id si olacak
 - Üst breadcrumb yapısı(inspect le)
 - fragmant delete item update etmiyor
 - currency leri swrd dan okut,  ödemelerdeki gibi kullan
+- tc noları  11 hane olacak max
 
 - Admin paneldeki tabloların düzenlenmesi
 - tarih filtreler

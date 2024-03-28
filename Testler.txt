@@ -1,3 +1,5 @@
 - Ödemelerim - ok
 - Kullanıcılar - ok
 - Sürücüler - ok
+- Oteller - ok
+
