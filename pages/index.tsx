@@ -123,14 +123,14 @@ const Index: NextPage = () => {
 					<div className='col-xxl-8'>
 						<CommonDashboardSalesByStore />
 					</div>
-					<div className='col-xxl-4 col-xl-6'>
+					<div className='col-xxl-4 col-xl-12'>
 						<CommonDashboardWaitingAnswer />
 					</div>
 
 					{/* <div className='col-xxl-4 col-xl-6'>
 						<CommonMyWallet />
 					</div> */}
-					<div className='col-xxl-12'>
+					<div className='col-xl-12'>
 						<CommonDashboardTopSeller />
 					</div>
 				</div>

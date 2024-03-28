@@ -40,6 +40,11 @@
 
 
 # TODOES
+
+- Bilet sat yeni itema satıcı bilgisini gönder ki satıcı perforamnsını ölçelim
+
+
+- Documantasyonu kapat
 - form yapısı scroll olacak- form kLKINCA CALISIYO
 - tüm errors. sonrası fendi form id si olacak
 - Üst breadcrumb yapısı(inspect le)
