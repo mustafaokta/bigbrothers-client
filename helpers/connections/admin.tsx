@@ -29,6 +29,7 @@ const PAYMENTS_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/listPayments
 const PAYMENTS_DELETE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/deletePayments`;
 const PAYMENTS_ADD = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/addPayments`;
 const PAYMENTS_UPDATE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/updatePayments`;
+const PAYMENTS_UPDATE_STATUS = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/updatePaymentStatus`;
 
 const DRIVER_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/listDrivers`;
 const ADD_DRIVER = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/addDrivers`;
@@ -222,6 +223,14 @@ const REGION_DELETE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/deleteRegion
 				return new Promise((resolve, reject) => {
 				axios
 					.post(PAYMENTS_UPDATE, postData, { headers: { Authorization: `Bearer ${token}` } })
+					.then((res) => resolve(res.data))
+					.catch((err) => reject(err));
+				});
+			};
+			export const updatePaymentStatus= (postData: { data:  any }, token: string) => {
+				return new Promise((resolve, reject) => {
+				axios
+					.post(PAYMENTS_UPDATE_STATUS, postData, { headers: { Authorization: `Bearer ${token}` } })
 					.then((res) => resolve(res.data))
 					.catch((err) => reject(err));
 				});

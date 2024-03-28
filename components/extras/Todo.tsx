@@ -8,6 +8,8 @@ import Button from '../bootstrap/Button';
 import Dropdown, { DropdownItem, DropdownMenu, DropdownToggle } from '../bootstrap/Dropdown';
 import useDarkMode from '../../hooks/useDarkMode';
 import { TColor } from '../../type/color-type';
+import { updatePaymentStatus } from '../../helpers/connections/admin';
+import { useUserContext } from '../../context/UserContext';
 
 /**
  * Prop Types
@@ -57,11 +59,16 @@ interface ITodoItemProps {
 export const TodoItem = forwardRef<HTMLDivElement, ITodoItemProps>(
 	({ index, list, setList, ...props }, ref) => {
 		const itemData = list[index];
-
+		const { user } = useUserContext();
 		const handleChange = (_index: number) => {
 			const newTodos = [...list];
 			newTodos[_index].status = !newTodos[_index].status;
-			setList(newTodos);
+			console.log(newTodos[_index]);
+			updatePaymentStatus({ data: {id:newTodos[_index].id , status:newTodos[_index].status  }}, user.token!).then((res:any) => {
+			 				console.log('guncellendi');
+							 setList(newTodos);
+			}
+			);
 		};
 
 		const removeTodo = (_index: number) => {

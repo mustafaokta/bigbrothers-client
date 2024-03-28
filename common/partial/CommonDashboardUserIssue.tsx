@@ -45,66 +45,6 @@ const CommonDashboardUserIssue = () => {
 		];
 	};
 
-	/**
-	 * To/Do List
-	 [
-		{
-			id: 1,
-			status: true,
-			title: 'New Products will be added',
-			date: dayjs().add(0.5, 'day'),
-			badge: TODO_BADGES.NEW,
-		},
-		{
-			id: 2,
-			status: true,
-			title: 'Cover images will be edited',
-			date: dayjs().add(2, 'day'),
-			badge: TODO_BADGES.UPDATE,
-		},
-		{
-			id: 3,
-			status: false,
-			title: 'Preparing for A/B testing',
-			date: dayjs().add(2, 'day'),
-			badge: TODO_BADGES.TEST,
-		},
-		{
-			id: 4,
-			status: false,
-			title: 'Google Analytics data will be examined',
-			date: dayjs().add(4, 'day'),
-			badge: TODO_BADGES.REPORT,
-		},
-		{
-			id: 5,
-			status: false,
-			title: 'Invoices will be issued',
-			date: dayjs().add(9, 'day'),
-			badge: TODO_BADGES.PRINT,
-		},
-		{
-			id: 6,
-			status: false,
-			title: 'Dependencies check and update',
-			date: dayjs().add(15, 'day'),
-			badge: TODO_BADGES.CONTROL,
-		},
-		{
-			id: 7,
-			status: false,
-			title: 'End of month meeting',
-			date: dayjs().add(32, 'day'),
-			badge: TODO_BADGES.MEETING,
-		},
-	]
-	 */
-	//const [list, setList] = useState<ITodoListItem[]>(
-	
-	
-
-
-	
 
 
 	/**
@@ -127,7 +67,6 @@ const CommonDashboardUserIssue = () => {
 	//const completeTaskLength = list.filter((i) => i.status).length;
 	useEffect(() => {
 		listPayments({ data : {} }, user.token!).then((res:any) => {
-		console.log(res, 'res');
 		
 				setListData(res.content.map((item:any) => {
 				 					return {
@@ -147,13 +86,13 @@ const CommonDashboardUserIssue = () => {
 				setIsLoading(false);
 			});
 			 
-		}, [listData.length, user.token])
+		}, [listData, user.token])
+	
 
 
 
 	if (  isLoading ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
 	if ( isError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
-	console.log(listData, 'listData');
 	
 	let items= listData.content;
 	return (
