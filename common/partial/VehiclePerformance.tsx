@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Card, {
 	CardActions,
 	CardBody,
@@ -24,6 +24,8 @@ import Chart from '../../components/extras/Chart';
 import Badge from '../../components/bootstrap/Badge';
 import data from '../data/dummyProductData';
 import Link from 'next/link';
+import { postVehiclePerformance } from '../../helpers/connections/transfer';
+import { useUserContext } from '../../context/UserContext';
 
 interface ITableRowProps {
 	id: string;
@@ -36,20 +38,18 @@ interface ITableRowProps {
 	price: string;
 	store: string;
 }
-const TableRow: FC<ITableRowProps> = ({
+const TableRow: FC<any> = ({
 	id,
-	image,
-	name,
-	category,
-	series,
-	color,
-	stock,
-	price,
-	store,
+capacity ,
+model,
+plate, 
+transfer,
+type, 
+totalDistance
 }) => {
 	const { darkModeStatus } = useDarkMode();
 	const dummyOptions: ApexOptions = {
-		colors: [color],
+		colors: ['#fff'],
 		chart: {
 			type: 'line',
 			width: 100,
@@ -81,199 +81,103 @@ const TableRow: FC<ITableRowProps> = ({
 	};
 	return (
 		<tr>
-			<th scope='row'>{id}</th>
-			<td>
-				<Link href={`../`}>
-					{/* eslint-disable-next-line @next/next/no-img-element */}
+			<th scope='row'>{plate}</th>
+	{/* 		<td>
 					<img src={image} alt='' width={54} height={54} />
-				</Link>
-			</td>
+			</td> */}
 			<td>
-				<div>
-					<Link
-						href={`../`}
+					<div
 						className={classNames('fw-bold', {
 							'link-dark': !darkModeStatus,
 							'link-light': darkModeStatus,
 						})}>
-						{name}
-					</Link>
-					<div className='text-muted'>
-						<small>{category}</small>
+						{model}
 					</div>
-				</div>
+					<div className='text-muted'>
+						<small>{type}</small>
+					</div>
 			</td>
 			<td>
-				<Chart
+			{totalDistance}
+				{/* <Chart
 					series={series}
 					options={dummyOptions}
 					type={dummyOptions.chart?.type}
 					height={dummyOptions.chart?.height}
 					width={dummyOptions.chart?.width}
-				/>
+				/> */}
 			</td>
 			<td>
-				<span>{stock}</span>
+				<span>{capacity}</span>
 			</td>
 			<td>
 				<span>
 					{
 						// @ts-ignore
-						price.toLocaleString('en-US', {
+				/* 		price.toLocaleString('en-US', {
 							style: 'currency',
 							currency: 'USD',
-						})
+						}) */
+						transfer[0].driver.user.name+ ' '+ transfer[0].driver.user.surname
 					}
 				</span>
 			</td>
 			<td className='h5'>
 				<Badge
 					color={
-						(store === 'Company A' && 'danger') ||
-						(store === 'Company B' && 'warning') ||
-						(store === 'Company C' && 'success') ||
 						'info'
 					}>
-					{store}
+					{transfer.length}
 				</Badge>
 			</td>
 		</tr>
 	);
 };
 
+
 const VehiclePerformance = () => {
-	const TOP_SELLER_FILTER = {
-		DAY: 'day',
-		WEEK: 'week',
-		MONTH: 'month',
-	};
-	const [topSellerFilter, setTopSellerFilter] = useState(TOP_SELLER_FILTER.DAY);
-	const filteredData = data
-		.filter(
-			(f) =>
-				(topSellerFilter === TOP_SELLER_FILTER.DAY && f.id < 6) ||
-				(topSellerFilter === TOP_SELLER_FILTER.WEEK && f.name.includes('c')) ||
-				(topSellerFilter === TOP_SELLER_FILTER.MONTH && f.price > 13),
-		)
-		.filter((c, index) => index < 5);
+
+
 
 	const [currentPage, setCurrentPage] = useState(1);
 	const [perPage, setPerPage] = useState(PER_COUNT['3']);
-	const { items, requestSort, getClassNamesFor } = useSortableData(filteredData);
+	const { user } = useUserContext();
+ const [listData, setListData] = useState<any>({content:[]});
+	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [isError, setIsError] = useState<null|string>(null);
+useEffect(() => {
+	postVehiclePerformance({ data: {} }, user.token!).then((res: any) => {
+	console.log('res', res);
+	
+		setListData(res);
+		setIsLoading(false);
+	});
+}
+, [listData.length, user.token]);
+	
+	if (  isLoading   ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+	if ( isError  ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
+	let items = listData.content.filter((i:any) => i.transfer.length > 0);
 	return (
 		<Card>
 			<CardHeader>
 				<CardLabel icon='Storefront' iconColor='info'>
 					<CardTitle tag='h4' className='h5'>
-						Araç Performans Tablosu
+						Araç Performans 
 					</CardTitle>
 				</CardLabel>
-				<CardActions>
-					<Dropdown isButtonGroup>
-						<Button color='success' isLight icon='WaterfallChart'>
-							{(topSellerFilter === TOP_SELLER_FILTER.DAY &&
-								dayjs().format('MMM Do')) ||
-								(topSellerFilter === TOP_SELLER_FILTER.WEEK &&
-									`${dayjs().startOf('week').format('MMM Do')} - ${dayjs()
-										.endOf('week')
-										.format('MMM Do')}`) ||
-								(topSellerFilter === TOP_SELLER_FILTER.MONTH &&
-									dayjs().format('MMM YYYY'))}
-						</Button>
-						<DropdownToggle>
-							<Button color='success' isLight isVisuallyHidden />
-						</DropdownToggle>
-						<DropdownMenu isAlignmentEnd>
-							<DropdownItem>
-								<Button onClick={() => setTopSellerFilter(TOP_SELLER_FILTER.DAY)}>
-									Last Day
-								</Button>
-							</DropdownItem>
-							<DropdownItem>
-								<Button onClick={() => setTopSellerFilter(TOP_SELLER_FILTER.WEEK)}>
-									Last Week
-								</Button>
-							</DropdownItem>
-							<DropdownItem>
-								<Button onClick={() => setTopSellerFilter(TOP_SELLER_FILTER.MONTH)}>
-									Last Month
-								</Button>
-							</DropdownItem>
-						</DropdownMenu>
-					</Dropdown>
-					<Button
-						color='info'
-						icon='CloudDownload'
-						isLight
-						tag='a'
-						to='/somefile.txt'
-						target='_blank'
-						download>
-						Export
-					</Button>
-				</CardActions>
 			</CardHeader>
 			<CardBody className='table-responsive'>
 				<table className='table table-modern table-hover'>
 					<thead>
 						<tr>
-							<th
-								scope='col'
-								onClick={() => requestSort('id')}
-								className='cursor-pointer text-decoration-underline'>
-								#{' '}
-								<Icon
-									size='lg'
-									className={getClassNamesFor('id')}
-									icon='FilterList'
-								/>
-							</th>
-							<th scope='col'>Resim</th>
-							<th
-								scope='col'
-								onClick={() => requestSort('name')}
-								className='cursor-pointer text-decoration-underline'>
-								Araç{' '}
-								<Icon
-									size='lg'
-									className={getClassNamesFor('name')}
-									icon='FilterList'
-								/>
-							</th>
-							<th scope='col'>Gün/Km</th>
-							<th
-								scope='col'
-								onClick={() => requestSort('stock')}
-								className='cursor-pointer text-decoration-underline'>
-								Toplam Mesafe{' '}
-								<Icon
-									size='lg'
-									className={getClassNamesFor('stock')}
-									icon='FilterList'
-								/>
-							</th>
-							<th
-								scope='col'
-								onClick={() => requestSort('price')}
-								className='cursor-pointer text-decoration-underline'>
-								Toplam Görev Sayısı{' '}
-								<Icon
-									size='lg'
-									className={getClassNamesFor('price')}
-									icon='FilterList'
-								/>
-							</th>
-							<th
-								scope='col'
-								onClick={() => requestSort('store')}
-								className='cursor-pointer text-decoration-underline'>
-								Sahibi{' '}
-								<Icon
-									size='lg'
-									className={getClassNamesFor('store')}
-									icon='FilterList'
-								/>
-							</th>
+							<th scope='col'>Plaka</th>
+							<th scope='col'>Cins</th>
+							<th scope='col'>Toplam Mesafe</th>
+							<th scope='col'>Kapasite</th>
+							<th scope='col'>Şoför</th>
+							<th scope='col'>Transfer Sayısı</th>
+							
 						</tr>
 					</thead>
 					<tbody>
