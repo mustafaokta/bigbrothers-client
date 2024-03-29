@@ -118,7 +118,7 @@ const Index: NextPage = () => {
 				{/* 	 <div className='col-xxl-3'>
 						<CommonDashboardRecentActivities />
 					</div>  */}
-					<div className='col-xxl-4'>
+					<div className='col-xxl-12'>
 						<CommonDashboardUserIssue />
 					</div> 
 
