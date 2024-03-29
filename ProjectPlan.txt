@@ -40,7 +40,8 @@
 
 
 # TODOES
-
+- Yönetim Paneli üst sağ kısım chat ve notification kapt
+- Yönetim paneli ödemeler delete dinamikleştir
 - Dashboard aktif personel dinamikleşecek
 - Dashboard üst tab bar (günlük haftalık vs) dinamikleşecek
 - Transferde fragment delete ilk item update etmiyor db yi
@@ -68,6 +69,8 @@
 - Ana sunucuya atılacak, ssl ayarlı olacak
 - paraşüt gps
 - aynı email ile silinen kullanıcı tekrar eklenemiyor
+- Bilet satışı statusu gelen giden veya ?
+- Rol bazlı kısıtlamalar
 
 
 Çok satanlar whatsapp
