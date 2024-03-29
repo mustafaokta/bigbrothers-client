@@ -41,7 +41,8 @@
 
 # TODOES
 
-
+- Dashboard aktif personel dinamikleşecek
+- Dashboard üst tab bar (günlük haftalık vs) dinamikleşecek
 - Transferde fragment delete ilk item update etmiyor db yi
 - Transfer delete yok
 

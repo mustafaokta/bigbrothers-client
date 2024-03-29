@@ -39,7 +39,8 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 		const role = [
 			{ value:1, label: 'Yönetici' },
 			{ value:2, label: 'Ofis Çalışanı' },
-			{ value:3, label: 'Satıcı'}
+			{ value:3, label: 'Satıcı'},
+			{ value:6, label: 'Operasyon Görevlisi'}
 		];
 
 	const handleSaveAction = (postData: any) => {

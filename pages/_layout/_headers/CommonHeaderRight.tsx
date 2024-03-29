@@ -52,9 +52,9 @@ const CommonHeaderRight: FC<ICommonHeaderRightProps> = ({ beforeChildren, afterC
 		showNotification(
 			<span className='d-flex align-items-center'>
 				<Icon icon={getLangWithKey(lng)?.icon} size='lg' className='me-1' />
-				<span>{`Language changed to ${getLangWithKey(lng)?.text}`}</span>
+				<span>{`Dil değiştiriliyor ${getLangWithKey(lng)?.text}`}</span>
 			</span>,
-			'You updated the language of the site. (Only "Aside" was prepared as an example.)',
+			'Dil tercihinizi değiştirdiniz.',
 		);
 	};
 
@@ -69,13 +69,13 @@ const CommonHeaderRight: FC<ICommonHeaderRightProps> = ({ beforeChildren, afterC
 				{/* Tour Modal */}
 				{mounted && localStorage.getItem('tourModalStarted') === 'shown' && (
 					<div className='col-auto position-relative'>
-						<Popovers trigger='hover' desc='Start the "Facit" tour'>
+						<Popovers trigger='hover' desc='Kılavuz sihirbazını başlat'>
 							<Button
 								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...styledBtn}
 								icon='Tour'
 								onClick={() => setIsOpen(true)}
-								aria-label='Start the "Facit" tour'
+								aria-label='Kılavuz sihirbazını başlat'
 							/>
 						</Popovers>
 						<Icon
@@ -91,7 +91,7 @@ const CommonHeaderRight: FC<ICommonHeaderRightProps> = ({ beforeChildren, afterC
 
 				{/* Dark Mode */}
 				<div className='col-auto'>
-					<Popovers trigger='hover' desc='Dark / Light mode'>
+					<Popovers trigger='hover' desc='Gece / Gündüz Modu'>
 						<Button
 							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...styledBtn}
@@ -109,7 +109,7 @@ const CommonHeaderRight: FC<ICommonHeaderRightProps> = ({ beforeChildren, afterC
 
 				{/*	Full Screen */}
 				<div className='col-auto'>
-					<Popovers trigger='hover' desc='Fullscreen'>
+					<Popovers trigger='hover' desc='Tam Ekran'>
 						<Button
 							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...styledBtn}
@@ -161,76 +161,7 @@ const CommonHeaderRight: FC<ICommonHeaderRightProps> = ({ beforeChildren, afterC
 				</div>
 
 				{/* Quick Panel */}
-				<div className='col-auto'>
-					<Dropdown>
-						<DropdownToggle hasIcon={false}>
-							{/* eslint-disable-next-line react/jsx-props-no-spreading */}
-							<Button {...styledBtn} icon='Tune' aria-label='Quick menu' />
-						</DropdownToggle>
-						<DropdownMenu isAlignmentEnd size='lg' className='py-0 overflow-hidden'>
-							<div className='row g-0'>
-								<div
-									className={classNames(
-										'col-12',
-										'p-4',
-										'd-flex justify-content-center',
-										'fw-bold fs-5',
-										'text-info',
-										'border-bottom border-info',
-										{
-											'bg-l25-info': !darkModeStatus,
-											'bg-lo25-info': darkModeStatus,
-										},
-									)}>
-									Quick Panel
-								</div>
-								<div
-									className={classNames(
-										'col-6 p-4 transition-base cursor-pointer bg-light-hover',
-										'border-end border-bottom',
-										{ 'border-dark': darkModeStatus },
-									)}>
-									<div className='d-flex flex-column align-items-center justify-content-center'>
-										<Icon icon='Public' size='3x' color='info' />
-										<span>Dealers</span>
-										<small className='text-muted'>Options</small>
-									</div>
-								</div>
-								<div
-									className={classNames(
-										'col-6 p-4 transition-base cursor-pointer bg-light-hover',
-										'border-bottom',
-										{ 'border-dark': darkModeStatus },
-									)}>
-									<div className='d-flex flex-column align-items-center justify-content-center'>
-										<Icon icon='Upcoming' size='3x' color='success' />
-										<span>Inbox</span>
-										<small className='text-muted'>Configuration</small>
-									</div>
-								</div>
-								<div
-									className={classNames(
-										'col-6 p-4 transition-base cursor-pointer bg-light-hover',
-										'border-end',
-										{ 'border-dark': darkModeStatus },
-									)}>
-									<div className='d-flex flex-column align-items-center justify-content-center'>
-										<Icon icon='Print' size='3x' color='danger' />
-										<span>Print</span>
-										<small className='text-muted'>Settings</small>
-									</div>
-								</div>
-								<div className='col-6 p-4 transition-base cursor-pointer bg-light-hover'>
-									<div className='d-flex flex-column align-items-center justify-content-center'>
-										<Icon icon='ElectricalServices' size='3x' color='warning' />
-										<span>Power</span>
-										<small className='text-muted'>Mode</small>
-									</div>
-								</div>
-							</div>
-						</DropdownMenu>
-					</Dropdown>
-				</div>
+		
 
 				{/*	Notifications */}
 				<div className='col-auto'>
@@ -239,7 +170,7 @@ const CommonHeaderRight: FC<ICommonHeaderRightProps> = ({ beforeChildren, afterC
 						{...styledBtn}
 						icon='Notifications'
 						onClick={() => setOffcanvasStatus(true)}
-						aria-label='Notifications'
+						aria-label='Bildirimler'
 					/>
 				</div>
 				{afterChildren}

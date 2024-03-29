@@ -41,7 +41,8 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 	const role = [
 		{ value:1, label: 'Yönetici' },
 		{ value:2, label: 'Ofis Çalışanı' },
-		{ value:3, label: 'Satıcı'}
+		{ value:3, label: 'Satıcı'},
+		{ value:6, label: 'Operasyon Görevlisi'}
 	];
 
 
