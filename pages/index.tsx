@@ -111,9 +111,9 @@ const Index: NextPage = () => {
 					    <StaffOfficer />
 					</div>
 
-					<div className='col-xxl-8'>
+				{/* 	<div className='col-xxl-8'>
 						<CommonDashboardIncome activeTab={activeTab} />
-					</div>
+					</div> */}
 				{/* 	 <div className='col-xxl-3'>
 						<CommonDashboardRecentActivities />
 					</div>  */}
@@ -121,12 +121,12 @@ const Index: NextPage = () => {
 						<CommonDashboardUserIssue />
 					</div> 
 
-					<div className='col-xxl-8'>
+				{/* 	<div className='col-xxl-8'>
 						<CommonDashboardSalesByStore />
-					</div>
-					<div className='col-xxl-4 col-xl-12'>
+					</div> */}
+			{/* 		<div className='col-xxl-4 col-xl-12'>
 						<CommonDashboardWaitingAnswer />
-					</div>
+					</div> */}
 
 					{/* <div className='col-xxl-4 col-xl-6'>
 						<CommonMyWallet />
