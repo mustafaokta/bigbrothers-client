@@ -25,6 +25,7 @@ import { useUserContext } from '../../context/UserContext';
 import { useDataUserList } from '../../helpers/connections/user';
 import showNotification from '../../components/extras/showNotification';
 import { listTransfer } from '../../helpers/connections/transfer';
+import { useRouter } from 'next/router';
 
 
 interface ICommonUpcomingEventsProps {
@@ -54,6 +55,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [tourDate, setTourDate] = useState<any>(null);
 	const [transferData, setTransferData] = useState<any>(null);
 	const [filteredTourData, setFilteredTourData] = useState({content:[]});
+	const router = useRouter();
 	 // Filter tour data on change of tourTypeId
 	 useEffect(() => {
 		const selectedTourTypeId = getValues('tourTypeId');
@@ -93,6 +95,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 			   let itemm : { [key: string]: any }=	{
 						        id: itm.id,
+						        reservationUUID: itm.reservationUUID,
 						        type: 'gelen',
 							 tourId: itm.tourId,
 							  tourTypeId: itm.tour.typeId,
@@ -137,11 +140,18 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
    };
 
+	const handleUpcomingPrint = (itm:any) => {
+		console.log('handleUpcomingPrint', itm);
+		// open a route in new window
+		window.open(`/bilet/belge/${itm.reservationUUID}`, '_blank');
+	};
+
 	const handleNewItem = () => {
 		setNewItemOffcanvas(!newItemOffcanvas);
 		 // set form to default empty values
 		reset({
 		    id: '',
+		    reservationUUID:'',
 		    type : 'gelen',
 		    tourId: '',
 			tourDate: '',
@@ -340,9 +350,22 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 											className={classNames('text-nowrap', {
 												'border-light': !darkModeStatus,
 											})}
+											icon='Print'
+											onClick={()=>handleUpcomingPrint(item)}>
+											Yazdır
+										</Button>
+									</td>
+									<td>
+										<Button
+											isOutline={!darkModeStatus}
+											color='dark'
+											isLight={darkModeStatus}
+											className={classNames('text-nowrap', {
+												'border-light': !darkModeStatus,
+											})}
 											icon='Edit'
 											onClick={()=>handleUpcomingEdit(item)}>
-											Edit
+											Düzenle
 										</Button>
 									</td>
 								</tr>

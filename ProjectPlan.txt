@@ -40,8 +40,13 @@
 
 
 # TODOES
+- Bilet çıktı üretimi
+- Bilet satışı statusu gelen giden veya ?
 - Yönetim Paneli üst sağ kısım chat ve notification kapt
 - Yönetim paneli ödemeler delete dinamikleştir
+- Üst taraflardaki yazılar
+- Export yazdırmaları window print e baglasak nasıl olur kontrol etmiyo
+- Personele whatsapp tan mesaj gonderme butonu aktif et
 - Dashboard aktif personel dinamikleşecek
 - Dashboard üst tab bar (günlük haftalık vs) dinamikleşecek
 - Transferde fragment delete ilk item update etmiyor db yi
@@ -71,6 +76,7 @@
 - aynı email ile silinen kullanıcı tekrar eklenemiyor
 - Bilet satışı statusu gelen giden veya ?
 - Rol bazlı kısıtlamalar
-
-
+- giden tur filtrelerß
+ödeme tipine cek
+kontrole ödeme tipi
 Çok satanlar whatsapp

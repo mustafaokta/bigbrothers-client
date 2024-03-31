@@ -46,6 +46,9 @@ const REGION_ADD = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/addRegion`;
 const REGION_DELETE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/deleteRegion`;
 
 
+const TICKET_GENERATE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/ticket/`;
+
+
 
 
 
@@ -84,6 +87,17 @@ const REGION_DELETE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/deleteRegion
 		.catch((err) => reject(err));
 	});
   };
+  
+  
+  
+export const ticketGenerate = (params: { data:  any }) => {
+	return new Promise((resolve, reject) => {
+		axios
+			.get(TICKET_GENERATE, {params: params.data} )
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err));
+	});
+};
 
 
    /* Agencies */
