@@ -143,9 +143,11 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const handleUpcomingPrint = (itm:any) => {
 		console.log('handleUpcomingPrint', itm);
 		// open a route in new window
-		window.open(`/bilet/belge/${itm.reservationUUID}`, '_blank');
-	};
-
+		//window.open(`/bilet/belge/${itm.reservationUUID}`, '_blank');
+		//console.log( `${process.env.NEXT_PUBLIC_API_HOST}/ticket/${itm.reservationUUID}`);
+		
+		window.open(`${process.env.NEXT_PUBLIC_API_HOST}/ticket/${itm.reservationUUID}`, '_blank');
+	}
 	const handleNewItem = () => {
 		setNewItemOffcanvas(!newItemOffcanvas);
 		 // set form to default empty values
