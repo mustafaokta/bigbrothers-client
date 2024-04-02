@@ -62,10 +62,10 @@ const Index: NextPage = () => {
 			surname: itm.surname,
 			identityNumber: itm.identityNumber,
 			emailAddress: itm.email,
-			password:itm.password,
+			password:'',
 			gender: itm.gender,
 			phoneNumber: itm.phoneNumber,
-			dateOfBirth: itm.dateOfBirth.split('T')[0],
+			dateOfBirth: itm.dateOfBirth?.split('T')[0],
 			roleId: itm.roleId,
 		});
 		setEditModalStatus(true)

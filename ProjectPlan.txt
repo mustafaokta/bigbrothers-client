@@ -40,6 +40,9 @@
 
 
 # TODOES
+- Dil bayrak default türkçe
+- logları kapat
+- user dönen yerlerde parola gizle
 - Bilet satışı statusu gelen giden veya ?
 - Yönetim Paneli üst sağ kısım chat ve notification kapt
 - Yönetim paneli ödemeler delete dinamikleştir
