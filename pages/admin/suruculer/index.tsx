@@ -98,7 +98,7 @@ const Index: NextPage = () => {
 		console.log('tekrar çalıştı');
 
 		listDrivers({ data : '' }, user.token!).then((res:any) => {
-			console.log('listTourReservation', res);
+			console.log('listDrivers : ', res);
 			setUsersList(res.content);
 		});
 	}, [newModalStatus, editModalStatus])
