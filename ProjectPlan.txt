@@ -40,7 +40,6 @@
 
 
 # TODOES
-- Bilet çıktı üretimi
 - Bilet satışı statusu gelen giden veya ?
 - Yönetim Paneli üst sağ kısım chat ve notification kapt
 - Yönetim paneli ödemeler delete dinamikleştir
@@ -71,10 +70,8 @@
 - bilet canvas
 
 # ISSUES
-- Ana sunucuya atılacak, ssl ayarlı olacak
 - paraşüt gps
 - aynı email ile silinen kullanıcı tekrar eklenemiyor
-- Bilet satışı statusu gelen giden veya ?
 - Rol bazlı kısıtlamalar
 - giden tur filtrelerß
 ödeme tipine cek

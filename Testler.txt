@@ -2,4 +2,8 @@
 - Kullanıcılar - ok
 - Sürücüler - ok
 - Oteller - ok
+- Tur -> fragmant göruntu kotu, sil butonu yok
+- Pilotlar - ok silme on delete cascade my sql dene
+- paraşüt - edit in close butonu, delete butonu yok
+- 
 

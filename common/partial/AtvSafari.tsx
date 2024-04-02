@@ -128,7 +128,7 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		reset({
 			id : '',
 			type : 'kendi',
-		 	tourId: '3',
+		 	tourId: '2',
 			tourDate: '',
 			tourTime: '',
 			extraLocation: '',
