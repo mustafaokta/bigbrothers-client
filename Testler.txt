@@ -5,12 +5,16 @@
     - Pilotlar - ok
     - tur tipleri - ok
     - tur listesi - fiyat int olcak - elenen dönem editte görünmuyor, delete butonu yok
+    - otel - ok
+    - araçlar - ok
+    - bölgeler - ok
     
-    
-    
-    - Oteller - ok
-    - Tur -> fragmant göruntu kotu, sil butonu yok
-  
+* Reservations
+    - Gelen tur sil yok
+    - Giden tur sil yok, gelendeki giibi ttur tipinr göre filtrele, fragment kontrol et
     - paraşüt - edit in close butonu, delete butonu yok
     - Atv - sil butonu yok
+    - media edit in kapat butonu çalışmyor, sil yok
+    - transfer - delete butonu yok, default gelen secili ama ilerlemyo
+    - payment -silmiyo
 

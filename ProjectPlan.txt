@@ -40,6 +40,7 @@
 
 
 # TODOES
+- müşteri 0 seçmemeli adult oalrak
 - tüm yeni kayıtlar üstte görunsun
 - Dil bayrak default türkçe
 - logları kapat

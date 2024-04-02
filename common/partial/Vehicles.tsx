@@ -259,13 +259,13 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 					<div className='row g-4'>
 					
 						    <div className='col-12'>
-								<FormGroup id='type' label='Tür' isFloating>
+								<FormGroup id='type' label='Marka' isFloating>
 								<Controller name="type"
                                             rules={{ required: true }}
                                              control={ control}
                                             render={({ field }) => (
 												<Input
-												placeholder='Tür'
+												placeholder='Marka'
 												{...field}
 											/>
                                              )}
@@ -352,13 +352,13 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 					<div className='row g-4'>
 					
 					<div className='col-12'>
-						<FormGroup id='type' label='Tür' isFloating>
+						<FormGroup id='type' label='Marka' isFloating>
 						<Controller name="type"
 									rules={{ required: true }}
 									 control={ control}
 									render={({ field }) => (
 										<Input
-										placeholder='Tür'
+										placeholder='Marka'
 										{...field}
 									/>
 									 )}
