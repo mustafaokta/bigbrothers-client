@@ -1,8 +1,9 @@
 * Admin Paneli
     - Ödemelerim - çek ekle
-    - Kullanıcılar - delete çalışmıyor, yönetici hariç admin kapat
-    
+    - Kullanıcılar - yönetici hariç admin kapat
     - Sürücüler - ok
+    
+    
     - Oteller - ok
     - Tur -> fragmant göruntu kotu, sil butonu yok
     - Pilotlar - ok silme on delete cascade my sql dene
