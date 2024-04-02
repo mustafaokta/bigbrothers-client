@@ -201,7 +201,7 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	if (tourIsLoading || hotelIsLoading || userListIsLoading || paymentMethodsIsLoading || agencyIsLoading || incomingIsLoading) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
 	if (tourIsError || hotelIsError || userListIsError || paymentMethodIsError || agencyIsError) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	// console.log('userListData', userListData);
-	// console.log('tourData', tourData);
+	 console.log('tourData', tourData);
 
 	let items = incomingTourData.content;
 	return (
@@ -353,7 +353,7 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					<form onSubmit={handleSubmit((data) => handleUpdateAction(data))}>
 					<ModalBody>
 					<div className='row g-4'>
-							<div className='col-4'>
+					<div className='col-4'>
 						    <FormGroup id='tourId' label='Tur Adı' isFloating>
 						        <Controller name="tourId"
 	                                            control={control}
@@ -363,10 +363,10 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		size='sm'
 																		placeholder='Seçiniz'
 																		ariaLabel='Seçiniz'
-																		list={tourData.content.map((el: any) => ({
+																		list={tourData.content.filter((el:any)=>el.id==2).map((el: any) => ({
 																			value: el.id,
-																			text: el.name+'-'+el.agency.name,
-																			label: el.name+'-'+el.agency.name,
+																			text: el.type.name+'-'+el.agency.name,
+																			label: el.type.name+'-'+el.agency.name,
 																		}))}
 																		disabled={true}
 																		className={classNames('rounded-1', {
@@ -707,10 +707,10 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		size='sm'
 																		placeholder='Seçiniz'
 																		ariaLabel='Seçiniz'
-																		list={tourData.content.map((el: any) => ({
+																		list={tourData.content.filter((el:any)=>el.id==2).map((el: any) => ({
 																			value: el.id,
-																			text: el.name+'-'+el.agency.name,
-																			label: el.name+'-'+el.agency.name,
+																			text: el.type.name+'-'+el.agency.name,
+																			label: el.type.name+'-'+el.agency.name,
 																		}))}
 																		disabled={true}
 																		className={classNames('rounded-1', {
