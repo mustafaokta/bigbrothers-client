@@ -40,6 +40,7 @@
 
 
 # TODOES
+- tüm yeni kayıtlar üstte görunsun
 - Dil bayrak default türkçe
 - logları kapat
 - user dönen yerlerde parola gizle

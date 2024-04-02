@@ -2,11 +2,15 @@
     - Ödemelerim - çek ekle
     - Kullanıcılar - yönetici hariç admin kapat
     - Sürücüler - ok
+    - Pilotlar - ok
+    - tur tipleri - ok
+    - tur listesi - fiyat int olcak - elenen dönem editte görünmuyor, delete butonu yok
+    
     
     
     - Oteller - ok
     - Tur -> fragmant göruntu kotu, sil butonu yok
-    - Pilotlar - ok silme on delete cascade my sql dene
+  
     - paraşüt - edit in close butonu, delete butonu yok
     - Atv - sil butonu yok
 

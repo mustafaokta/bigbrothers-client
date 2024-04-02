@@ -49,9 +49,10 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [perPage, setPerPage] = useState(PER_COUNT['5']);
 
 	useEffect(() => {
-		console.log('tekrar çalıştı');
+		
 
 		listHotel({ data : {} }, user.token!).then((res:any) => {
+			console.log('tekrar çalıştı listHotel : ', res);
 				setListData(res);
 				setIsLoading(false);
 				setIsError(null);
@@ -218,7 +219,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 									</td>
 									<td>{item.name}</td>
 									<td>{item.address}</td>
-									<td>{item.region.name}</td>
+									<td>{item.region?.name}</td>
 									<td>{item.contactInformation.emergencyContactPhone}</td>
 									<td>{item.contactInformation.emergencyContactEmail}</td>
 									<td>{item.contactInformation.emergencyContactFullName}</td>
