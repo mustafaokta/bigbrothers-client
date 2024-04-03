@@ -7,6 +7,7 @@ const PILOT_ADD = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/addPilot`;
 const MEDIA_PAYMENT_ADD = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/addMediaPayment`;
 const PILOT_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/pilotList`;
 const MEDIA_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/mediaList`;
+const DELETE_MEDIA = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/deleteMedia`;
 const UPDATE_MEDİA_PAYMENT = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/updateMediaPayment`;
 
 const PILOT_NAME_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/pilotNameList`;
@@ -33,6 +34,17 @@ export const postAddMediaPayment = (postData: { mediaPayment:  any }, token: str
       .catch((err) => reject(err));
   });
 };
+
+
+export const deleteMedia = (postData: { data:  any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+    .post(DELETE_MEDIA, postData, { headers: { Authorization: `Bearer ${token}` } })
+    .then((res) => resolve(res.data))
+    .catch((err) => reject(err));
+  });
+  };
+
 export const updateMediaPayment = (postData: { mediaPayment:  any }, token: string) => {
   return new Promise((resolve, reject) => {
     axios

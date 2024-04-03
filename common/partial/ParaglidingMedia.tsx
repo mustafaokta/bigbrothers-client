@@ -23,7 +23,7 @@ import Select from '../../components/bootstrap/forms/Select';
 import { useDataAgency, useDataPaymentMethods, useDataTourList } from '../../helpers/connections/tour';
 import { useUserContext } from '../../context/UserContext';
 import { useDataUserList } from '../../helpers/connections/user';
-import { postAddMediaPayment, postMediaList ,updateMediaPayment} from '../../helpers/connections/paragliding';
+import { deleteMedia,postAddMediaPayment, postMediaList ,updateMediaPayment} from '../../helpers/connections/paragliding';
 import { useDataPilotName} from '../../helpers/connections/paragliding';
 import UserImage from '../../assets/img/wanna/wanna1.png';
 
@@ -57,6 +57,22 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 		{ value: 'GBP', label: 'Sterlin' },
 
 		]
+
+
+		const handleDeleteAction = (postData: any) => {
+			deleteMedia({ data: postData}, user.token!)
+		   .then((res) => {
+			postMediaList({ data : {} }, user.token!).then((res:any) => {
+				console.log('postMediaList', res);
+				setMediaListData(res);
+			   }
+   );
+
+		})
+			.catch((err:any) => {
+				console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+			});
+		}
 
 	const handleUpcomingEdit = (itm:any) => {
 
@@ -193,7 +209,7 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 					<table className='table table-modern'>
 						<thead>
 							<tr>
-
+							<td style={{ width: 60 }} />
 								<th>Satış Tarih / Sorti</th>
 								<th>Pilot Adı</th>
 								<th>Media Türü</th>
@@ -212,7 +228,20 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 
 							{dataPagination(items, currentPage, perPage).map((item:any) => (
 								<tr key={item.id}>
+											<td>
+										<Button
+											isOutline={!darkModeStatus}
+											color='dark'
+											isLight={darkModeStatus}
+											className={classNames({
+												'border-light': !darkModeStatus,
+											})}
+											icon='Delete'
+											onClick={()=>handleDeleteAction(item)}
 
+											aria-label='Detailed information'
+										/>
+									</td>
 									<td>
 									{dayjs(`${item.soldDate}`).format(
 													'MMM Do YYYY',
@@ -286,7 +315,7 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 					isCentered
 					isScrollable
 					size='lg'>
-					<ModalHeader setIsOpen={setNewItemOffcanvas}>
+					<ModalHeader setIsOpen={setUpcomingEventsEditOffcanvas}>
 						<OffCanvasTitle id='upcomingEdit'>Medya Düzenle</OffCanvasTitle>
 					</ModalHeader>
 					<form onSubmit={handleSubmit((data) => handleUpdateAction(data))}>
@@ -474,7 +503,7 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 							<FormGroup id='note' label='Not' isFloating>
 						        <Controller name="note"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Yazınız'
@@ -695,7 +724,7 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 							<FormGroup id='note' label='Not' isFloating>
 						        <Controller name="note"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Yazınız'

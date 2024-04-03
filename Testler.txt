@@ -8,11 +8,11 @@
     - otel - ok
     - araçlar - ok
     - bölgeler - ok
-    
+
 * Reservations
     - gelen giden fragment kontrol et
     - paraşüt - edit in close butonu, delete butonu yok
-    - Atv - sil butonu yok
+    - Atv - ok
     - media edit in kapat butonu çalışmyor, sil yok
     - transfer - delete butonu yok, default gelen secili ama ilerlemyo
     - payment -silmiyo
