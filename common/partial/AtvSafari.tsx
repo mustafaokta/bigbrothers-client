@@ -20,7 +20,7 @@ import useDarkMode from '../../hooks/useDarkMode';
 import Modal, { ModalBody, ModalFooter, ModalHeader } from '../../components/bootstrap/Modal';
 import { useForm, Controller } from 'react-hook-form';
 import Select from '../../components/bootstrap/forms/Select';
-import { postAddAtv, useDataAgency, useDataPaymentMethods, useDataTourList, useDataHotelList, listAtvReservation, updateAtvTour } from '../../helpers/connections/tour';
+import { postAddAtv,deleteAtv, useDataAgency, useDataPaymentMethods, useDataTourList, useDataHotelList, listAtvReservation, updateAtvTour } from '../../helpers/connections/tour';
 import { useUserContext } from '../../context/UserContext';
 import { useDataUserList } from '../../helpers/connections/user';
 import showNotification from '../../components/extras/showNotification';
@@ -185,6 +185,22 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			});
 	};
 
+
+	const handleDeleteAction = (postData: any) => {
+		deleteAtv({ data: postData}, user.token!)
+	   .then((res) => {
+
+		listAtvReservation({ data : {reservationType:'giden'} }, user.token!).then((res:any) => {
+			// console.log('listTourReservation', res);
+								setIncomingTourData(res);}
+);
+
+	})
+		.catch((err:any) => {
+			console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+		});
+	}
+
 	const currency = [
 		{ value: 'TRY', label: 'TL' },
 		{ value: 'USD', label: 'Dolar' },
@@ -270,7 +286,7 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 							{dataPagination(items, currentPage, perPage).map((item:any) => (
 								<tr key={item.id}>
-									<td>
+								<td>
 										<Button
 											isOutline={!darkModeStatus}
 											color='dark'
@@ -278,8 +294,9 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 											className={classNames({
 												'border-light': !darkModeStatus,
 											})}
-											icon='Info'
-										onClick={()=>handleUpcomingEdit(item)}
+											icon='Delete'
+											onClick={()=>handleDeleteAction(item)}
+
 											aria-label='Detailed information'
 										/>
 									</td>
