@@ -104,7 +104,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						   itemm[`customerIdentityNumber${i+1}`] = itm.customers[i]['customerIdentityNumber'];
 						   itemm[`customerPhoneNumber${i+1}`]= itm.customers[i]['customerPhoneNumber'];
 						   itemm[`customerAddress${i+1}`] = itm.customers[i]['customerAddress'];
-						   itemm[`customerDateOfBirth${i+1}`] = itm.customers[i]['customerDateOfBirth'].split('T')[0];
+						   itemm[`customerDateOfBirth${i+1}`] = itm.customers[i]['customerDateOfBirth']?.split('T')[0];
 						   itemm[`customerEmail${i+1}`] = itm.customers[i]['customerEmail'];
 							
 								   
@@ -1188,7 +1188,7 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 					setValue(`customerIdentityNumber${i+1}`, fragments[i]['customerIdentityNumber']);
 					setValue(`customerPhoneNumber${i+1}`,fragments[i]['customerPhoneNumber']);
 					setValue(`customerAddress${i+1}`, fragments[i]['customerAddress']);
-					setValue(`customerDateOfBirth${i+1}`, fragments[i]['customerDateOfBirth'].split('T')[0]);
+					setValue(`customerDateOfBirth${i+1}`, fragments[i]['customerDateOfBirth']?.split('T')[0]);
 					setValue(`customerEmail${i+1}`, fragments[i]['customerEmail'])
 					 
 							
