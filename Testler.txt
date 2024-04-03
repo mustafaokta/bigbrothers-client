@@ -1,18 +1,16 @@
 * Admin Paneli
-    - Ödemelerim - çek ekle
+    - Ödemelerim - ok
     - Kullanıcılar - ok
     - Sürücüler - ok
     - Pilotlar - ok
     - tur tipleri - ok
-    - tur listesi - fiyat int olcak - eklenen dönem editte görünmuyor, delete butonu yok
+    - tur listesi -  eklenen dönem editte görünmuyor
     - otel - ok
     - araçlar - ok
     - bölgeler - ok
 
 * Reservations
     - gelen giden fragment kontrol et
-    - Atv - sil butonu yok- taner
-    - media edit in kapat butonu çalışmyor, sil yok -taner
     - transfer - delete butonu yok, default gelen secili ama ilerlemyo
     - payment -silmiyo
 

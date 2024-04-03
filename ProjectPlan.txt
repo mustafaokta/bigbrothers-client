@@ -17,8 +17,6 @@
     - Güncelle
     
     
-    - Admin yetkilerini diğerlerinde kısıtla
-    -  Salesman -satıcı rolü eklenmesi
     - tc no hane sayısı kontrolü
     - boş data validasyon kontrolü
     - şifre pasword tipi kontrolü
@@ -46,23 +44,17 @@
 - logları kapat
 - user dönen yerlerde parola gizle
 - Bilet satışı statusu gelen giden veya ?
-- Yönetim Paneli üst sağ kısım chat ve notification kapt
-- Yönetim paneli ödemeler delete dinamikleştir
-- Üst taraflardaki yazılar
 - Export yazdırmaları window print e baglasak nasıl olur kontrol etmiyo
 - Personele whatsapp tan mesaj gonderme butonu aktif et
 - Dashboard aktif personel dinamikleşecek
 - Dashboard üst tab bar (günlük haftalık vs) dinamikleşecek
 - Transferde fragment delete ilk item update etmiyor db yi
-- Transfer delete yok
 
 - Bilet sat yeni itema satıcı bilgisini gönder ki satıcı perforamnsını ölçelim
 - Transfere distance ekle
 - Operasyon görevlisi ekranı 
 - Documantasyonu kapat
 - form yapısı scroll olacak- form kLKINCA CALISIYO
-- tüm errors. sonrası fendi form id si olacak
-- Üst breadcrumb yapısı(inspect le)
 - fragmant delete item update etmiyor
 - currency leri swrd dan okut,  ödemelerdeki gibi kullan
 - tc noları  11 hane olacak max
@@ -77,8 +69,5 @@
 # ISSUES
 - paraşüt gps
 - aynı email ile silinen kullanıcı tekrar eklenemiyor
-- Rol bazlı kısıtlamalar
-- giden tur filtrelerß
-ödeme tipine cek
 kontrole ödeme tipi
 Çok satanlar whatsapp
