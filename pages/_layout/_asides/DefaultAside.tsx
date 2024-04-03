@@ -41,6 +41,7 @@ const DefaultAside = () => {
 	const { darkModeStatus } = useDarkMode();
 	const {user}= useUserContext();
 
+console.log(user.roleId, '----');
 
 	return (
 		<Aside>
@@ -52,11 +53,11 @@ const DefaultAside = () => {
 				
 				<>
 					<NavigationLine />
-				{user.roleId==1 ??	<Navigation menu={adminMenu} id='aside-menu1' />}
+					{Number(user.roleId) === 1 && <Navigation menu={adminMenu} id='aside-menu1' />}
 					<NavigationLine />
 					<Navigation menu={reservationMenu} id='aside-menu2' />
-						<NavigationLine />
-					{!asideStatus  &&<Navigation menu={ticketMenu} id='aside-menu3' /> }
+					<NavigationLine />
+					{!asideStatus && <Navigation menu={ticketMenu} id='aside-menu3' />}
 				</>
 				
 
