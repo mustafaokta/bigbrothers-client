@@ -13,7 +13,6 @@ import Icon from '../../../components/icon/Icon';
 import Popovers from '../../../components/bootstrap/Popovers';
 import Button from '../../../components/bootstrap/Button';
 import Page from '../../../layout/Page/Page';
-import CommonUpcomingEvents from '../../../common/partial/CommonUpcomingEvents';
 import ParaglidingDailyList from '../../../common/partial/ParaglidingDailyList';
 
 const Index: NextPage = () => {
