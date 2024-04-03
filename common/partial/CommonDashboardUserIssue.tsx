@@ -67,7 +67,7 @@ const CommonDashboardUserIssue = () => {
 	//const completeTaskLength = list.filter((i) => i.status).length;
 	useEffect(() => {
 		listPayments({ data : {} }, user.token!).then((res:any) => {
-		
+
 				setListData(res.content.map((item:any) => {
 				 					return {
 						id: item.id,
@@ -75,9 +75,10 @@ const CommonDashboardUserIssue = () => {
 						title: item.amount + ' ' + item.currency.label + '-' +item.paidToAgency.name + (item.note?(' ('+item.note+')'):''),
 						date: new Date(item.date),
 						badge: item.status ? TODO_BADGES.ODENDI: TODO_BADGES.ODENMEDI,
+						payment:"Çek"
 					}
 				}) );
-				
+
 				setIsLoading(false);
 				setIsError(null);
 			}
@@ -85,15 +86,15 @@ const CommonDashboardUserIssue = () => {
 			 				setIsError(err?.response?.data?.content);
 				setIsLoading(false);
 			});
-			 
+
 		}, [listData.length, user.token])
-	
+
 
 
 
 	if (  isLoading ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
 	if ( isError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
-	
+
 	let items= listData.content;
 	return (
 		<Card stretch>

@@ -59,6 +59,8 @@ interface ITodoItemProps {
 export const TodoItem = forwardRef<HTMLDivElement, ITodoItemProps>(
 	({ index, list, setList, ...props }, ref) => {
 		const itemData = list[index];
+		console.clear()
+		console.log("item ",itemData)
 		const { user } = useUserContext();
 		const handleChange = (_index: number) => {
 			const newTodos = [...list];
@@ -103,7 +105,12 @@ export const TodoItem = forwardRef<HTMLDivElement, ITodoItemProps>(
 							{dayjs(itemData.date).fromNow()}
 						</div>
 					)}
+
 				</div>
+				<div className='todo-content'>
+
+												Ödeme Yöntemi: {itemData.payment}</div>
+
 				<div className='todo-extras'>
 					{itemData?.badge && (
 						<span className='me-2'>
