@@ -20,7 +20,7 @@ import useDarkMode from '../../hooks/useDarkMode';
 import Modal, { ModalBody, ModalFooter, ModalHeader } from '../../components/bootstrap/Modal';
 import { useForm, Controller } from 'react-hook-form';
 import Select from '../../components/bootstrap/forms/Select';
-import { postAddTourReservation, useDataAgency, useDataPaymentMethods,useDataHotelList, useDataTourList, listTourReservation, postUpdateTourReservation, useDataTourType } from '../../helpers/connections/tour';
+import { postAddTourReservation, useDataAgency, useDataPaymentMethods,useDataHotelList, useDataTourList, listTourReservation, postUpdateTourReservation, useDataTourType, deleteTourReservation } from '../../helpers/connections/tour';
 import { useUserContext } from '../../context/UserContext';
 import { useDataUserList } from '../../helpers/connections/user';
 import showNotification from '../../components/extras/showNotification';
@@ -193,6 +193,16 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 				// toast.error(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
 			});
 	};
+	const handleDeleteAction = (postData: any) => {
+		deleteTourReservation({ data : {reservationType:'gelen', reservationId: postData.id } }, user.token!).then((res:any) => {
+			// console.log('listTourReservation', res);
+								setIncomingTourData(res);
+}
+)
+		.catch((err:any) => {
+			console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+		});
+	}
 
 	const currency = [
 		{ value: 'TRY', label: 'TL' },
@@ -289,7 +299,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 												'border-light': !darkModeStatus,
 											})}
 											icon='Delete'
-										//onClick={()=>handleUpcomingEdit(item)}
+										onClick={()=>handleDeleteAction(item)}
 											aria-label='Detailed information'
 										/>
 									</td>

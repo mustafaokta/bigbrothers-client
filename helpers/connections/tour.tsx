@@ -13,6 +13,7 @@ const DELETOUR = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/deleteTours`;
 const TOUR_RESERVATION_ADD = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/addTourReservation`;
 const TOUR_RESERVATOIN_UPDATE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/updateTourReservation`;
 const TOUR_RESERVATION_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/listTourReservation`;
+const TOUR_RESERVATION_DELETE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/deleteTourReservation`;
 
 const TOUR_ATV_ADD = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/addAtvTour`;
 const TOUR_ATV_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/listAtvReservation`;
@@ -132,6 +133,14 @@ export const postAddTourReservation = (postData: { data:  any }, token: string) 
 	return new Promise((resolve, reject) => {
 	  axios
 		.post(TOUR_RESERVATION_ADD, postData, { headers: { Authorization: `Bearer ${token}` } })
+		.then((res) => resolve(res.data))
+		.catch((err) => reject(err));
+	});
+  };
+export const deleteTourReservation = (postData: { data:  any }, token: string) => {
+	return new Promise((resolve, reject) => {
+	  axios
+		.post(TOUR_RESERVATION_DELETE, postData, { headers: { Authorization: `Bearer ${token}` } })
 		.then((res) => resolve(res.data))
 		.catch((err) => reject(err));
 	});
