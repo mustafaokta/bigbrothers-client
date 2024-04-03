@@ -10,7 +10,7 @@
     - bölgeler - ok
     
 * Reservations
-    - Giden tur sil yok, gelendeki giibi ttur tipinr göre filtrele, fragment kontrol et
+    - gelen giden fragment kontrol et
     - paraşüt - edit in close butonu, delete butonu yok
     - Atv - sil butonu yok
     - media edit in kapat butonu çalışmyor, sil yok
