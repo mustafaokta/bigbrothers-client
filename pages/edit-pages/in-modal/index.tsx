@@ -76,10 +76,8 @@ const Index: NextPage = () => {
 				<SubHeaderLeft>
 					<Icon icon='Info' className='me-2' size='2x' />
 					<span className='text-muted'>
-						You have <Icon icon='TaskAlt' color='success' className='mx-1' size='lg' />{' '}
-						3 approved appointments and{' '}
-						<Icon icon='Alarm' color='warning' className='mx-1' size='lg' /> 4 pending
-						appointments for today.
+						İlgili güncel sonuçlar <Icon icon='TaskAlt' color='success' className='mx-1' size='lg' />aşağıda
+						<Icon icon='Alarm' color='warning' className='mx-1' size='lg' /> listelenmiştir.
 					</span>
 				</SubHeaderLeft>
 				<SubHeaderRight>
