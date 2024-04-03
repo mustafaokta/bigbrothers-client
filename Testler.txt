@@ -18,3 +18,4 @@
     - transfer - delete butonu yok, default gelen secili ama ilerlemyo
     - payment -silmiyo
 
+fragmentten dolayı scroll problemi var

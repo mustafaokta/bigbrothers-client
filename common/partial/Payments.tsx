@@ -43,12 +43,13 @@ const Payments: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const { data:paymentMethodsData, isLoading:paymentMethodsIsLoading, isError:paymentMethodIsError } = useDataPaymentMethods();
 	const { data: agencyData, isLoading: agencyIsLoading, isError: agencyIsError } = useDataAgency();
 	const { data: currencyData, isLoading: currencyIsLoading, isError: currencyIsError } = useDataCurrency();
-	
 
-	
+
+
+
 	const [newItemOffcanvas, setNewItemOffcanvas] = useState<boolean>(false);
 	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState(false);
-	
+
 
 
 	const [currentPage, setCurrentPage] = useState(1);
@@ -66,7 +67,7 @@ const Payments: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			 				setIsError(err?.response?.data?.content);
 				setIsLoading(false);
 			});
-			 
+
 		}, [newItemOffcanvas, upcomingEventsEditOffcanvas])
 
 
@@ -102,11 +103,11 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 			"paymentMethodId": "",
 			"paidToAgencyId": "",
 			"status": false,
-			"note": ""	 
+			"note": ""
 					}
 					reset(itemm);
 		setNewItemOffcanvas(!newItemOffcanvas);
-		
+
 	};
 	const handleNewAction = (post_data: any) => {
 		let postData = post_data;
@@ -154,6 +155,12 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	if (  isLoading || paymentMethodsIsLoading || currencyIsLoading  ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
 	if ( isError || paymentMethodIsError || currencyIsError  ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	let items= listData.content;
+	if(paymentMethodsData.content.length==4){
+		paymentMethodsData.content.push({id:5, name:'Çek'});
+
+	}
+
+
 	return (
 		<>
 			{/* Page List */}
@@ -255,7 +262,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 				/>
 			</Card>
 
-			 
+
 			{/* Edit Modal */}
 			<Modal
 					setIsOpen={setUpcomingEventsEditOffcanvas}
