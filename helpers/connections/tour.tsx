@@ -7,6 +7,8 @@ const TOUR_ADD = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/addTour`;
 const TOUR_UPDATE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/updateTour`;
 const TOUR_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/list`;
 const TOUR_LIST_SWR = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/listSwr`;
+const DELETOUR = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/deleteTours`;
+
 
 const TOUR_RESERVATION_ADD = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/addTourReservation`;
 const TOUR_RESERVATOIN_UPDATE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/updateTourReservation`;
@@ -16,6 +18,7 @@ const TOUR_RESERVATION_DELETE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/del
 const TOUR_ATV_ADD = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/addAtvTour`;
 const TOUR_ATV_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/listAtvReservation`;
 const UPDATE_ATV_TOUR = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/updateAtvTour`;
+const DELETE_ATV = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/deleteAtv`;
 
 const TOUR_TYPE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/type`;
 const TOUR_REGIONS = `${process.env.NEXT_PUBLIC_API_HOST}/v1/tour/regions`;
@@ -46,6 +49,14 @@ export const postUpdateTour = (postData: { tour:  ITour }, token: string) => {
       .catch((err) => reject(err));
   });
 };
+export const deleteTours = (postData: { data:  any }, token: string) => {
+	return new Promise((resolve, reject) => {
+	  axios
+		.post(DELETOUR, postData, { headers: { Authorization: `Bearer ${token}` } })
+		.then((res) => resolve(res.data))
+		.catch((err) => reject(err));
+	});
+  };
 
   export const listTour = (postData: { data:  any }, token: string) => {
 	return new Promise((resolve, reject) => {
@@ -135,6 +146,16 @@ export const deleteTourReservation = (postData: { data:  any }, token: string) =
 		.catch((err) => reject(err));
 	});
   };
+
+  export const deleteAtv = (postData: { data:  any }, token: string) => {
+	return new Promise((resolve, reject) => {
+	  axios
+		.post(DELETE_ATV, postData, { headers: { Authorization: `Bearer ${token}` } })
+		.then((res) => resolve(res.data))
+		.catch((err) => reject(err));
+	});
+  };
+
 
 
 export const postAddAtv = (postData: { data:  any }, token: string) => {

@@ -19,7 +19,7 @@ import PaginationButtons, { dataPagination, PER_COUNT } from '../../components/P
 import useDarkMode from '../../hooks/useDarkMode';
 import Modal, { ModalBody, ModalFooter, ModalHeader } from '../../components/bootstrap/Modal';
 import { useUserContext } from '../../context/UserContext';
-import { postAddTour, useDataTourType,useDataAgency, postUpdateTour, listTour } from '../../helpers/connections/tour';
+import { postAddTour,deleteTours, useDataTourType,useDataAgency, postUpdateTour, listTour } from '../../helpers/connections/tour';
 import Select from '../../components/bootstrap/forms/Select';
 import { useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
@@ -95,7 +95,7 @@ let id=itm.tourPeriodPrices[i][`id`];
  	itemm[`periodEnd${id}`] = itm.tourPeriodPrices[i].periodEnd.split('T')[0];
  	itemm[`priceAdult${id}`] = itm.tourPeriodPrices[i].price;
  	itemm[`priceChild${id}`] = itm.tourPeriodPrices[i].halfPrice;
- 	   
+
 }
 
 
@@ -107,7 +107,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	};
 
 	const handleNewItem = () => {
-	
+
 		let itemm: { [key: string]: any }=	{
 			"id":  0,
 			"typeId": "",
@@ -120,8 +120,26 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 					reset(itemm);
 					setFragments([{ id: 0 }]);
 		setNewItemOffcanvas(!newItemOffcanvas);
-		
+
 	};
+
+
+	const handleDeleteAction = (postData: any) => {
+		deleteTours({ data: postData}, user.token!)
+	   .then((res) => {
+		listTour({ data : {} }, user.token!).then((res:any) => {
+			console.log('listTourData', res);
+			setTourData(res);
+}
+);
+
+	})
+		.catch((err:any) => {
+			console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+		});
+	}
+
+
 	const handleNewAction = (post_data: any) => {
 		let postData = post_data;
 	console.log('post_data', postData);
@@ -138,6 +156,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	};
 	const handleEditAction = (post_data: any) => {
 		let postData = post_data;
+		console.clear()
 	console.log('post_data', postData);
 
 		postUpdateTour({ tour: postData }, user.token!)
@@ -207,7 +226,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 					<table className='table table-modern'>
 						<thead>
 							<tr>
-								<td style={{ width: 60 }} />
+							<td style={{ width: 60 }} />
 								<th>Tur Tipi</th>
 								<th>Düzenleyen Acenta</th>
 								<th>Fiyat (Çocuk)</th>
@@ -218,7 +237,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 						<tbody>
 							{dataPagination(items, currentPage, perPage).map((item) => (
 								<tr key={item.id}>
-									<td>
+								<td>
 										<Button
 											isOutline={!darkModeStatus}
 											color='dark'
@@ -226,8 +245,8 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 											className={classNames({
 												'border-light': !darkModeStatus,
 											})}
-											icon='Info'
-											onClick={()=>handleUpcomingEdit(item)}
+											icon='Delete'
+											onClick={()=>handleDeleteAction(item)}
 
 											aria-label='Detailed information'
 										/>
@@ -267,7 +286,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 				/>
 			</Card>
 
-			 
+
 			{/* Edit Modal */}
 			<Modal
 					setIsOpen={setUpcomingEventsEditOffcanvas}
@@ -365,10 +384,11 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 							<div className='col-5'>
 								<FormGroup id='price' label='Fiyat (Yetişkin)' isFloating>
 								<Controller name="price"
-                                            rules={{ required: true, pattern: /^[0-9]+$/}}
+                                            rules={{ required: true}}
                                              control={ control}
                                             render={({ field }) => (
 												<Input
+												type='number'
 												placeholder='Fiyat (Yetişkin)'
 												{...field}
 											/>
@@ -380,10 +400,11 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 							<div className='col-5'>
 								<FormGroup id='halfPrice' label='Fiyat (Çocuk)' isFloating>
 								<Controller name="halfPrice"
-                                            rules={{ required: true, pattern: /^[0-9]+$/}}
-                                             control={ control}
+                                            rules={{ required: true}}
+											control={ control}
                                             render={({ field }) => (
 												<Input
+												type='number'
 												placeholder='Fiyat (Çocuk)'
 												{...field}
 											/>
@@ -525,10 +546,11 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 							<div className='col-5'>
 								<FormGroup id='price' label='Fiyat (Yetişkin)' isFloating>
 								<Controller name="price"
-                                            rules={{ required: true, pattern: /^[0-9]+$/}}
-                                             control={ control}
+                                            rules={{ required: true}}
+											control={ control}
                                             render={({ field }) => (
 												<Input
+												type='number'
 												placeholder='Fiyat (Yetişkin)'
 												{...field}
 											/>
@@ -540,10 +562,11 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 							<div className='col-5'>
 								<FormGroup id='halfPrice' label='Fiyat (Çocuk)' isFloating>
 								<Controller name="halfPrice"
-                                            rules={{ required: true, pattern: /^[0-9]+$/}}
-                                             control={ control}
+                                            rules={{ required: true}}
+											control={ control}
                                             render={({ field }) => (
 												<Input
+												type='number'
 												placeholder='Fiyat (Çocuk)'
 												{...field}
 											/>
@@ -628,7 +651,7 @@ console.log('fragments', fragments);
                                              control={ control}
                                             render={({ field }) => (
 												<Input
-												disabled={isDisabled} 
+												disabled={isDisabled}
 												placeholder='Dönem Adı'
 												{...field}
 											/>
@@ -644,7 +667,7 @@ console.log('fragments', fragments);
 	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
 													<Input
-													disabled={isDisabled} 
+													disabled={isDisabled}
 												placeholder='Başlangıç Tarihi'
 												type='date'
 												{...field}
@@ -660,7 +683,7 @@ console.log('fragments', fragments);
 	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
 													<Input
-													disabled={isDisabled} 
+													disabled={isDisabled}
 												placeholder='Bitiş Tarihi'
 												type='date'
 												{...field}
@@ -672,11 +695,12 @@ console.log('fragments', fragments);
 			  <div className='col-2'>
 				<FormGroup id={`priceAdult${fragment.id}`} label='Fiyat (Yetişkin)' isFloating>
 				  <Controller name={`priceAdult${fragment.id}`}
-							  rules={{ required: true, pattern: /^[0-9]+$/}}
-							  control={control}
+                                            rules={{ required: true}}
+											control={control}
 							  render={({ field }) => (
 								<Input
-								disabled={isDisabled} 
+								type='number'
+								disabled={isDisabled}
 								placeholder='Fiyat (Yetişkin)'
 								{...field}
 							  />
@@ -688,11 +712,12 @@ console.log('fragments', fragments);
 			  <div className='col-2'>
 				<FormGroup id={`priceChild${fragment.id}`} label='Fiyat (Çocuk)' isFloating>
 				  <Controller name={`priceChild${fragment.id}`}
-							  rules={{ required: true, pattern: /^[0-9]+$/}}
-							  control={control}
+                                            rules={{ required: true}}
+											control={control}
 							  render={({ field }) => (
 								<Input
-								disabled={isDisabled} 
+								type='number'
+								disabled={isDisabled}
 								placeholder='Fiyat (Yetişkin)'
 								{...field}
 							  />

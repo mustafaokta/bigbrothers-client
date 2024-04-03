@@ -8,7 +8,7 @@
     - otel - ok
     - araçlar - ok
     - bölgeler - ok
-    
+
 * Reservations
     - gelen giden fragment kontrol et
     - paraşüt - edit in close butonu, delete butonu yok
