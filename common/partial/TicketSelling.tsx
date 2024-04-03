@@ -1265,7 +1265,15 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 	};
 
 	const deleteFragment = (id:any) => {
+		if (fragments.length === 1) {
+			return showNotification(
+				'Hata', // String, HTML or Component
+				'En az bir müşteri bilgisi girilmelidir.', // String, HTML or Component
+				'danger' // 'default' || 'info' || 'warning' || 'success' || 'danger',
+			);
 			
+		}
+			console.log(fragments.length, 'fragments', fragments);
 				
 			const confirmation = window.confirm('Silmek istediğinizden emin misiniz?'); // Tarayıcı standart onay kutusu
 			let indexDeleted=	fragments.findIndex((object: { id: any; }) => object.id === id)
