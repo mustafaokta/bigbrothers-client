@@ -75,7 +75,7 @@ const CommonDashboardUserIssue = () => {
 						title: item.amount + ' ' + item.currency.label + '-' +item.paidToAgency.name + (item.note?(' ('+item.note+')'):''),
 						date: new Date(item.date),
 						badge: item.status ? TODO_BADGES.ODENDI: TODO_BADGES.ODENMEDI,
-						payment:"Çek"
+						payment:item.paymentMethod.name
 					}
 				}) );
 

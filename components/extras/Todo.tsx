@@ -8,7 +8,7 @@ import Button from '../bootstrap/Button';
 import Dropdown, { DropdownItem, DropdownMenu, DropdownToggle } from '../bootstrap/Dropdown';
 import useDarkMode from '../../hooks/useDarkMode';
 import { TColor } from '../../type/color-type';
-import { updatePaymentStatus } from '../../helpers/connections/admin';
+import { deletePayments, updatePaymentStatus } from '../../helpers/connections/admin';
 import { useUserContext } from '../../context/UserContext';
 
 /**
@@ -45,6 +45,7 @@ export interface ITodoListItem {
 	status?: boolean;
 	title?: string | number;
 	date?: dayjs.ConfigType;
+	payment?: string;
 	badge?: {
 		text?: string;
 		color?: TColor;
@@ -71,6 +72,15 @@ export const TodoItem = forwardRef<HTMLDivElement, ITodoItemProps>(
 			}
 			);
 		};
+		const handleDeleteAction = (postData: any) => {
+			deletePayments({ data: postData}, user.token!)
+				.then((res) => {
+					setList(res);
+			})
+			.catch((err:any) => {
+				console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+			});
+		}
 
 		const removeTodo = (_index: number) => {
 			const newTodos = [...list];
