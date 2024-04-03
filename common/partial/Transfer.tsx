@@ -23,7 +23,7 @@ import { useDataAgency, useDataPaymentMethods, useDataHotelList, useDataVehicleL
 import { useUserContext } from '../../context/UserContext';
 import { useDataUserList } from '../../helpers/connections/user';
 import showNotification from '../../components/extras/showNotification';
-import { listTransfer, postAddTransfer, postUpdateTransfer } from '../../helpers/connections/transfer';
+import { listTransfer, postAddTransfer, postDeleteTransfer, postUpdateTransfer } from '../../helpers/connections/transfer';
 
 
 interface ICommonUpcomingEventsProps {
@@ -104,7 +104,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						   itemm[`customerIdentityNumber${i+1}`] = itm.customers[i]['customerIdentityNumber'];
 						   itemm[`customerPhoneNumber${i+1}`]= itm.customers[i]['customerPhoneNumber'];
 						   itemm[`customerAddress${i+1}`] = itm.customers[i]['customerAddress'];
-						   itemm[`customerDateOfBirth${i+1}`] = itm.customers[i]['customerDateOfBirth'].split('T')[0];
+						   itemm[`customerDateOfBirth${i+1}`] = itm.customers[i]['customerDateOfBirth']?.split('T')[0];
 						   itemm[`customerEmail${i+1}`] = itm.customers[i]['customerEmail'];
 							
 								   
@@ -167,6 +167,21 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			.then((res) => {
 				//toast.success(`Yeni tour rezervasyon kaydı oluşturuldu`);
 				setNewItemOffcanvas(false)
+			})
+			.catch((err) => {
+				console.log("error");
+				// toast.error(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+			});
+	};
+	const handleDeleteAction = (data: any) => {
+	console.log('post_data', data);
+
+	postDeleteTransfer({ data : data }, user.token!)
+			.then((res:any) => {
+				listTransfer({ data : {} }, user.token!).then((res:any) => {
+		   setTransferData(res);
+		   }
+		   );
 			})
 			.catch((err) => {
 				console.log("error");
@@ -269,9 +284,9 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 											className={classNames({
 												'border-light': !darkModeStatus,
 											})}
-											icon='Info'
-										onClick={()=>handleUpcomingEdit(item)}
-											aria-label='Detailed information'
+											icon='Delete'
+										onClick={()=>handleDeleteAction(item)}
+											aria-label='Sil'
 										/>
 									</td>
 									<td>{item.transferDate + item.transferTime}</td>
@@ -351,9 +366,11 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 										render={({ field }) => (
 											<Select
 											size='sm'
-											ariaLabel='Yön'
+											placeholder='Birim'
+											ariaLabel='Birim'
 											list={directionTypes.map((el: any) => ({
 												value: el.value,
+												text: el.label,
 												label: el.label,
 											}))}
 											className={classNames('rounded-1', {
@@ -755,17 +772,19 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                              control={ control}
                                             render={({ field }) => (
 												<Select
-												size='sm'
-												ariaLabel='Yön'
-												list={directionTypes.map((el: any) => ({
-													value: el.value,
-													label: el.label,
-												}))}
-												className={classNames('rounded-1', {
-													'bg-white': !darkModeStatus,
-												})}
-											{...field}
-											/>
+											size='sm'
+											placeholder='Birim'
+											ariaLabel='Birim'
+											list={directionTypes.map((el: any) => ({
+												value: el.value,
+												text: el.label,
+												label: el.label,
+											}))}
+											className={classNames('rounded-1', {
+												'bg-white': !darkModeStatus,
+											})}
+										{...field}
+										/>
                                              )}
                                     />
 
@@ -1132,7 +1151,15 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 	};
 
 	const deleteFragment = (id:any) => {
-			
+			if (fragments.length === 1) {
+				return showNotification(
+					'Hata', // String, HTML or Component
+					'En az bir müşteri bilgisi girilmelidir.', // String, HTML or Component
+					'danger' // 'default' || 'info' || 'warning' || 'success' || 'danger',
+				);
+				
+			}
+				console.log(fragments.length, 'fragments', fragments);
 				
 			const confirmation = window.confirm('Silmek istediğinizden emin misiniz?'); // Tarayıcı standart onay kutusu
 			let indexDeleted=	fragments.findIndex((object: { id: any; }) => object.id === id)
@@ -1161,7 +1188,7 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 					setValue(`customerIdentityNumber${i+1}`, fragments[i]['customerIdentityNumber']);
 					setValue(`customerPhoneNumber${i+1}`,fragments[i]['customerPhoneNumber']);
 					setValue(`customerAddress${i+1}`, fragments[i]['customerAddress']);
-					setValue(`customerDateOfBirth${i+1}`, fragments[i]['customerDateOfBirth'].split('T')[0]);
+					setValue(`customerDateOfBirth${i+1}`, fragments[i]['customerDateOfBirth']?.split('T')[0]);
 					setValue(`customerEmail${i+1}`, fragments[i]['customerEmail'])
 					 
 							
