@@ -1085,19 +1085,19 @@ export const reservationMenu = {
 	},
 	singlePages: {
 		id: 'singlePages',
-		text: 'Tour',
+		text: 'Tur Rezervasyonu',
 		path: 'single-pages',
 		icon: 'Surfing',
 		subMenu: {
 			boxedSingle: {
 				id: 'boxedSingle',
-				text: 'Incoming',
+				text: 'Gelen',
 				path: 'tur/gelen',
 				icon: 'CallReceived',
 			},
 			fluidSingle: {
 				id: 'fluidSingle',
-				text: 'Outgoing',
+				text: 'Giden',
 				path: 'tur/giden',
 				icon: 'CallMade',
 			},
@@ -1105,13 +1105,13 @@ export const reservationMenu = {
 	},
 	listPages: {
 		id: 'listPages',
-		text: 'Paragliding',
+		text: 'Yamaç Parsaşütü',
 		path: 'list-pages',
 		icon: 'Paragliding',
 		subMenu: {
 			listBoxed: {
 				id: 'listBoxed',
-				text: 'Daily Entry',
+				text: 'Günlük Giriş',
 				path: 'yamac-parasutu/gunluk-giris',
 				icon: 'AdsClick',
 			},
