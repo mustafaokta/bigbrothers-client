@@ -25,6 +25,7 @@ import Button from '../../../components/bootstrap/Button';
 import useDarkMode from '../../../hooks/useDarkMode';
 import Aside, { AsideBody, AsideFoot, AsideHead } from '../../../layout/Aside/Aside';
 import { useRouter } from 'next/router';
+import { useUserContext } from '../../../context/UserContext';
 
 const DefaultAside = () => {
 	const { asideStatus, setAsideStatus } = useContext(ThemeContext);
@@ -38,6 +39,8 @@ const DefaultAside = () => {
 	const { t } = useTranslation(['common', 'menu']);
 
 	const { darkModeStatus } = useDarkMode();
+	const {user}= useUserContext();
+
 
 	return (
 		<Aside>
@@ -49,7 +52,7 @@ const DefaultAside = () => {
 				
 				<>
 					<NavigationLine />
-					<Navigation menu={adminMenu} id='aside-menu1' />
+				{user.roleId==1 ??	<Navigation menu={adminMenu} id='aside-menu1' />}
 					<NavigationLine />
 					<Navigation menu={reservationMenu} id='aside-menu2' />
 						<NavigationLine />
