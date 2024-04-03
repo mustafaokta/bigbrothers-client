@@ -13,6 +13,7 @@ const PILOT_NAME_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/pilo
 const PARACHUTE_ENTRY= `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/parachuteEntry`;
 const PARACHUTE_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/listParachuteEntry`;
 const PARACHUTE_LIST_UPDATE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/parachuteEntryUpdate`;
+const PARACHUTE_LIST_DELETE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/parachuteEntryDelete`;
 const UPDATE_PILOT = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/updatePilot`;
 const DELETE_PILOT = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/deletePilot`;
 
@@ -91,6 +92,14 @@ export const parachuteEntryUpdate = (postData: { data:  any }, token: string) =>
     return new Promise((resolve, reject) => {
       axios
       .post(PARACHUTE_LIST_UPDATE, postData, { headers: { Authorization: `Bearer ${token}` } })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+    });
+    };
+export const parachuteEntryDelete = (postData: { data:  any }, token: string) => {
+    return new Promise((resolve, reject) => {
+      axios
+      .post(PARACHUTE_LIST_DELETE, postData, { headers: { Authorization: `Bearer ${token}` } })
       .then((res) => resolve(res.data))
       .catch((err) => reject(err));
     });

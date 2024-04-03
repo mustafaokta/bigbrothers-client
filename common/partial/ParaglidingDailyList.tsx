@@ -21,7 +21,7 @@ import PaginationButtons, { dataPagination, PER_COUNT } from '../../components/P
 import useSortableData from '../../hooks/useSortableData';
 import useDarkMode from '../../hooks/useDarkMode';
 import Modal, { ModalBody, ModalFooter, ModalHeader } from '../../components/bootstrap/Modal';
-import { useDataPilotName} from '../../helpers/connections/paragliding';
+import { parachuteEntryDelete, useDataPilotName} from '../../helpers/connections/paragliding';
 import { Controller, useForm } from 'react-hook-form';
 import { useUserContext } from '../../context/UserContext';
 import Select from '../../components/bootstrap/forms/Select';
@@ -47,7 +47,6 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const { data:userListData, isLoading:userListIsLoading, isError:userListIsError } = useDataUserList();
 	const { data:paymentMethodsData, isLoading:paymentMethodsIsLoading, isError:paymentMethodIsError } = useDataPaymentMethods();
 
-	const [upcomingEventsInfoOffcanvas, setUpcomingEventsInfoOffcanvas] = useState(false);
 
 	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState(false);
 	const [newItemOffcanvas, setNewItemOffcanvas] = useState<boolean>(false);
@@ -174,6 +173,16 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					console.log("error");
 				});
 		};
+		const handleDeleteAction = (postData: any) => {
+			parachuteEntryDelete({ data : {id: postData.id } }, user.token!).then((res:any) => {
+				// console.log('listTourReservation', res);
+				setlistEntry(res);
+	}
+	)
+			.catch((err:any) => {
+				console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+			});
+		}
 
 		const sortiTimes = [
 			{ value: '08:30', label: '08:30' },
@@ -262,7 +271,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						<tbody>
 							{dataPagination(items, currentPage, perPage).map((item) => (
 								<tr key={item.id}>
-									{/* <td>
+									<td>
 										<Button
 											isOutline={!darkModeStatus}
 											color='dark'
@@ -270,11 +279,11 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 											className={classNames({
 												'border-light': !darkModeStatus,
 											})}
-											icon='Info'
-											onClick={()=>handleUpcomingİnfo(item)}
-											aria-label='Detailed information'
+											icon='Delete'
+											onClick={()=>handleDeleteAction(item)}
+											aria-label='Sil'
 										/>
-									</td> */}
+									</td> 
 									<td>
 										<div className='d-flex align-items-center'>
 											{/* <span
@@ -371,7 +380,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					isCentered
 					isScrollable
 					size='lg'>
-					<ModalHeader setIsOpen={setNewItemOffcanvas}>
+					<ModalHeader setIsOpen={setUpcomingEventsEditOffcanvas}>
 						<OffCanvasTitle id='newRecordIncomingTitle'>Girişi Güncelle</OffCanvasTitle>
 					</ModalHeader>
 					<form onSubmit={handleSubmit((data) => handleUpdateAction(data))}>
