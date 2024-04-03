@@ -403,7 +403,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 							<FormGroup id='note' label='Not' isFloating>
 						        <Controller name="note"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Giriniz'
@@ -569,7 +569,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 							<FormGroup id='note' label='Not' isFloating>
 						        <Controller name="note"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Giriniz'
