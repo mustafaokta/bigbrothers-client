@@ -1,6 +1,6 @@
 * Admin Paneli
     - Ödemelerim - çek ekle
-    - Kullanıcılar - yönetici hariç admin kapat
+    - Kullanıcılar - ok
     - Sürücüler - ok
     - Pilotlar - ok
     - tur tipleri - ok
