@@ -11,6 +11,5 @@
 
 * Reservations
     - gelen giden fragment kontrol et
-    - transfer - delete butonu yok, default gelen secili ama ilerlemyo
 
 fragmentten dolayı scroll problemi var
