@@ -37,7 +37,7 @@ const DefaultHeader = () => {
 					<div>
 						<div className='fw-bold fs-6 mb-0'>{user.name + ' ' + user.surname}</div>
 						<div className='text-muted'>
-							<small>{userRoleData.content.filter((el:any)=>el.id==user.roleId)[0].name  }</small>
+							<small>{userRoleData.content.filter((el:any)=>el.id==user.roleId)[0]?.name  }</small>
 						</div>
 					</div>
 				</div>

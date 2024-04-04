@@ -53,7 +53,7 @@ console.log(user.roleId, '----');
 				
 				<>
 					<NavigationLine />
-					{Number(user.roleId) === 1 && <Navigation menu={adminMenu} id='aside-menu1' />}
+					{(Number(user.roleId) === 1 || Number(user.roleId) === 6) && <Navigation menu={adminMenu} id='aside-menu1' />}
 					<NavigationLine />
 					<Navigation menu={reservationMenu} id='aside-menu2' />
 					<NavigationLine />
