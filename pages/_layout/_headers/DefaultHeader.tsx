@@ -8,13 +8,24 @@ import Avatar from '../../../components/Avatar';
 import UserImage2 from '../../../assets/img/wanna/wanna1.png';
 import { useUserContext } from '../../../context/UserContext';
 import { useDataUserRoleList } from '../../../helpers/connections/tour';
+import Button from '../../../components/bootstrap/Button';
+import Spinner from '../../../components/bootstrap/Spinner';
 
 
 const DefaultHeader = () => {
 	const deviceScreen = useDeviceScreen();
 	const {user}= useUserContext();
    const { data: userRoleData, isLoading: userRoleIsLoading, isError: userRoleIsError } = useDataUserRoleList();
-      if (userRoleIsLoading ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+      if (userRoleIsLoading ) 	return (
+			<div className="d-flex h-100 w-100 justify-content-center align-items-center">
+				<div className="">
+					<Button color="primary" isLight>
+						<Spinner isSmall={false} size={18} inButton />
+						Yükleniyor...
+					</Button>
+				</div>
+			</div>
+		);
       if (userRoleIsError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	return (
 		<Header>

@@ -24,6 +24,7 @@ import Select from '../../components/bootstrap/forms/Select';
 import { useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import showNotification from '../../components/extras/showNotification';
+import Spinner from '../../components/bootstrap/Spinner';
 
 
 
@@ -185,7 +186,16 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	//let { items, requestSort, getClassNamesFor } = useSortableData(dataDummy);
 
 
-	if (  typeIsLoading  || agencyIsLoading  ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+	if (  typeIsLoading  || agencyIsLoading  ) 	return (
+			<div className="d-flex h-100 w-100 justify-content-center align-items-center">
+				<div className="">
+					<Button color="primary" isLight>
+						<Spinner isSmall={false} size={18} inButton />
+						Yükleniyor...
+					</Button>
+				</div>
+			</div>
+		);
 	if ( typeIsError  || agencyIsError) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	let items= tourData.content;
 	return (

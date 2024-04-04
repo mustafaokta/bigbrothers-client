@@ -22,6 +22,7 @@ import Progress from '../../components/bootstrap/Progress';
 import { TColor } from '../../type/color-type';
 import { listPayments } from '../../helpers/connections/admin';
 import { useUserContext } from '../../context/UserContext';
+import Spinner from '../../components/bootstrap/Spinner';
 
 const CommonDashboardUserIssue = () => {
 	const TODO_BADGES: {
@@ -92,7 +93,16 @@ const CommonDashboardUserIssue = () => {
 
 
 
-	if (  isLoading ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+	if (  isLoading ) 	return (
+			<div className="d-flex h-100 w-100 justify-content-center align-items-center">
+				<div className="">
+					<Button color="primary" isLight>
+						<Spinner isSmall={false} size={18} inButton />
+						Yükleniyor...
+					</Button>
+				</div>
+			</div>
+		);
 	if ( isError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 
 	let items= listData.content;

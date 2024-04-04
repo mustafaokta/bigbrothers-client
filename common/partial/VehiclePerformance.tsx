@@ -26,6 +26,7 @@ import data from '../data/dummyProductData';
 import Link from 'next/link';
 import { postVehiclePerformance } from '../../helpers/connections/transfer';
 import { useUserContext } from '../../context/UserContext';
+import Spinner from '../../components/bootstrap/Spinner';
 
 interface ITableRowProps {
 	id: string;
@@ -155,7 +156,16 @@ useEffect(() => {
 }
 , [listData.length, user.token]);
 	
-	if (  isLoading   ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+	if (  isLoading   ) 	return (
+			<div className="d-flex h-100 w-100 justify-content-center align-items-center">
+				<div className="">
+					<Button color="primary" isLight>
+						<Spinner isSmall={false} size={18} inButton />
+						Yükleniyor...
+					</Button>
+				</div>
+			</div>
+		);
 	if ( isError  ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	let items = listData.content.filter((i:any) => i.transfer.length > 0);
 	return (
