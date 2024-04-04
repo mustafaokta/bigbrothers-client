@@ -6,6 +6,7 @@ const USER_ME = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/me`;
 const USER_SEARCH = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/search`;
 const USER_PROFILE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/profile`;
 const USER_PROFILE_UPDATE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/profile`;
+const USER_PROFILE_PHOTO = `${process.env.NEXT_PUBLIC_API_HOST}/user/photo`;
 
 /* Yeniler */
 const USER_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/list`;
@@ -133,4 +134,12 @@ export const useDataUserList = () => {
 	  isLoading: isLoading,
 	  isError: error,
 	};
+  };
+  export const postAddUserPhoto = (postData: any, token: string) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(USER_PROFILE_PHOTO, postData, { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } })
+        .then((res) => resolve(res.data))
+        .catch((err) => reject(err));
+    });
   };

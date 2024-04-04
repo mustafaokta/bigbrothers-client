@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal, {
 	ModalBody,
@@ -19,6 +19,7 @@ import Select from '../../components/bootstrap/forms/Select';
 import classNames from 'classnames';
 import useDarkMode from '../../hooks/useDarkMode';
 import { addDrivers } from '../../helpers/connections/admin';
+import { postAddUserPhoto } from '../../helpers/connections/user';
 
 interface ICustomerEditModalProps {
 	id: string;
@@ -26,28 +27,47 @@ interface ICustomerEditModalProps {
 	setIsOpen(...args: unknown[]): unknown;
 }
 const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen }) => {
+
 	const itemData = id ? data.filter((item) => item.id.toString() === id.toString()) : {};
 	const item = id && Array.isArray(itemData) ? itemData[0] : {};
 	const { register, handleSubmit, reset, formState: { errors }, getValues, control } = useForm();
 	const { user } = useUserContext();
 	const { themeStatus, darkModeStatus } = useDarkMode();
+	const [selectedImage, setSelectedImage] = useState<File | null>(null);
+	
+
+ 
 
 	const gender = [
 		{ value:'erkek', label: 'Erkek' },
 		{ value:'kadin', label: 'Kadın' }
 	];
 
+const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	if (event.target.files && event.target.files.length > 0) {
+		setSelectedImage(event.target.files[0]);
+		const formData = new FormData();
+		formData.append('image', event.target.files[0] as File);
+		postAddUserPhoto(formData, user.token!).then().catch(
+		 			(err) => {
+				console.log('error', err);
+			}
+		
+		);
+	}
+};
 
 	const handleSaveAction = (data: any) => {
 
 		console.log('gelen datalar--', data);
 		// console.log('post_data', data);
+		
 
-		addDrivers({ data : data }, user.token!)
+		addDrivers(data, user.token!)
 				.then((res) => {
 					reset({
 						id: '',
-						foto: '',
+						image: '',
 						name: '',
 						surname: '',
 						identityNumber: '',
@@ -100,7 +120,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 																				type='file'
 																				autoComplete='photo'
 																				placeholder='Foto'
-																				{...field}
+																				onChange={(e:any) => field.onChange(handleImageChange(e))}
 																			/>
 							                                                         )}
 															/>
