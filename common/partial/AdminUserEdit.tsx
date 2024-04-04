@@ -148,7 +148,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 													<FormGroup id='phoneNumber' label='Telefon Numarası' isFloating>
 													        <Controller name="phoneNumber"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				type='tel'
@@ -165,7 +165,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 												<FormGroup id='identityNumber' label='TCKN/PP' isFloating>
 														<Controller name="identityNumber"
 																		control={control}
-																		rules={{ required: true }}
+																		rules={{ required: false }}
 																		render={({ field }) => (
 																			<Input
 																			placeholder='TCKN/PP'
@@ -180,7 +180,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 												     <FormGroup id='emailAddress' label='E-Posta' isFloating>
 													        <Controller name="emailAddress"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				placeholder='E-Posta'
@@ -210,7 +210,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 													<div className='col-4'>
 												<FormGroup id='gender' label='Cinsiyet' isFloating>
 											<Controller name="gender"
-                                            rules={{ required: true }}
+                                            rules={{ required: false }}
                                              control={ control}
                                             render={({ field }) => (
 												<Select
@@ -258,7 +258,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 												<div className='col-4'>
 												<FormGroup id='dateOfBirth' label='Doğum Tarihi' isFloating>
 											<Controller name="dateOfBirth"
-                                            rules={{ required: true }}
+                                            rules={{ required: false }}
                                              control={ control}
                                             render={({ field }) => (
 												<Input
