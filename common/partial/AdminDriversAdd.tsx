@@ -191,7 +191,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 												     <FormGroup id='emailAddress' label='E-Posta' isFloating>
 													        <Controller name="emailAddress"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				placeholder='E-Posta'
@@ -206,7 +206,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 												     <FormGroup id='password' label='Şifre' isFloating>
 													        <Controller name="password"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				placeholder='Şifre'
@@ -221,7 +221,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 														<div className='col-6'>
 												<FormGroup id='gender' label='Cinsiyet' isFloating>
 											<Controller name="gender"
-                                            rules={{ required: true }}
+                                            rules={{ required: false }}
                                              control={ control}
                                             render={({ field }) => (
 												<Select
@@ -245,7 +245,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 												<div className='col-6'>
 												<FormGroup id='dateOfBirth' label='Doğum Tarihi' isFloating>
 											<Controller name="dateOfBirth"
-                                            rules={{ required: true }}
+                                            rules={{ required: false }}
                                              control={ control}
                                             render={({ field }) => (
 												<Input

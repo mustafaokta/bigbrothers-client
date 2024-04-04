@@ -66,7 +66,7 @@ const Index: NextPage = () => {
 			password:itm.password,
 			gender: itm.gender,
 			phoneNumber: itm.phoneNumber,
-			dateOfBirth: itm.dateOfBirth.split('T')[0],
+			dateOfBirth: itm.dateOfBirth?.split('T')[0],
 			src:itm.drivers.src,
 			note:itm.drivers.note,
 		});

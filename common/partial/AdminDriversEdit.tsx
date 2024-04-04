@@ -204,7 +204,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 														<div className='col-6'>
 												<FormGroup id='gender' label='Cinsiyet' isFloating>
 											<Controller name="gender"
-                                            rules={{ required: true }}
+                                            rules={{ required: false }}
                                              control={ control}
                                             render={({ field }) => (
 												<Select
@@ -228,7 +228,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 												<div className='col-6'>
 												<FormGroup id='dateOfBirth' label='Doğum Tarihi' isFloating>
 											<Controller name="dateOfBirth"
-                                            rules={{ required: true }}
+                                            rules={{ required: false }}
                                              control={ control}
                                             render={({ field }) => (
 												<Input
