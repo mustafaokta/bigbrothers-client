@@ -57,13 +57,10 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	 // Filter tour data on change of tourTypeId
 	 useEffect(() => {
 		const selectedTourTypeId = getValues('tourTypeId');
-		//console.log('selectedTourTypeId', selectedTourTypeId);
 
 		if (tourData && selectedTourTypeId) {
-		//console.log('tourData', tourData);
 
 		  const filteredTours = tourData.content.filter((tour:any) => tour.type.id == selectedTourTypeId);
-		  console.log('filteredTours', filteredTours);
 
 		  setFilteredTourData({content:filteredTours});
 		} else {
@@ -72,7 +69,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	  }, [watch('tourTypeId'), tourData]);
 	useEffect(() => {
 	listTourReservation({ data : {reservationType:'gelen'} }, user.token!).then((res:any) => {
-		 			// console.log('listTourReservation', res);
 		 								setIncomingTourData(res);
 		 								setIncomingIsLoading(false)
 		}
@@ -80,15 +76,12 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	}, [newItemOffcanvas, editOffcanvas])
 	useEffect(() => {
 	listTransfer({ data : {} }, user.token!).then((res:any) => {
-	 		// console.log('listTransfer', res);
 	setTransferData(res);
-	console.log('transferData', transferData);
 	}
 	);
 	}, [tourDate]);
 
 	const handleUpcomingEdit = (itm:any) => {
-		console.log('handleUpcomingEdit', itm);
 					  setFragments(itm.customers.length>0?itm.customers:[{ id: 0 }]);
 
 			   let itemm : { [key: string]: any }=	{
@@ -117,7 +110,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 					   }
 					   for (let i = 0; i < itm.customers.length; i++) {
-						   console.log('itm.customers[i]', itm.customers[i]);
 
 						   let id: number = itm.customers[i]['id'];
 
@@ -165,44 +157,62 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	};
 	const handleUpdateAction = (post_data: any) => {
 		let postData = post_data;
-	 console.log('post_data update', postData);
 
 	postUpdateTourReservation({ tour: postData }, user.token!)
 			.then((res) => {
 			// 	toast.success(`Tur kaydı güncelleştirildi`);
 
-
+			showNotification(
+				'Başarılı', // String, HTML or Component
+				'Tour rezervasyon kaydı güncellendi', // String, HTML or Component
+				'success' // 'default' || 'info' || 'warning' || 'success' || 'danger',
+			);
 			setEditOffcanvas(false);
 
 			})
 			.catch((err) => {
 				console.log("error");
+
 			//	toast.error(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
 			});
 	};
 	const handleSaveAction = (data: any) => {
-	console.log('post_data', data);
 
 	postAddTourReservation({ data : data }, user.token!)
 			.then((res) => {
-				//toast.success(`Yeni tour rezervasyon kaydı oluşturuldu`);
 				setNewItemOffcanvas(false)
+				showNotification(
+					'Başarılı', // String, HTML or Component
+					'Yeni tour rezervasyon kaydı oluşturuldu', // String, HTML or Component
+					'success' // 'default' || 'info' || 'warning' || 'success' || 'danger',
+				);
 			})
 			.catch((err) => {
 				console.log("error");
-				// toast.error(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+
 			});
 	};
 	const handleDeleteAction = (postData: any) => {
-		deleteTourReservation({ data : {reservationType:'gelen', reservationId: postData.id } }, user.token!).then((res:any) => {
-			// console.log('listTourReservation', res);
-								setIncomingTourData(res);
-}
-)
-		.catch((err:any) => {
+		const isConfirmed = window.confirm("Silmek istediğinizden emin misiniz?");
+		if (!isConfirmed) {
+		  return; // Kullanıcı onay vermezse işlemi iptal et
+		}
+
+		deleteTourReservation({ data : {reservationType:'gelen', reservationId: postData.id } }, user.token!)
+		  .then((res:any) => {
+			setIncomingTourData(res);
+
+			showNotification(
+			  'Başarılı', // String, HTML or Component
+			  'Tour rezervasyon kaydı silindi', // String, HTML or Component
+			  'success' // 'default' || 'info' || 'warning' || 'success' || 'danger',
+			);
+		  })
+		  .catch((err:any) => {
 			console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
-		});
-	}
+		  });
+	  }
+
 
 	const currency = [
 		{ value: 'TRY', label: 'TL' },
@@ -219,8 +229,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	// const { items, requestSort, getClassNamesFor } = useSortableData(data);
 	if (tourIsLoading || hotelIsLoading || userListIsLoading || paymentMethodsIsLoading || agencyIsLoading || incomingIsLoading || tourTypeIsLoading) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
 	if (tourIsError || hotelIsError || userListIsError || paymentMethodIsError || agencyIsError || tourTypeIsError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
-	// console.log('userListData', userListData);
-	 console.log('tourData', tourTypeData.content);
 
 	let items = incomingTourData.content;
 	return (
@@ -625,7 +633,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-2'>
 							<FormGroup  id='adult' label='Yetişkin'>
 							<Controller name="adult"
 	                                            control={control}
@@ -643,7 +651,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							</FormGroup>
 							{errors.adult && <span>Bu alan gerekli</span>}
 							</div>
-							<div className='col-3'>
+							<div className='col-2'>
 							<FormGroup  id='child' label='Çocuk'>
 							<Controller name="child"
 	                                            control={control}
@@ -659,7 +667,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-2'>
 							<FormGroup  id='baby' label='Bebek'>
 							<Controller name="baby"
 	                                            control={control}
@@ -1013,7 +1021,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-2'>
 							<FormGroup  id='adult' label='Yetişkin'>
 							<Controller name="adult"
 	                                            control={control}
@@ -1031,7 +1039,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							</FormGroup>
 							{errors.adult && <span>Bu alan gerekli</span>}
 							</div>
-							<div className='col-3'>
+							<div className='col-2'>
 							<FormGroup  id='child' label='Çocuk'>
 							<Controller name="child"
 	                                            control={control}
@@ -1047,7 +1055,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-2'>
 							<FormGroup  id='baby' label='Bebek'>
 							<Controller name="baby"
 	                                            control={control}
@@ -1147,11 +1155,9 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 			);
 
 		}
-			console.log(fragments.length, 'fragments', fragments);
 			const confirmation = window.confirm('Silmek istediğinizden emin misiniz?'); // Tarayıcı standart onay kutusu
 			let indexDeleted=	fragments.findIndex((object: { id: any; }) => object.id === id)
-		console.log('indexDeleted', indexDeleted);
-		console.log(`customerName${indexDeleted +1}` );
+
 
 
 			if (confirmation) {
@@ -1163,10 +1169,8 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 			    setValue(`customerDateOfBirth${indexDeleted +1}`, undefined);
 
 				for (let i = 0; i < fragments.filter((fragment: { id: any; }) => fragment.id !== id).length; i++) {
-					console.log('delete func içi fragments[i]', fragments[i]);
 
 					let id: number = fragments[i]['id'];
-				   // console.log('id', id);
 
 					setValue(`customerName${i+1}`, fragments[i]['customerName']);
 					setValue(`customerId${i+1}`, id);
@@ -1183,19 +1187,18 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 
 				showNotification(
 					'Başarılı', // String, HTML or Component
-					'Fiyat dönemi başarıyla silindi..', // String, HTML or Component
-					'warning' // 'default' || 'info' || 'warning' || 'success' || 'danger',
+					'Müşteri bilgisi silindi.', // String, HTML or Component
+					'success' // 'default' || 'info' || 'warning' || 'success' || 'danger',
 				);
 			}
 
 	};
-console.log('fragments', fragments);
 
 
 	return (
 	  <>
 
-	{!isDisabled &&<div className='col-1'><Icon icon='SupervisorAccount' className='me-2' size='2x' onClick={addFragment}  />Ekle</div>}
+	{!isDisabled &&<div className='col-3'><Icon icon='SupervisorAccount' className='me-2' size='2x' onClick={addFragment}  />Müşteri Ekle</div>}
 
 		{fragments.map((fragment: any, index: number) => (
 			fragment.id !== 11 &&

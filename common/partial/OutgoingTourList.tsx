@@ -57,14 +57,11 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	 // Filter tour data on change of tourTypeId
 	 useEffect(() => {
 		const selectedTourTypeId = getValues('tourTypeId');
-		//console.log('selectedTourTypeId', selectedTourTypeId);
-		
+
 		if (tourData && selectedTourTypeId) {
-		//console.log('tourData', tourData);
-		
+
 		  const filteredTours = tourData.content.filter((tour:any) => tour.type.id == selectedTourTypeId);
-		  console.log('filteredTours', filteredTours);
-		  
+
 		  setFilteredTourData({content:filteredTours});
 		} else {
 		  setFilteredTourData(tourData); // Reset filter if tourTypeId is not selected
@@ -72,7 +69,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	  }, [watch('tourTypeId'), tourData]);
 	useEffect(() => {
 	listTourReservation({ data : {reservationType:'giden'} }, user.token!).then((res:any) => {
-		 			// console.log('listTourReservation', res);
 		 								setIncomingTourData(res);
 		 								setIncomingIsLoading(false)
 		}
@@ -80,15 +76,12 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	}, [newItemOffcanvas, editOffcanvas])
 	useEffect(() => {
 	listTransfer({ data : {} }, user.token!).then((res:any) => {
-	 		// console.log('listTransfer', res);
 	setTransferData(res);
-	console.log('transferData', transferData);
 	}
 	);
 	}, [tourDate]);
 
 	const handleUpcomingEdit = (itm:any) => {
-		console.log('handleUpcomingEdit', itm);
 					  setFragments(itm.customers.length>0?itm.customers:[{ id: 0 }]);
 
 			   let itemm : { [key: string]: any }=	{
@@ -117,10 +110,9 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 					   }
 					   for (let i = 0; i < itm.customers.length; i++) {
-						   console.log('itm.customers[i]', itm.customers[i]);
 
 						   let id: number = itm.customers[i]['id'];
-			
+
 						   itemm[`customerName${i+1}`] = itm.customers[i]['customerName'];
 						   itemm[`customerId${i+1}`] = id;
 						   itemm[`customerSurname${i+1}`] = itm.customers[i]['customerSurname'];
@@ -165,12 +157,15 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	};
 	const handleUpdateAction = (post_data: any) => {
 		let postData = post_data;
-	 console.log('post_data update', postData);
 
 	postUpdateTourReservation({ tour: postData }, user.token!)
 			.then((res) => {
 			// 	toast.success(`Tur kaydı güncelleştirildi`);
-
+			showNotification(
+				'Başarılı', // String, HTML or Component
+				'Tur kaydı güncelleştirildi', // String, HTML or Component
+				'success' // 'default' || 'info' || 'warning' || 'success' || 'danger',
+			);
 
 			setEditOffcanvas(false);
 
@@ -181,12 +176,14 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			});
 	};
 	const handleSaveAction = (data: any) => {
-	console.log('post_data', data);
 
 	postAddTourReservation({ data : data }, user.token!)
 			.then((res) => {
-				//toast.success(`Yeni tour rezervasyon kaydı oluşturuldu`);
-				setNewItemOffcanvas(false)
+				showNotification(
+					'Başarılı', // String, HTML or Component
+					'Tur kaydı eklendi', // String, HTML or Component
+					'success' // 'default' || 'info' || 'warning' || 'success' || 'danger',
+				);				setNewItemOffcanvas(false)
 			})
 			.catch((err) => {
 				console.log("error");
@@ -194,15 +191,26 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			});
 	};
 	const handleDeleteAction = (postData: any) => {
-		deleteTourReservation({ data : {reservationType:'giden', reservationId: postData.id } }, user.token!).then((res:any) => {
-			// console.log('listTourReservation', res);
-								setIncomingTourData(res);
-}
-)
-		.catch((err:any) => {
+		const isConfirmed = window.confirm("Silmek istediğinizden emin misiniz?");
+		if (!isConfirmed) {
+		  return; // Kullanıcı onay vermezse işlemi iptal et
+		}
+
+		deleteTourReservation({ data : {reservationType:'giden', reservationId: postData.id } }, user.token!)
+		  .then((res:any) => {
+			setIncomingTourData(res);
+
+			showNotification(
+			  'Başarılı', // String, HTML or Component
+			  'Tour rezervasyon kaydı silindi', // String, HTML or Component
+			  'success' // 'default' || 'info' || 'warning' || 'success' || 'danger',
+			);
+		  })
+		  .catch((err:any) => {
 			console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
-		});
-	}
+		  });
+	  }
+
 
 	const currency = [
 		{ value: 'TRY', label: 'TL' },
@@ -303,19 +311,19 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 											aria-label='Detailed information'
 										/>
 									</td>
-									<td>{item.tourDate + item.tourTime}</td>
+									<td>{item.tourDate.split('T')[0]} {item.timeToPickUp}</td>
 									<td>
-										
-										<div>{tourData.content.filter((el:any)=>String(el.id)==item.tourId)[0].name}</div>
+
+									<div>{tourTypeData.content.filter((el:any)=>String(el.id)==item.tour.typeId)[0].name}</div>
 									 	<div className='small text-muted'>
 										{agencyData.content.filter((el:any)=>el.id==item.tour.agencyId)[0].name}
-											</div> 
-										
+											</div>
+
 									</td>
 									<td>{item.adult}</td>
 									<td>{item.child}</td>
 									<td>{item.baby}</td>
-									<td>{hotelData.content.filter((el:any)=>el.id==item.hotelId)[0].name}</td>
+									<td>{hotelData.content.filter((el:any)=>el.id==item.hotelId)[0]?.name}</td>
 									<td>{item.roomNumber}</td>
 									<td>{item.ticketNumber}</td>
 									<td>{paymentMethodsData.content.filter((el:any)=>el.id==item.paymentMethodId)[0].name} - {item.currency}</td>
@@ -365,7 +373,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					</ModalHeader>
 					<form onSubmit={handleSubmit((data) => handleUpdateAction(data))}>
 					<ModalBody>
-						<div className='row g-4'>
+					<div className='row g-4'>
 							<div className='col-3'>
 						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
 						        <Controller name="tourTypeId"
@@ -389,7 +397,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
+							 {errors.tourTypeId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-4'>
 						    <FormGroup id='tourId' label='Tur Adı' isFloating>
@@ -402,7 +410,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		placeholder='Seçiniz'
 																		ariaLabel='Seçiniz'
 																		list={filteredTourData.content.map((el: any) => ({
-																			value: el.id.toString(),
+																			value: el.id,
 																			text: el.type.name+'-'+el.agency.name,
 																			label: el.type.name+'-'+el.agency.name,
 																		}))}
@@ -414,7 +422,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
+							 {errors.tourId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-2'>
 							<FormGroup id='tourDate' label='Tur Tarih' isFloating>
@@ -430,12 +438,13 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.tourDate && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 						<FormGroup id='hotelId' label='Otel' isFloating>
 							<Controller name="hotelId"
 											control={control}
-											rules={{ required: true }}
+											rules={{ required: false }}
 											render={({ field }) => (
 																	<Select
 																	size='sm'
@@ -454,13 +463,12 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 													 )}
 							/>
 						</FormGroup>
-						 {errors.salesman && <span>Bu alan gerekli</span>}
 						</div>
 							<div className='col-3'>
 							<FormGroup id='roomNumber' label='Oda/Kapı Numarası' isFloating>
 						        <Controller name="roomNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Giriniz'
@@ -498,6 +506,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.timeToPickUp && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 						    <FormGroup id='salesmanId' label='Satıcı' isFloating>
@@ -522,7 +531,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.salesman && <span>Bu alan gerekli</span>}
+							 {errors.salesmanId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-2'>
 								<FormGroup id='currency' label='Birim' isFloating>
@@ -566,6 +575,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.price && <span>Bu alan gerekli</span>}
+
 							</div>
 							<div className='col-2'>
 							<FormGroup id='paid' label='Ödenen' isFloating>
@@ -581,6 +592,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.paid && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 						    <FormGroup id='paymentMethodId' label='Ödeme Yöntemi' isFloating>
@@ -611,7 +623,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='ticketNumber' label='Bilet Numarası' isFloating>
 						        <Controller name="ticketNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Tur Adı'
@@ -621,8 +633,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
-							<FormGroup  id='cvc' label='Yetişkin'>
+							<div className='col-2'>
+							<FormGroup  id='adult' label='Yetişkin'>
 							<Controller name="adult"
 	                                            control={control}
 	                                            rules={{ required: true }}
@@ -637,35 +649,34 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.adult && <span>Bu alan gerekli</span>}
 							</div>
-							<div className='col-3'>
+							<div className='col-2'>
 							<FormGroup  id='child' label='Çocuk'>
 							<Controller name="child"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 													type='number'
 													autoComplete='cc-csc'
 													placeholder='Giriniz'
-													required
 													{...field}
 												/>
                                                          )}
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-2'>
 							<FormGroup  id='baby' label='Bebek'>
 							<Controller name="baby"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 													type='number'
 													autoComplete='cc-csc'
 													placeholder='Giriniz'
-													required
 													{...field}
 												/>
                                                          )}
@@ -750,7 +761,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					</ModalHeader>
 					<form onSubmit={handleSubmit((data) => handleSaveAction(data))}>
 					<ModalBody>
-						<div className='row g-4'>
+					<div className='row g-4'>
 							<div className='col-3'>
 						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
 						        <Controller name="tourTypeId"
@@ -774,7 +785,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
+							 {errors.tourTypeId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-4'>
 						    <FormGroup id='tourId' label='Tur Adı' isFloating>
@@ -799,7 +810,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
+							 {errors.tourId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-2'>
 							<FormGroup id='tourDate' label='Tur Tarih' isFloating>
@@ -815,12 +826,13 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.tourDate && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 						<FormGroup id='hotelId' label='Otel' isFloating>
 							<Controller name="hotelId"
 											control={control}
-											rules={{ required: true }}
+											rules={{ required: false }}
 											render={({ field }) => (
 																	<Select
 																	size='sm'
@@ -839,13 +851,12 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 													 )}
 							/>
 						</FormGroup>
-						 {errors.salesman && <span>Bu alan gerekli</span>}
 						</div>
 							<div className='col-3'>
 							<FormGroup id='roomNumber' label='Oda/Kapı Numarası' isFloating>
 						        <Controller name="roomNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Giriniz'
@@ -883,6 +894,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.timeToPickUp && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 						    <FormGroup id='salesmanId' label='Satıcı' isFloating>
@@ -907,7 +919,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.salesman && <span>Bu alan gerekli</span>}
+							 {errors.salesmanId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-2'>
 								<FormGroup id='currency' label='Birim' isFloating>
@@ -951,6 +963,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.price && <span>Bu alan gerekli</span>}
+
 							</div>
 							<div className='col-2'>
 							<FormGroup id='paid' label='Ödenen' isFloating>
@@ -966,6 +980,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.paid && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 						    <FormGroup id='paymentMethodId' label='Ödeme Yöntemi' isFloating>
@@ -996,7 +1011,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='ticketNumber' label='Bilet Numarası' isFloating>
 						        <Controller name="ticketNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Tur Adı'
@@ -1006,7 +1021,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-2'>
 							<FormGroup  id='adult' label='Yetişkin'>
 							<Controller name="adult"
 	                                            control={control}
@@ -1022,8 +1037,9 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.adult && <span>Bu alan gerekli</span>}
 							</div>
-							<div className='col-3'>
+							<div className='col-2'>
 							<FormGroup  id='child' label='Çocuk'>
 							<Controller name="child"
 	                                            control={control}
@@ -1039,7 +1055,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-2'>
 							<FormGroup  id='baby' label='Bebek'>
 							<Controller name="baby"
 	                                            control={control}
@@ -1136,16 +1152,13 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 				'En az bir müşteri bilgisi girilmelidir.', // String, HTML or Component
 				'danger' // 'default' || 'info' || 'warning' || 'success' || 'danger',
 			);
-			
+
 		}
-			console.log(fragments.length, 'fragments', fragments);
-				
+
 			const confirmation = window.confirm('Silmek istediğinizden emin misiniz?'); // Tarayıcı standart onay kutusu
 			let indexDeleted=	fragments.findIndex((object: { id: any; }) => object.id === id)
-		console.log('indexDeleted', indexDeleted);
-		console.log(`customerName${indexDeleted +1}` );
-		
-		
+
+
 			if (confirmation) {
 			    setFragments((prev:any[]) => prev.filter(fragment => fragment.id !== id));
 			    setValue(`customerName${indexDeleted +1}`, undefined);
@@ -1153,9 +1166,8 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 			    setValue(`customerIdentityNumber${indexDeleted +1}`, undefined);
 			    setValue(`customerPhoneNumber${indexDeleted +1}`, undefined);
 			    setValue(`customerDateOfBirth${indexDeleted +1}`, undefined);
-			    
+
 				for (let i = 0; i < fragments.filter((fragment: { id: any; }) => fragment.id !== id).length; i++) {
-					console.log('delete func içi fragments[i]', fragments[i]);
 
 					let id: number = fragments[i]['id'];
 				   // console.log('id', id);
@@ -1168,113 +1180,119 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 					setValue(`customerAddress${i+1}`, fragments[i]['customerAddress']);
 					setValue(`customerDateOfBirth${i+1}`, fragments[i]['customerDateOfBirth']?.split('T')[0]);
 					setValue(`customerEmail${i+1}`, fragments[i]['customerEmail'])
-					 
-							
+
+
 					}
-				
-			    
+
+
 				showNotification(
 					'Başarılı', // String, HTML or Component
-					'Fiyat dönemi başarıyla silindi..', // String, HTML or Component
+					'Müşteri bilgisi silindi.', // String, HTML or Component
 					'warning' // 'default' || 'info' || 'warning' || 'success' || 'danger',
 				);
 			}
 
 	};
-console.log('fragments', fragments);
 
 
 	return (
 	  <>
+{!isDisabled &&<div className='col-3'><Icon icon='SupervisorAccount' className='me-2' size='2x' onClick={addFragment}  />Müşteri Ekle</div>}
 
-	{!isDisabled &&<div className='col-1'><Icon icon='SupervisorAccount' className='me-2' size='2x' onClick={addFragment}  />Ekle</div>}
+{fragments.map((fragment: any, index: number) => (
+	fragment.id !== 11 &&
+  <React.Fragment key={fragment.id} >
+					 <div className='col-2'>
+					<FormGroup id={`customerName${index +1}`} label='Müşteri Adı' isFloating>
+						<Controller name={`customerName${index +1}`}
+										control={control}
+										rules={{ required: true }}
+										render={({ field }) => (
+											<Input
+										placeholder='Müşteri Adı'
+										{...field}
+									/>
+												 )}
+						/>
+					</FormGroup>
+					{errors["customerName"+index +1] && <span>Bu alan gerekli</span>}
 
-		{fragments.map((fragment: any, index: number) => (
-			fragment.id !== 11 &&
-		  <React.Fragment key={fragment.id} >
-							 <div className='col-2'>
-							<FormGroup id={`customerName${index +1}`} label='Müşteri Adı' isFloating>
-						        <Controller name={`customerName${index +1}`}
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Müşteri Adı'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-2'>
-							<FormGroup id={`customerSurname${index +1}`} label='Müşteri Soyadı' isFloating>
-						        <Controller name={`customerSurname${index +1}`}
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Müşteri Soyadı'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-2'>
-							<FormGroup id={`customerIdentityNumber${index +1}`} label='Müşteri TC/PP' isFloating>
-						        <Controller name={`customerIdentityNumber${index +1}`}
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Müşteri TC/PP'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-2'>
-							<FormGroup id={`customerPhoneNumber${index +1}`} label='Müşteri Telefon' isFloating>
-						        <Controller name={`customerPhoneNumber${index +1}`}
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-													<Input
-													type='tel'
-													mask='+90 (999) 999-9999'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-2'>
-							<FormGroup id={`customerDateOfBirth${index +1}`} label='Müşteri Doğum Tarihi' isFloating>
-						        <Controller name={`customerDateOfBirth${index +1}`}
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Müşteri Doğum Tarihi'
-												type='date'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-		 
-		 
-			  {((fragments.length > 0)&&!isDisabled) && (
-				<div className='col-1'><Icon icon='DeleteForever' className='me-2' size='2x' onClick={() => deleteFragment(fragment.id)} />Sil</div>
-				  )}
-			  {/* Similar structure for halfPrice, period1Start, and period1End */}
-			  {/* Delete button for each fragment */}
+					</div>
+					<div className='col-2'>
+					<FormGroup id={`customerSurname${index +1}`} label='Müşteri Soyadı' isFloating>
+						<Controller name={`customerSurname${index +1}`}
+										control={control}
+										rules={{ required: true }}
+										render={({ field }) => (
+											<Input
+										placeholder='Müşteri Soyadı'
+										{...field}
+									/>
+												 )}
+						/>
+					</FormGroup>
+					{errors["customerSurname"+index +1] && <span>Bu alan gerekli</span>}
 
-		  </React.Fragment>
-		))}
-	  </>
+					</div>
+					<div className='col-2'>
+					<FormGroup id={`customerIdentityNumber${index +1}`} label='Müşteri TC/PP' isFloating>
+						<Controller name={`customerIdentityNumber${index +1}`}
+										control={control}
+										rules={{ required: false }}
+										render={({ field }) => (
+											<Input
+										placeholder='Müşteri TC/PP'
+										{...field}
+									/>
+												 )}
+						/>
+					</FormGroup>
+					</div>
+					<div className='col-2'>
+					<FormGroup id={`customerPhoneNumber${index +1}`} label='Müşteri Telefon' isFloating>
+						<Controller name={`customerPhoneNumber${index +1}`}
+										control={control}
+										rules={{ required: true }}
+										render={({ field }) => (
+											<Input
+											type='tel'
+											mask='+90 (999) 999-9999'
+										{...field}
+									/>
+												 )}
+						/>
+					</FormGroup>
+					{errors["customerPhoneNumber"+index +1] && <span>Bu alan gerekli</span>}
+
+					</div>
+					<div className='col-2'>
+					<FormGroup id={`customerDateOfBirth${index +1}`} label='Müşteri Doğum Tarihi' isFloating>
+						<Controller name={`customerDateOfBirth${index +1}`}
+										control={control}
+										rules={{ required: true }}
+										render={({ field }) => (
+											<Input
+										placeholder='Müşteri Doğum Tarihi'
+										type='date'
+										{...field}
+									/>
+												 )}
+						/>
+					</FormGroup>
+					{errors["customerDateOfBirth"+index +1] && <span>Bu alan gerekli</span>}
+
+					</div>
+
+
+	  {((fragments.length > 0)&&!isDisabled) && (
+		<div className='col-1'><Icon icon='DeleteForever' className='me-2' size='2x' onClick={() => deleteFragment(fragment.id)} />Sil</div>
+		  )}
+	  {/* Similar structure for halfPrice, period1Start, and period1End */}
+	  {/* Delete button for each fragment */}
+
+  </React.Fragment>
+))}
+</>
 	);
   };
 export default List;
