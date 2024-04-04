@@ -19,6 +19,7 @@ import Select from '../../components/bootstrap/forms/Select';
 import classNames from 'classnames';
 import useDarkMode from '../../hooks/useDarkMode';
 import { addDrivers } from '../../helpers/connections/admin';
+import { postAddUserPhoto } from '../../helpers/connections/user';
 
 interface ICustomerEditModalProps {
 	id: string;
@@ -42,13 +43,19 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 		{ value:'kadin', label: 'Kadın' }
 	];
 
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files.length > 0) {
-            setSelectedImage(event.target.files[0]);
-        }
-        const formData = new FormData();
-        formData.append('image', selectedImage as File);
-    };
+const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	if (event.target.files && event.target.files.length > 0) {
+		setSelectedImage(event.target.files[0]);
+		const formData = new FormData();
+		formData.append('image', event.target.files[0] as File);
+		postAddUserPhoto(formData, user.token!).then().catch(
+		 			(err) => {
+				console.log('error', err);
+			}
+		
+		);
+	}
+};
 
 	const handleSaveAction = (data: any) => {
 
