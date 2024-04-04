@@ -169,6 +169,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 																				<Input
 																				type='tel'
 																				mask='+90 (999) 999-9999'
+																				placeholder='Tel'
 																				{...field}
 																			/>
 

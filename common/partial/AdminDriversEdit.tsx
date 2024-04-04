@@ -142,7 +142,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 													<FormGroup id='phoneNumber' label='Telefon Numarası' isFloating>
 													        <Controller name="phoneNumber"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				type='tel'
@@ -159,7 +159,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 												<FormGroup id='identityNumber' label='TCKN' isFloating>
 														<Controller name="identityNumber"
 																		control={control}
-																		rules={{ required: true }}
+																		rules={{ required: false }}
 																		render={({ field }) => (
 																			<Input
 																			placeholder='TCKN'

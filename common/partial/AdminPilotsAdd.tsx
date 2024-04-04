@@ -163,7 +163,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 													<FormGroup id='phoneNumber' label='Telefon Numarası' isFloating>
 													        <Controller name="phoneNumber"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				type='tel'
@@ -180,7 +180,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 												<FormGroup id='identityNumber' label='TCKN/PP' isFloating>
 														<Controller name="identityNumber"
 																		control={control}
-																		rules={{ required: true }}
+																		rules={{ required: false }}
 																		render={({ field }) => (
 																			<Input
 																			placeholder='TCKN/PP'

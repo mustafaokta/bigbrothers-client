@@ -157,26 +157,26 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 														</div>
 													<div className='col-6'>
 													<FormGroup id='phoneNumber' label='Telefon Numarası' isFloating>
-													        <Controller name="phoneNumber"
-								                                            control={control}
-								                                            rules={{ required: true }}
-								                                            render={({ field }) => (
-																				<Input
-																				type='tel'
-																				mask='+90 (999) 999-9999'
-																				{...field}
-																			/>
-
-							                                                         )}
-															/>
-														</FormGroup>
+														<Controller
+															name="phoneNumber"
+															control={control}
+															rules={{ required: false }}
+															render={({ field }) => (
+																<Input
+																	type='tel'
+																	mask='+90 (999) 999-9999'
+																	{...field}
+																/>
+															)}
+														/>
+													</FormGroup>
 														</div>
 														<div className='col-6'>
 
 												<FormGroup id='identityNumber' label='TCKN' isFloating>
 														<Controller name="identityNumber"
 																		control={control}
-																		rules={{ required: true }}
+																		rules={{ required: false }}
 																		render={({ field }) => (
 																			<Input
 																			placeholder='TCKN'
