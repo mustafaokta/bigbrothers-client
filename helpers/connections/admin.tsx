@@ -327,7 +327,7 @@ export const ticketGenerate = (params: { data:  any }) => {
 	});
   };
 
-  export const addDrivers= (postData: { data:  any }, token: string) => {
+  export const addDrivers= (postData: any, token: string) => {
 	return new Promise((resolve, reject) => {
 	  axios
 		.post(ADD_DRIVER, postData, { headers: { Authorization: `Bearer ${token}` } })
