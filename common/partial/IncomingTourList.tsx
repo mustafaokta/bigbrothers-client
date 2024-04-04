@@ -220,7 +220,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	if (tourIsLoading || hotelIsLoading || userListIsLoading || paymentMethodsIsLoading || agencyIsLoading || incomingIsLoading || tourTypeIsLoading) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
 	if (tourIsError || hotelIsError || userListIsError || paymentMethodIsError || agencyIsError || tourTypeIsError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	// console.log('userListData', userListData);
-	 console.log('-------', tourTypeData.content);
+	 console.log('tourData', tourTypeData.content);
 
 	let items = incomingTourData.content;
 	return (
@@ -306,7 +306,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 									<td>{item.tourDate.split('T')[0]} {item.timeToPickUp}</td>
 									<td>
 
-										<div>{tourTypeData.content.filter((el:any)=>String(el.id)==item.tourId)[0].name}</div>
+										<div>{tourTypeData.content.filter((el:any)=>String(el.id)==item.tour.typeId)[0].name}</div>
 									 	<div className='small text-muted'>
 										{agencyData.content.filter((el:any)=>el.id==item.tour.agencyId)[0].name}
 											</div>
@@ -365,8 +365,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					</ModalHeader>
 					<form onSubmit={handleSubmit((data) => handleUpdateAction(data))}>
 					<ModalBody>
-						<div className='row g-4'>
-						<div className='col-3'>
+					<div className='row g-4'>
+							<div className='col-3'>
 						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
 						        <Controller name="tourTypeId"
 	                                            control={control}
@@ -430,12 +430,13 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.tourDate && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 						<FormGroup id='hotelId' label='Otel' isFloating>
 							<Controller name="hotelId"
 											control={control}
-											rules={{ required: true }}
+											rules={{ required: false }}
 											render={({ field }) => (
 																	<Select
 																	size='sm'
@@ -454,13 +455,12 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 													 )}
 							/>
 						</FormGroup>
-						 {errors.salesman && <span>Bu alan gerekli</span>}
 						</div>
 							<div className='col-3'>
 							<FormGroup id='roomNumber' label='Oda/Kapı Numarası' isFloating>
 						        <Controller name="roomNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Giriniz'
@@ -498,6 +498,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.timeToPickUp && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 						    <FormGroup id='salesmanId' label='Satıcı' isFloating>
@@ -522,7 +523,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.salesman && <span>Bu alan gerekli</span>}
+							 {errors.salesmanId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-2'>
 								<FormGroup id='currency' label='Birim' isFloating>
@@ -566,6 +567,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.price && <span>Bu alan gerekli</span>}
+
 							</div>
 							<div className='col-2'>
 							<FormGroup id='paid' label='Ödenen' isFloating>
@@ -581,6 +584,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.paid && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 						    <FormGroup id='paymentMethodId' label='Ödeme Yöntemi' isFloating>
@@ -611,7 +615,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='ticketNumber' label='Bilet Numarası' isFloating>
 						        <Controller name="ticketNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Tur Adı'
@@ -622,7 +626,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							</FormGroup>
 							</div>
 							<div className='col-3'>
-							<FormGroup  id='cvc' label='Yetişkin'>
+							<FormGroup  id='adult' label='Yetişkin'>
 							<Controller name="adult"
 	                                            control={control}
 	                                            rules={{ required: true }}
@@ -637,18 +641,18 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.adult && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 							<FormGroup  id='child' label='Çocuk'>
 							<Controller name="child"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 													type='number'
 													autoComplete='cc-csc'
 													placeholder='Giriniz'
-													required
 													{...field}
 												/>
                                                          )}
@@ -659,13 +663,12 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup  id='baby' label='Bebek'>
 							<Controller name="baby"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 													type='number'
 													autoComplete='cc-csc'
 													placeholder='Giriniz'
-													required
 													{...field}
 												/>
                                                          )}
