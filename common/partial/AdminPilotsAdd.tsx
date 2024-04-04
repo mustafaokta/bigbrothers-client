@@ -195,7 +195,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 												     <FormGroup id='emailAddress' label='E-Posta' isFloating>
 													        <Controller name="emailAddress"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				placeholder='E-Posta'
@@ -210,7 +210,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 												     <FormGroup id='password' label='Şifre' isFloating>
 													        <Controller name="password"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				placeholder='Şifre'
@@ -225,7 +225,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 														<div className='col-3'>
 												<FormGroup id='gender' label='Cinsiyet' isFloating>
 											<Controller name="gender"
-                                            rules={{ required: true }}
+                                            rules={{ required: false }}
                                              control={ control}
                                             render={({ field }) => (
 												<Select
@@ -249,7 +249,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 												<div className='col-3'>
 												<FormGroup id='dateOfBirth' label='Doğum Tarihi' isFloating>
 											<Controller name="dateOfBirth"
-                                            rules={{ required: true }}
+                                            rules={{ required: false }}
                                              control={ control}
                                             render={({ field }) => (
 												<Input
@@ -276,7 +276,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 												<FormGroup id='licenseType' label='Lisans Tipi' isFloating>
 													        <Controller name="licenseType"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				placeholder='Lisans Tipi'
@@ -291,7 +291,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 												<FormGroup id='issuingAuthority' label='Düzenleyen Yetkili Makam' isFloating>
 													        <Controller name="issuingAuthority"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				placeholder='Düzenleyen Yetkili Makam'
@@ -306,7 +306,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 												<FormGroup id='licenseNumber' label='Lisans Numarası' isFloating>
 													        <Controller name="licenseNumber"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				placeholder='Lisans Numarası'
@@ -321,7 +321,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 												<FormGroup id='licenseExpirationDate' label='Lisans Son Kullanma Tarihi' isFloating>
 													        <Controller name="licenseExpirationDate"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				type='date'
@@ -349,7 +349,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 												<FormGroup id='emergencyContactFullName' label='İsim Soyisim' isFloating>
 													        <Controller name="emergencyContactFullName"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				placeholder='İsim Soyisim'
@@ -364,7 +364,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 												<FormGroup id='emergencyContactPhone' label='Telefon Numarası' isFloating>
 													        <Controller name="emergencyContactPhone"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				type='tel'
@@ -381,7 +381,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 												<FormGroup id='emergencyContactRelationship' label='Yakınlık Durumu' isFloating>
 													        <Controller name="emergencyContactRelationship"
 								                                            control={control}
-								                                            rules={{ required: true }}
+								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				placeholder='Yakınlık Durumu'
