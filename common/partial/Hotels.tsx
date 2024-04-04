@@ -23,6 +23,7 @@ import { useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { useDataRegions } from '../../helpers/connections/tour';
 import Select from '../../components/bootstrap/forms/Select';
+import { FormatQuote } from '../../components/icon/material-icons';
 
 
 
@@ -39,17 +40,17 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [isError, setIsError] = useState<null|string>(null);
 	const { data: regionData, isLoading: regionIsLoading, isError: regionIsError } = useDataRegions();
-	
+
 	const [newItemOffcanvas, setNewItemOffcanvas] = useState<boolean>(false);
 	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState(false);
-	
+
 
 
 	const [currentPage, setCurrentPage] = useState(1);
 	const [perPage, setPerPage] = useState(PER_COUNT['5']);
 
 	useEffect(() => {
-		
+
 
 		listHotel({ data : {} }, user.token!).then((res:any) => {
 			console.log('tekrar çalıştı listHotel : ', res);
@@ -61,7 +62,7 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			 				setIsError(err?.response?.data?.content);
 				setIsLoading(false);
 			});
-			 
+
 		}, [newItemOffcanvas, upcomingEventsEditOffcanvas])
 
 
@@ -91,7 +92,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	};
 
 	const handleNewItem = () => {
-	
+
 		let itemm: { [key: string]: any }=	{
 			"id":  0,
 			"name": "",
@@ -100,11 +101,11 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 			"contactPhone": "",
 			"contactEmail": "",
 			"contactPerson": "",
-			 
+
 					}
 					reset(itemm);
 		setNewItemOffcanvas(!newItemOffcanvas);
-		
+
 	};
 	const handleNewAction = (post_data: any) => {
 		let postData = post_data;
@@ -251,7 +252,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 				/>
 			</Card>
 
-			 
+
 			{/* Edit Modal */}
 			<Modal
 					setIsOpen={setUpcomingEventsEditOffcanvas}
@@ -266,7 +267,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 				<form onSubmit={handleSubmit((data) => handleEditAction(data))}>
 					<ModalBody>
 					<div className='row g-4'>
-					
+
 						    <div className='col-12'>
 								<FormGroup id='name' label='Otel Adı' isFloating>
 								<Controller name="name"
@@ -325,7 +326,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 							<div className='col-12'>
 								<FormGroup id='contactPhone' label='İletişim Telefonu' isFloating>
 								<Controller name="contactPhone"
-                                            rules={{ required: true }}
+                                            rules={{ required: false }}
                                              control={ control}
                                             render={({ field }) => (
 												<Input
@@ -341,7 +342,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 							<div className='col-12'>
 								<FormGroup id='contactEmail' label='İletişim E-posta' isFloating>
 								<Controller name="contactEmail"
-                                            rules={{ required: true }}
+                                            rules={{ required: false }}
                                              control={ control}
                                             render={({ field }) => (
 												<Input
@@ -356,7 +357,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 							<div className='col-12'>
 								<FormGroup id='contactPerson' label='İletişim Personel' isFloating>
 								<Controller name="contactPerson"
-                                            rules={{ required: true }}
+                                            rules={{ required: false }}
                                              control={ control}
                                             render={({ field }) => (
 												<Input
@@ -398,7 +399,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 					<form onSubmit={handleSubmit((data) => handleNewAction(data))}>
 					<ModalBody>
 					<div className='row g-4'>
-					
+
 						    <div className='col-12'>
 								<FormGroup id='name' label='Otel Adı' isFloating>
 								<Controller name="name"
@@ -457,7 +458,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 							<div className='col-12'>
 								<FormGroup id='contactPhone' label='İletişim Telefonu' isFloating>
 								<Controller name="contactPhone"
-                                            rules={{ required: true }}
+                                            rules={{ required: false }}
                                              control={ control}
                                             render={({ field }) => (
 												<Input
@@ -473,7 +474,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 							<div className='col-12'>
 								<FormGroup id='contactEmail' label='İletişim E-posta' isFloating>
 								<Controller name="contactEmail"
-                                            rules={{ required: true }}
+                                            rules={{ required: false }}
                                              control={ control}
                                             render={({ field }) => (
 												<Input
@@ -488,7 +489,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 							<div className='col-12'>
 								<FormGroup id='contactPerson' label='İletişim Personel' isFloating>
 								<Controller name="contactPerson"
-                                            rules={{ required: true }}
+                                            rules={{ required: false }}
                                              control={ control}
                                             render={({ field }) => (
 												<Input
