@@ -6,7 +6,7 @@ const USER_ME = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/me`;
 const USER_SEARCH = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/search`;
 const USER_PROFILE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/profile`;
 const USER_PROFILE_UPDATE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/profile`;
-const USER_PROFILE_PHOTO = `${process.env.NEXT_PUBLIC_API_HOST}/user/photo`;
+const USER_PROFILE_PHOTO = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/photo`;
 
 /* Yeniler */
 const USER_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/list`;

@@ -46,24 +46,16 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 	if (event.target.files && event.target.files.length > 0) {
 		setSelectedImage(event.target.files[0]);
-		const formData = new FormData();
-		formData.append('image', event.target.files[0] as File);
-		postAddUserPhoto(formData, user.token!).then().catch(
-		 			(err) => {
-				console.log('error', err);
-			}
-		
-		);
 	}
 };
 
 	const handleSaveAction = (data: any) => {
-
-		console.log('gelen datalar--', data);
-		// console.log('post_data', data);
+		const formData = new FormData();
+		formData.append('image', selectedImage as File);
+		formData.append('data',  JSON.stringify(data));
 		
 
-		addDrivers(data, user.token!)
+		addDrivers(formData, user.token!)
 				.then((res) => {
 					reset({
 						id: '',
@@ -102,7 +94,7 @@ const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 				<ModalHeader setIsOpen={setIsOpen} className='p-4'>
 					<ModalTitle id={id}>{item?.name || 'Sürücü Ekle'}</ModalTitle>
 				</ModalHeader>
-				<form onSubmit={handleSubmit((data) => handleSaveAction(data))}>
+				<form encType='multipart/form-data' onSubmit={handleSubmit((data) => handleSaveAction(data))}>
 				<ModalBody className='px-4'>
 					<div className='row g-4'>
 												<div className='col-xl-auto'>
