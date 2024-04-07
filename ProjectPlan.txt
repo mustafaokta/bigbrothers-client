@@ -28,7 +28,6 @@
 - Ticket Sales
 
 - Menu
-    - Documentasyon kapa
 
 - Translate (localization)
 
@@ -38,25 +37,20 @@
 
 
 # TODOES
+- Fragment son kayıt hariç silemiyor
+- form yapısı scroll olacak- form kLKINCA CALISIYO
+- güvenlik tedbirleri alınacak
+- spinner ekle
 - müşteri 0 seçmemeli adult oalrak
 - tüm yeni kayıtlar üstte görunsun
-- Dil bayrak default türkçe
-- logları kapat
 - user dönen yerlerde parola gizle
 - Bilet satışı statusu gelen giden veya ?
 - Export yazdırmaları window print e baglasak nasıl olur kontrol etmiyo
 - Personele whatsapp tan mesaj gonderme butonu aktif et
 - Dashboard aktif personel dinamikleşecek
 - Dashboard üst tab bar (günlük haftalık vs) dinamikleşecek
-- Transferde fragment delete ilk item update etmiyor db yi
 
 - Bilet sat yeni itema satıcı bilgisini gönder ki satıcı perforamnsını ölçelim
-- Transfere distance ekle
-- Operasyon görevlisi ekranı 
-- Documantasyonu kapat
-- form yapısı scroll olacak- form kLKINCA CALISIYO
-- fragmant delete item update etmiyor
-- currency leri swrd dan okut,  ödemelerdeki gibi kullan
 - tc noları  11 hane olacak max
 
 - Admin paneldeki tabloların düzenlenmesi
@@ -64,10 +58,7 @@
 - chat 
 - whatsapp
 - rapor indirilmesi
-- bilet canvas
 
 # ISSUES
 - paraşüt gps
-- aynı email ile silinen kullanıcı tekrar eklenemiyor
-kontrole ödeme tipi
-Çok satanlar whatsapp
+ - Çok satanlar kısmına whatsapp

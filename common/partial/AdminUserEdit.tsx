@@ -19,6 +19,7 @@ import Select from '../../components/bootstrap/forms/Select';
 import classNames from 'classnames';
 import useDarkMode from '../../hooks/useDarkMode';
 import { updateUsers } from '../../helpers/connections/admin';
+import { useDataUserRoleList } from '../../helpers/connections/tour';
 
 interface ICustomerEditModalProps {
 	id: string;
@@ -31,16 +32,18 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 
 	const { user } = useUserContext();
 	const { themeStatus, darkModeStatus } = useDarkMode();
+    const { data: userRoleData, isLoading: userRoleIsLoading, isError: userRoleIsError } = useDataUserRoleList();
+
 	const gender = [
 		{ value:'erkek', label: 'Erkek' },
 		{ value:'kadin', label: 'Kadın' }
 	];
 		// Not : Databasedeki id'ler ile eşleşmeli
 		const role = [
-			{ value:1, label: 'Yönetici' },
-			{ value:2, label: 'Ofis Çalışanı' },
-			{ value:3, label: 'Satıcı'},
-			{ value:6, label: 'Operasyon Görevlisi'}
+			{ id:1, name: 'Yönetici' },
+			{ id:2, name: 'Ofis Çalışanı' },
+			{ id:3, name: 'Satıcı'},
+			{ id:6, name: 'Operasyon Görevlisi'}
 		];
 
 	const handleSaveAction = (postData: any) => {
@@ -242,9 +245,9 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 												placeholder='Seçiniz'
 												ariaLabel='Seçiniz'
 												list={role.map((el: any) => ({
-													value: el.value,
-													text: el.label,
-													label: el.label,
+													value: el.id,
+													text: el.name,
+													label: el.name,
 												}))}
 												className={classNames('rounded-1', {
 													'bg-white': !darkModeStatus,

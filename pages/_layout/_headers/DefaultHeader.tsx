@@ -8,13 +8,24 @@ import Avatar from '../../../components/Avatar';
 import UserImage2 from '../../../assets/img/wanna/wanna1.png';
 import { useUserContext } from '../../../context/UserContext';
 import { useDataUserRoleList } from '../../../helpers/connections/tour';
+import Button from '../../../components/bootstrap/Button';
+import Spinner from '../../../components/bootstrap/Spinner';
 
 
 const DefaultHeader = () => {
 	const deviceScreen = useDeviceScreen();
 	const {user}= useUserContext();
    const { data: userRoleData, isLoading: userRoleIsLoading, isError: userRoleIsError } = useDataUserRoleList();
-      if (userRoleIsLoading ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+      if (userRoleIsLoading ) 	return (
+			<div className="d-flex h-100 w-100 justify-content-center align-items-center">
+				<div className="">
+					<Button color="primary" isLight>
+						<Spinner isSmall={false} size={18} inButton />
+						Yükleniyor...
+					</Button>
+				</div>
+			</div>
+		);
       if (userRoleIsError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	return (
 		<Header>
@@ -26,7 +37,7 @@ const DefaultHeader = () => {
 					<div>
 						<div className='fw-bold fs-6 mb-0'>{user.name + ' ' + user.surname}</div>
 						<div className='text-muted'>
-							<small>{userRoleData.content.filter((el:any)=>el.id==user.roleId)[0].name  }</small>
+							<small>{userRoleData.content.filter((el:any)=>el.id==user.roleId)[0]?.name  }</small>
 						</div>
 					</div>
 				</div>

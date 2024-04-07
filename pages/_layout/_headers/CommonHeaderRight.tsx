@@ -45,6 +45,8 @@ const CommonHeaderRight: FC<ICommonHeaderRightProps> = ({ beforeChildren, afterC
 	const [offcanvasStatus, setOffcanvasStatus] = useState(false);
 
 	const { i18n } = useTranslation();
+	console.log('router.locale', router.locale);
+	
 
 	const changeLanguage = (lng: ILang['key']['lng']) => {
 		i18n.changeLanguage(lng);
@@ -139,7 +141,8 @@ const CommonHeaderRight: FC<ICommonHeaderRightProps> = ({ beforeChildren, afterC
 									// eslint-disable-next-line react/jsx-props-no-spreading
 									{...styledBtn}
 									icon={
-										getLangWithKey(router.locale as ILang['key']['lng'])?.icon
+										// getLangWithKey(router.locale as ILang['key']['lng'])?.icon
+										 getLangWithKey('tr-TR' as ILang['key']['lng'])?.icon
 									}
 									aria-label='Change language'
 									data-tour='lang-selector'
@@ -151,7 +154,8 @@ const CommonHeaderRight: FC<ICommonHeaderRightProps> = ({ beforeChildren, afterC
 								<DropdownItem key={LANG[i].lng}>
 									<Button
 										icon={LANG[i].icon}
-										onClick={() => changeLanguage(LANG[i].lng)}>
+										//onClick={() => changeLanguage(LANG[i].lng)}
+										>
 										{LANG[i].text}
 									</Button>
 								</DropdownItem>

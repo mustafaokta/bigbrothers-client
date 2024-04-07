@@ -21,6 +21,7 @@ import { useUserContext } from '../../context/UserContext';
 import { addVehicle, updateVehicle, deleteVehicle, listVehicle } from '../../helpers/connections/admin';
 import { useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
+import Spinner from '../../components/bootstrap/Spinner';
 
 
 
@@ -140,7 +141,16 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	//let { items, requestSort, getClassNamesFor } = useSortableData(dataDummy);
 
 
-	if (  isLoading   ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+	if (  isLoading   ) 	return (
+			<div className="d-flex h-100 w-100 justify-content-center align-items-center">
+				<div className="">
+					<Button color="primary" isLight>
+						<Spinner isSmall={false} size={18} inButton />
+						Yükleniyor...
+					</Button>
+				</div>
+			</div>
+		);
 	if ( isError  ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	let items= listData.content;
 	return (

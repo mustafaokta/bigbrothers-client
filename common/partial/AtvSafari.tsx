@@ -25,6 +25,7 @@ import { useUserContext } from '../../context/UserContext';
 import { useDataUserList } from '../../helpers/connections/user';
 import showNotification from '../../components/extras/showNotification';
 import { listTransfer } from '../../helpers/connections/transfer';
+import Spinner from '../../components/bootstrap/Spinner';
 
 
 interface ICommonUpcomingEventsProps {
@@ -202,7 +203,16 @@ const TourList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [perPage, setPerPage] = useState(PER_COUNT['5']);
 	// const { items, requestSort, getClassNamesFor } = useSortableData(data);
-	if (tourIsLoading || hotelIsLoading || userListIsLoading || paymentMethodsIsLoading || agencyIsLoading || incomingIsLoading) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+	if (tourIsLoading || hotelIsLoading || userListIsLoading || paymentMethodsIsLoading || agencyIsLoading || incomingIsLoading) 	return (
+			<div className="d-flex h-100 w-100 justify-content-center align-items-center">
+				<div className="">
+					<Button color="primary" isLight>
+						<Spinner isSmall={false} size={18} inButton />
+						Yükleniyor...
+					</Button>
+				</div>
+			</div>
+		);
 	if (tourIsError || hotelIsError || userListIsError || paymentMethodIsError || agencyIsError) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 
 

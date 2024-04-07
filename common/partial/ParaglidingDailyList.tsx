@@ -30,6 +30,7 @@ import {  useDataPaymentMethods,useDataHotelList } from '../../helpers/connectio
 import { postAddParachuteEntry,listParachuteEntry,parachuteEntryUpdate } from '../../helpers/connections/paragliding';
 import UserImage from '../../assets/img/wanna/wanna1.png';
 import showNotification from '../../components/extras/showNotification';
+import Spinner from '../../components/bootstrap/Spinner';
 
 interface ICommonUpcomingEventsProps {
 	isFluid?: boolean;
@@ -205,7 +206,16 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const { requestSort, getClassNamesFor } = useSortableData(data);
 
 
-	if (pilotlistIsLoading||userListIsLoading||paymentMethodsIsLoading||hotelIsLoading) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+	if (pilotlistIsLoading||userListIsLoading||paymentMethodsIsLoading||hotelIsLoading) 	return (
+			<div className="d-flex h-100 w-100 justify-content-center align-items-center">
+				<div className="">
+					<Button color="primary" isLight>
+						<Spinner isSmall={false} size={18} inButton />
+						Yükleniyor...
+					</Button>
+				</div>
+			</div>
+		);
 	if (pilotlistIsError||userListIsError||paymentMethodIsError||hotelIsError) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	let items= listEntry.content;
 	return (

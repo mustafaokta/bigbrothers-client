@@ -7,7 +7,6 @@ import Card, {
 	CardLabel,
 	CardTitle,
 } from '../../components/bootstrap/Card';
-import Button from '../../components/bootstrap/Button';
 import Icon from '../../components/icon/Icon';
 import {
 	OffCanvasTitle,
@@ -25,6 +24,8 @@ import { useUserContext } from '../../context/UserContext';
 import { useDataUserList } from '../../helpers/connections/user';
 import showNotification from '../../components/extras/showNotification';
 import { listTransfer } from '../../helpers/connections/transfer';
+import Spinner from '../../components/bootstrap/Spinner';
+import Button from '../../components/bootstrap/Button';
 
 
 interface ICommonUpcomingEventsProps {
@@ -226,9 +227,21 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 	const [currentPage, setCurrentPage] = useState(1);
 	const [perPage, setPerPage] = useState(PER_COUNT['5']);
-	// const { items, requestSort, getClassNamesFor } = useSortableData(data);
-	if (tourIsLoading || hotelIsLoading || userListIsLoading || paymentMethodsIsLoading || agencyIsLoading || incomingIsLoading || tourTypeIsLoading) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
-	if (tourIsError || hotelIsError || userListIsError || paymentMethodIsError || agencyIsError || tourTypeIsError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
+	if (tourIsLoading || hotelIsLoading || userListIsLoading || paymentMethodsIsLoading || agencyIsLoading || incomingIsLoading || tourTypeIsLoading) {
+		return (
+			<div className="d-flex h-100 w-100 justify-content-center align-items-center">
+				<div className="">
+					<Button color="primary" isLight>
+						<Spinner isSmall={false} size={18} inButton />
+						Yükleniyor...
+					</Button>
+				</div>
+			</div>
+		);
+	}
+	if (tourIsError || hotelIsError || userListIsError || paymentMethodIsError || agencyIsError || tourTypeIsError) {
+		return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
+	}
 
 	let items = incomingTourData.content;
 	return (

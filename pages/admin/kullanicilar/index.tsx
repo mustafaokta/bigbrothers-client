@@ -23,6 +23,7 @@ import showNotification from '../../../components/extras/showNotification';
 import { listUsers,deleteUsers } from '../../../helpers/connections/admin';
 import { useDataUserRoleList } from '../../../helpers/connections/tour';
 import { useRouter } from 'next/router';
+import Spinner from '../../../components/bootstrap/Spinner';
 
 
 
@@ -36,6 +37,9 @@ const Index: NextPage = () => {
 	const [editModalStatus, setEditModalStatus] = useState<boolean>(false);
 	const { themeStatus, darkModeStatus } = useDarkMode();
 	const [roleIdToFilter, setRoleIdToFilter] = useState("");
+	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [isError, setIsError] = useState<null|string>(null);
+	
 	//const { data: userRoleData, isLoading: userRoleIsLoading, isError: userRoleIsError } = useDataUserRoleList();
 	const router = useRouter();
 
@@ -75,10 +79,9 @@ const Index: NextPage = () => {
 		console.log('id', data);
 		deleteUsers({ data: data.id}, user.token!)
 			.then((res : any) => {
-				console.log('deletePilot', res);
 				listUsers({ data : '' }, user.token!).then((res:any) => {
-					console.log('listTourReservation', res);
 					setUsersList(res.content);
+					setIsLoading(false);
 				});
 				showNotification(
 					'İşlem Başarılı',
@@ -99,10 +102,21 @@ const Index: NextPage = () => {
 		listUsers({ data : {roleId: router.query.roleId?.toString() || ''} }, user.token!).then((res:any) => {
 			console.log('listUsers', res);
 			setUsersList(res.content);
+			setIsLoading(false);
+
 		});
 	}, [newModalStatus, editModalStatus])
 
-	//if (userRoleIsLoading ) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+	if (isLoading)return (
+			<div className="d-flex h-100 w-100 justify-content-center align-items-center">
+				<div className="">
+					<Button color="primary" isLight>
+						<Spinner isSmall={false} size={18} inButton />
+						Yükleniyor...
+					</Button>
+				</div>
+			</div>
+		);
 	//if (userRoleIsError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	// console.log('userListData', userListData);
 

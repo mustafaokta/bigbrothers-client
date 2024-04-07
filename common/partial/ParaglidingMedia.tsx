@@ -26,6 +26,7 @@ import { useDataUserList } from '../../helpers/connections/user';
 import { deleteMedia,postAddMediaPayment, postMediaList ,updateMediaPayment} from '../../helpers/connections/paragliding';
 import { useDataPilotName} from '../../helpers/connections/paragliding';
 import UserImage from '../../assets/img/wanna/wanna1.png';
+import Spinner from '../../components/bootstrap/Spinner';
 
 
 interface ICommonUpcomingEventsProps {
@@ -168,7 +169,16 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 	const [currentPage, setCurrentPage] = useState(1);
 	const [perPage, setPerPage] = useState(PER_COUNT['5']);
 	// const { items, requestSort, getClassNamesFor } = useSortableData(data);
-	if (tourIsLoading || userListIsLoading || paymentMethodsIsLoading || pilotlistIsLoading || mediaListIsLoading) return <div className="flex flex-col w-full">YÜKLENİYOR....</div>;
+	if (tourIsLoading || userListIsLoading || paymentMethodsIsLoading || pilotlistIsLoading || mediaListIsLoading) 	return (
+			<div className="d-flex h-100 w-100 justify-content-center align-items-center">
+				<div className="">
+					<Button color="primary" isLight>
+						<Spinner isSmall={false} size={18} inButton />
+						Yükleniyor...
+					</Button>
+				</div>
+			</div>
+		);
 	if (tourIsError || userListIsError || paymentMethodIsError || pilotlistIsError) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 
 	let items = mediaListData.content;
