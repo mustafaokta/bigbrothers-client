@@ -27,6 +27,7 @@ import { useForm } from 'react-hook-form';
 import useDarkMode from '../../../hooks/useDarkMode';
 import showNotification from '../../../components/extras/showNotification';
 import { listDrivers,deleteUsers } from '../../../helpers/connections/admin';
+import { fetchUserPhoto } from '../../../helpers/connections/user';
 
 
 
@@ -58,7 +59,7 @@ const Index: NextPage = () => {
 			console.log('itm', itm);
 			reset({
 			id: itm.id,
-			foto: '',
+			foto: itm.avatar|| UserImage,
 			name: itm.name,
 			surname: itm.surname,
 			identityNumber: itm.identityNumber,
@@ -93,15 +94,23 @@ const Index: NextPage = () => {
 		});
 
 	}
-
 	useEffect(() => {
-		console.log('tekrar çalıştı');
-
-		listDrivers({ data : '' }, user.token!).then((res:any) => {
-			console.log('listDrivers : ', res);
-			setUsersList(res.content);
+		listDrivers({ data: '' }, user.token!).then(async (res: any) => {
+		  for (const user of res.content) {
+			try {
+			  const response: any = await fetchUserPhoto({ userId: user.id });
+			  if (response.status !== 404) {
+				user.avatar = URL.createObjectURL(response);
+			  }
+			} catch (err) {
+			  console.log(`An error occurred: ${err}`);
+			}
+		  }
+		  setUsersList(res.content);
 		});
-	}, [newModalStatus, editModalStatus])
+	  }, [newModalStatus, editModalStatus]);
+	
+
 
 	return (
 		<PageWrapper>
@@ -169,11 +178,11 @@ const Index: NextPage = () => {
 																'shadow',
 															)}>
 															{/* eslint-disable-next-line @next/next/no-img-element */}
-														{ 	<img
-																src={UserImage}
+														 	<img
+																src={user.avatar|| UserImage}
 																alt={user.name}
 																width={100}
-															/> }
+															/> 
 														</div>
 													</div>
 													{true && (

@@ -37,6 +37,7 @@
 
 
 # TODOES
+- yönetim paneli admin olmayana kapat
 - Fragment son kayıt hariç silemiyor
 - form yapısı scroll olacak- form kLKINCA CALISIYO
 - güvenlik tedbirleri alınacak

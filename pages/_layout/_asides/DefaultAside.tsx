@@ -49,7 +49,7 @@ console.log(user.roleId, '----');
 				<Brand asideStatus={asideStatus} setAsideStatus={setAsideStatus} />
 			</AsideHead>
 			<AsideBody>
-				<Navigation menu={dashboardMenu} id='aside-dashboard' />
+			{(Number(user.roleId) === 1 || Number(user.roleId) === 6) && <Navigation menu={dashboardMenu} id='aside-dashboard' />}
 				
 				<>
 					<NavigationLine />
