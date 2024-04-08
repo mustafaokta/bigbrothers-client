@@ -43,14 +43,20 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 		{ value:'erkek', label: 'Erkek' },
 		{ value:'kadin', label: 'Kadın' }
 	];
-
+	const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (event.target.files && event.target.files.length > 0) {
+		  setSelectedImage(event.target.files[0]);
+		}
+	  };
 
 	const handleSaveAction = (data: any) => {
-
+		const formData = new FormData();
+		formData.append("image", selectedImage as File);
+		formData.append("data", JSON.stringify(data));
 		console.log('gelen datalar--', data);
 		// console.log('post_data', data);
 
-	postAddPilot({ pilot : data }, user.token!)
+	postAddPilot(formData, user.token!)
 				.then((res) => {
 					reset({
 						id: '',
@@ -93,7 +99,9 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 				<ModalBody className='px-4'>
 					<div className='row g-4'>
 												<div className='col-xl-auto'>
-													<Avatar src={User1Img} />
+												{selectedImage && (
+                    <Avatar src={URL.createObjectURL(selectedImage)} />
+                  )}
 												</div>
 												<div className='col-xl'>
 													<div className='row g-4'>
@@ -104,11 +112,13 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
-																				type='file'
-																				autoComplete='photo'
-																				placeholder='Foto'
-																				{...field}
-																			/>
+													                              type="file"
+													                              autoComplete="photo"
+													                              placeholder="Foto"
+													                              onChange={(e: any) =>
+													                                field.onChange(handleImageChange(e))
+													                              }
+                                                                             />
 							                                                         )}
 															/>
 														</FormGroup>

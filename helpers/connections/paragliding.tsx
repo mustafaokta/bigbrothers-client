@@ -19,7 +19,7 @@ const UPDATE_PILOT = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/updateP
 const DELETE_PILOT = `${process.env.NEXT_PUBLIC_API_HOST}/v1/paragliding/deletePilot`;
 
 
-export const postAddPilot = (postData: { pilot:  any }, token: string) => {
+export const postAddPilot = (postData: any, token: string) => {
   return new Promise((resolve, reject) => {
     axios
       .post(PILOT_ADD, postData, { headers: { Authorization: `Bearer ${token}` } })
