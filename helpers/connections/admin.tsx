@@ -188,7 +188,7 @@ export const ticketGenerate = (params: { data:  any }) => {
 		});
 	  };
 
-	export const addUsers= (postData: { data:  any }, token: string) => {
+	export const addUsers= (postData: any, token: string) => {
 			return new Promise((resolve, reject) => {
 			axios
 				.post(USER_ADD, postData, { headers: { Authorization: `Bearer ${token}` } })

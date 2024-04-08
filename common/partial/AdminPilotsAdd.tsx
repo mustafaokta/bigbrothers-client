@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal, {
 	ModalBody,
@@ -36,6 +36,8 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 	const { register, handleSubmit, reset, formState: { errors }, getValues, control } = useForm();
 	const { user } = useUserContext();
 	const { themeStatus, darkModeStatus } = useDarkMode();
+	const [selectedImage, setSelectedImage] = useState<File | null>(null);
+
 
 	const gender = [
 		{ value:'erkek', label: 'Erkek' },

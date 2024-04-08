@@ -27,6 +27,7 @@ import AdminPilotsEdit from '../../../common/partial/AdminPilotsEdit';
 import { useForm } from 'react-hook-form';
 import useDarkMode from '../../../hooks/useDarkMode';
 import showNotification from '../../../components/extras/showNotification';
+import { fetchUserPhoto } from '../../../helpers/connections/user';
 
 
 
@@ -63,7 +64,7 @@ const Index: NextPage = () => {
 	const handleEditItem = (itm:any) => {
 			console.log('itm', itm);
 			reset({
-			foto: '',
+			foto: itm.user.avatar|| UserImage,
 			name: itm.user.name,
 			surname: itm.user.surname,
 			identityNumber: itm.user.identityNumber,
@@ -110,8 +111,17 @@ const Index: NextPage = () => {
 	useEffect(() => {
 		console.log('tekrar çalıştı');
 
-		postPilotList({ data : '' }, user.token!).then((res:any) => {
-			console.log('listTourReservation', res);
+		postPilotList({ data : '' }, user.token!).then(async(res:any) => {
+			for (const user of res.content) {
+				try {
+				  const response: any = await fetchUserPhoto({ userId: user.userId });
+				  if (response.status !== 404) {
+					user.user.avatar = URL.createObjectURL(response);
+				  }
+				} catch (err) {
+				  console.log(`An error occurred: ${err}`);
+				}
+			  }
 			setPilotList(res.content);
 		});
 	}, [newModalStatus, editModalStatus])
@@ -183,7 +193,7 @@ const Index: NextPage = () => {
 															)}>
 															{/* eslint-disable-next-line @next/next/no-img-element */}
 														{ 	<img
-																src={UserImage}
+																src={pilot.user.avatar|| UserImage}
 																alt={pilot.user.name}
 																width={100}
 															/> }
