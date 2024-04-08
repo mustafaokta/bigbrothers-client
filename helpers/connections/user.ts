@@ -6,7 +6,7 @@ const USER_ME = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/me`;
 const USER_SEARCH = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/search`;
 const USER_PROFILE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/profile`;
 const USER_PROFILE_UPDATE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/profile`;
-const USER_PROFILE_PHOTO = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/photo`;
+const USER_PROFILE_PHOTO = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/profilePicture`;
 
 /* Yeniler */
 const USER_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/user/list`;
@@ -142,4 +142,28 @@ export const useDataUserList = () => {
         .then((res) => resolve(res.data))
         .catch((err) => reject(err));
     });
+  };
+  export const fetchUserPhoto2 = (postData: any) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(USER_PROFILE_PHOTO, postData, { headers: { 'Content-Type': 'application/json' } })
+        .then((res) => resolve(res.data))
+        .catch((err) => reject(err));
+    });
+  };
+  export const fetchUserPhoto = (queryParams:any) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(USER_PROFILE_PHOTO, {
+          params: queryParams,
+          responseType: 'blob'
+        })
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    }
+    );
   };

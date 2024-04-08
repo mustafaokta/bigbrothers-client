@@ -13,6 +13,8 @@ import  { JwtPayload, jwtDecode } from "jwt-decode";
 import { useRouter } from "next/router";
 import { postLogin } from "../helpers/connections/auth"; // connections/auth"
 import showNotification from "../components/extras/showNotification";
+import { fetchUserPhoto } from "../helpers/connections/user";
+
 
 interface IUserContext {
   iat: number | undefined | null;
@@ -51,11 +53,17 @@ const UserContext = createContext<IUserProvider>({} as IUserProvider);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IUserContext>(initialState);
   const router = useRouter();
+  const [profilePicture, setProfilePicture] = useState<any>();
 
   useEffect(() => {
     verifyToken();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    if (user.token) {
+      fetchProfilePicture();
+    }
+  }, [user.token]);
 
   const loginUser = (postData: { email: string; password: string }) => {
     postLogin(postData)
@@ -104,6 +112,26 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       }
     }
   }, [user]);
+  const fetchProfilePicture = async () => {
+    try {
+      const response:any = await fetchUserPhoto({ userId: user.id });
+
+      console.log(response.status, 'response.status');
+      
+   /*    if (response.status!==200) {
+        throw new Error(`API request failed with status: ${response.status}`);
+      } */
+      const pictureUrl = URL.createObjectURL(response);
+      console.log(pictureUrl, 'pictureUrl');
+      
+      setUser(prevUser => ({
+        ...prevUser,
+        src: pictureUrl // Set the profile picture URL in the user context
+      }));
+    } catch (err) {
+      console.log(`Bir hata meydana geldi. Err:${err}`);
+    }
+  };
 
   return <UserContext.Provider value={{ user, loginUser, logoutUser, verifyToken }}>{children}</UserContext.Provider>;
 };

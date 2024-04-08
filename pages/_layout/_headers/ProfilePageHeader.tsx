@@ -3,14 +3,19 @@ import Header, { HeaderLeft } from '../../../layout/Header/Header';
 import Avatar from '../../../components/Avatar';
 import UserImage2 from '../../../assets/img/wanna/wanna1.png';
 import CommonHeaderRight from './CommonHeaderRight';
+import { useUserContext } from "../../../context/UserContext";
+
 
 const ProfilePageHeader = () => {
+	const { user } = useUserContext();
+console.log('src: ',user.src);
+
 	return (
 		<Header>
 			<HeaderLeft>
 				<div className='col d-flex align-items-center'>
 					<div className='me-3'>
-						<Avatar src={UserImage2} size={48} color='primary' />
+						<Avatar src={user.src?user.src:''} size={48} color='primary' />
 					</div>
 					<div>
 						<div className='fw-bold fs-6 mb-0'>Timothy J. Doe</div>

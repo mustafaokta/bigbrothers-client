@@ -15,6 +15,8 @@ import Spinner from '../../../components/bootstrap/Spinner';
 const DefaultHeader = () => {
 	const deviceScreen = useDeviceScreen();
 	const {user}= useUserContext();
+	console.log('dddd', user);
+	
    const { data: userRoleData, isLoading: userRoleIsLoading, isError: userRoleIsError } = useDataUserRoleList();
       if (userRoleIsLoading ) 	return (
 			<div className="d-flex h-100 w-100 justify-content-center align-items-center">
@@ -32,7 +34,7 @@ const DefaultHeader = () => {
 			<HeaderLeft>
 			<div className='col d-flex align-items-center'>
 					<div className='me-3'>
-						<Avatar src={UserImage2} size={48} color='primary' />
+						<Avatar src={user.src?user.src:UserImage2} size={48} color='primary' />
 					</div>
 					<div>
 						<div className='fw-bold fs-6 mb-0'>{user.name + ' ' + user.surname}</div>
