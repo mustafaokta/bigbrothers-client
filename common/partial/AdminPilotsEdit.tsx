@@ -32,8 +32,7 @@ interface ICustomerEditModalProps {
 	setIsOpen(...args: unknown[]): unknown;
 }
 const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, getValues, handleSubmit }) => {
-	const itemData = id ? data.filter((item) => item.id.toString() === id.toString()) : {};
-	const item = id && Array.isArray(itemData) ? itemData[0] : {};
+
 
 	const { user } = useUserContext();
 	const { themeStatus, darkModeStatus } = useDarkMode();
@@ -69,7 +68,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 			<Modal isOpen={isOpen} setIsOpen={setIsOpen}
 			size='xl' titleId={id.toString()}>
 				<ModalHeader setIsOpen={setIsOpen} className='p-4'>
-					<ModalTitle id={id}>{item?.name || 'Düzenle'}</ModalTitle>
+					<ModalTitle id={id}>{'Düzenle'}</ModalTitle>
 				</ModalHeader>
 				<form onSubmit={handleSubmit((data:any) => handleSaveAction(data))}>
 				<ModalBody className='px-4'>
@@ -86,11 +85,13 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
-																				type='file'
-																				autoComplete='photo'
-																				placeholder='Foto'
-																				{...field}
-																			/>
+																				type="file"
+																				autoComplete="photo"
+																				placeholder="Foto"
+																				onChange={(e: any) =>
+																				 // field.onChange(handleImageChange(e))
+																				null}
+																		   />
 							                                                         )}
 															/>
 														</FormGroup>
