@@ -79,10 +79,11 @@ const Index: NextPage = () => {
 		deleteUsers({ data: data.id}, user.token!)
 			.then((res : any) => {
 				console.log('deletePilot', res);
-				listDrivers({ data : '' }, user.token!).then((res:any) => {
+				setUsersList((prev: any[])=> prev.filter((item:any)=> item.id !== data.id) );
+			/* 	listDrivers({ data : '' }, user.token!).then((res:any) => {
 					console.log('listTourReservation', res);
 					setUsersList(res.content);
-				});
+				}); */
 				showNotification(
 					'İşlem Başarılı',
 					'Kullanıcı başarıyla silindi.',

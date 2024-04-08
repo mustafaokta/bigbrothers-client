@@ -93,10 +93,12 @@ const Index: NextPage = () => {
 		deletePilot({ data: {contactInformationId:data.contactInformationId,pilotId:data.id,licensingAndCertificationId:data.licensingAndCertificationId,userId:data.userId}}, user.token!)
 			.then((res : any) => {
 				console.log('deletePilot', res);
-				postPilotList({ data : '' }, user.token!).then((res:any) => {
+				setPilotList((prev: any[])=> prev.filter((item:any)=> item.id !== data.id) );
+
+			/* 	postPilotList({ data : '' }, user.token!).then((res:any) => {
 					console.log('listTourReservation', res);
 					setPilotList(res.content);
-				});				showNotification(
+				});	 */			showNotification(
 					'İşlem Başarılı',
 					'Pilot başarıyla silindi.',
 					'success' // 'default' || 'info' || 'warning' || 'success' || 'danger',

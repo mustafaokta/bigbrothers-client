@@ -80,10 +80,11 @@ const Index: NextPage = () => {
 		console.log('id', data);
 		deleteUsers({ data: data.id}, user.token!)
 			.then((res : any) => {
-				listUsers({ data : '' }, user.token!).then((res:any) => {
+				setUsersList((prev: any[])=> prev.filter((item:any)=> item.id !== data.id) );
+	/* 			listUsers({ data : '' }, user.token!).then((res:any) => {
 					setUsersList(res.content);
 					setIsLoading(false);
-				});
+				}); */
 				showNotification(
 					'İşlem Başarılı',
 					'Kullanıcı başarıyla silindi.',
