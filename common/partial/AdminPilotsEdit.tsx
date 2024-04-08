@@ -302,14 +302,14 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 														</FormGroup>
 												</div>
 												<div className='col-md-6'>
-												<FormGroup id='licenseExpirationDate' label='Lisans Son Kullanma Tarihi' isFloating>
+												<FormGroup id='licenseExpirationDate' label='Lisans Alınış İlk Tarihi' isFloating>
 													        <Controller name="licenseExpirationDate"
 								                                            control={control}
 								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
 																				type='date'
-																				placeholder='Lisans Son Kullanma Tarihi'
+																				placeholder='Lisans Alınış İlk Tarihi'
 																				{...field}
 																			/>
 							                                                         )}
