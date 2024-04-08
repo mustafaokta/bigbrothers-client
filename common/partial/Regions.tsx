@@ -47,7 +47,6 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [perPage, setPerPage] = useState(PER_COUNT['5']);
 
 	useEffect(() => {
-		console.log('tekrar çalıştı');
 
 		listRegion({ data : {} }, user.token!).then((res:any) => {
 				setListData(res);

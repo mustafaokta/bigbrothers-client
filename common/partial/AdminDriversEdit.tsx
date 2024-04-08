@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal, {
 	ModalBody,
@@ -31,21 +31,28 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 
 	const { user } = useUserContext();
 	const { themeStatus, darkModeStatus } = useDarkMode();
+	const [selectedImage, setSelectedImage] = useState<File | null>(null);
+
 	const gender = [
 		{ value:'erkek', label: 'Erkek' },
 		{ value:'kadin', label: 'Kadın' }
 	];
-
+	const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (event.target.files && event.target.files.length > 0) {
+		  setSelectedImage(event.target.files[0]);
+		}
+	  };
 
 	const handleSaveAction = (postData: any) => {
+		const formData = new FormData();
+		formData.append("image", selectedImage as File);
+		formData.append("data", JSON.stringify(postData));
 
-		console.log('gelen datalar--', postData);
-		// console.log('post_data', data);
-
-		updateDrivers({ data: postData  }, user.token!)
+		updateDrivers(formData, user.token!)
 				.then((res) => {
 
 					setIsOpen(false);
+					setSelectedImage(null);
 					showNotification(
 						'success',
 						'Kayıt Başarılı',
@@ -69,7 +76,9 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 				<ModalBody className='px-4'>
 				<div className='row g-4'>
 												<div className='col-xl-auto'>
-													<Avatar src={User1Img} />
+												{selectedImage && (
+                    <Avatar src={URL.createObjectURL(selectedImage)} />
+                  )}
 												</div>
 												<div className='col-xl'>
 													<div className='row g-4'>
@@ -80,11 +89,13 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 								                                            rules={{ required: false }}
 								                                            render={({ field }) => (
 																				<Input
-																				type='file'
-																				autoComplete='photo'
-																				placeholder='Foto'
-																				{...field}
-																			/>
+																				type="file"
+																				autoComplete="photo"
+																				placeholder="Foto"
+																				onChange={(e: any) =>
+																				  field.onChange(handleImageChange(e))
+																				}
+																			  />
 							                                                         )}
 															/>
 														</FormGroup>

@@ -47,8 +47,6 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [perPage, setPerPage] = useState(PER_COUNT['5']);
 
 	useEffect(() => {
-		console.log('tekrar çalıştı');
-
 		listAgency({ data : {} }, user.token!).then((res:any) => {
 				setListData(res);
 				setIsLoading(false);
@@ -94,7 +92,6 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	};
 	const handleNewAction = (post_data: any) => {
 		let postData = post_data;
-	console.log('post_data', postData);
 
 	addAgency ({ data: postData }, user.token!)
 			.then((res) => {
@@ -126,7 +123,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 				setListData(res);
 		})
 		.catch((err:any) => {
-			console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+			// console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
 		});
 	}
 

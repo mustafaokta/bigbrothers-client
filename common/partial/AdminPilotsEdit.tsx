@@ -52,13 +52,12 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 		const formData = new FormData();
 		formData.append("image", selectedImage as File);
 		formData.append("data", JSON.stringify(postData));
-		console.log('gelen datalar--', postData);
-		// console.log('post_data', data);
 
 		updatePilot(formData, user.token!)
 				.then((res) => {
 
 					setIsOpen(false);
+					setSelectedImage(null);
 					showNotification(
 						'success',
 						'Kayıt Başarılı',

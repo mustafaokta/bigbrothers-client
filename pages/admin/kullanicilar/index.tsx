@@ -59,7 +59,6 @@ const Index: NextPage = () => {
 		});
 	};
 	const handleEditItem = (itm:any) => {
-			console.log('itm', itm);
 			reset({
 			id: itm.id,
 			foto: itm.avatar|| UserImage,
@@ -77,7 +76,6 @@ const Index: NextPage = () => {
 	};
 
 	const deleteItem = (data:any) => {
-		console.log('id', data);
 		deleteUsers({ data: data.id}, user.token!)
 			.then((res : any) => {
 				setUsersList((prev: any[])=> prev.filter((item:any)=> item.id !== data.id) );
@@ -112,7 +110,6 @@ const Index: NextPage = () => {
 				  console.log(`An error occurred: ${err}`);
 				}
 			  }
-			console.log('listUsers', res);
 			setUsersList(res.content);
 			setIsLoading(false);
 

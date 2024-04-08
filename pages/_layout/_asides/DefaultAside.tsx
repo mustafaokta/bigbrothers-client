@@ -41,7 +41,6 @@ const DefaultAside = () => {
 	const { darkModeStatus } = useDarkMode();
 	const {user}= useUserContext();
 
-console.log(user.roleId, '----');
 
 	return (
 		<Aside>

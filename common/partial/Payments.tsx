@@ -57,7 +57,6 @@ const Payments: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [perPage, setPerPage] = useState(PER_COUNT['5']);
 
 	useEffect(() => {
-		console.log('tekrar çalıştı');
 
 		listPayments({ data : {} }, user.token!).then((res:any) => {
 				setListData(res);
@@ -112,7 +111,6 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	};
 	const handleNewAction = (post_data: any) => {
 		let postData = post_data;
-	console.log('post_data', postData);
 
 	addPayments ({ data: postData }, user.token!)
 			.then((res) => {

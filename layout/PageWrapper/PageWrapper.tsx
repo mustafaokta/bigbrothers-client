@@ -47,7 +47,6 @@ const PageWrapper = forwardRef<HTMLDivElement, IPageWrapperProps>(
         localStorage.getItem("agency-web-user") &&
         JSON.parse(localStorage.getItem("agency-web-user") || "{}").token
       ) {
-        console.log("verifiy token ....");
 
         verifyToken();
       } else {

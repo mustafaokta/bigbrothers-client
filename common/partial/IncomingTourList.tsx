@@ -210,7 +210,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			);
 		  })
 		  .catch((err:any) => {
-			console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+		// 	console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
 		  });
 	  }
 

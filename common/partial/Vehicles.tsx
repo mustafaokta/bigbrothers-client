@@ -100,7 +100,6 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	};
 	const handleNewAction = (post_data: any) => {
 		let postData = post_data;
-	console.log('post_data', postData);
 
 	addVehicle ({ data: postData }, user.token!)
 			.then((res) => {

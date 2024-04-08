@@ -47,7 +47,6 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [perPage, setPerPage] = useState(PER_COUNT['5']);
 
 	useEffect(() => {
-		console.log('tekrar çalıştı');
 
 			listTourTypes({ data : {} }, user.token!).then((res:any) => {
 				setListData(res);
@@ -94,7 +93,6 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	};
 	const handleNewAction = (post_data: any) => {
 		let postData = post_data;
-	console.log('post_data', postData);
 
 	addTourTypes({ data: postData }, user.token!)
 			.then((res) => {

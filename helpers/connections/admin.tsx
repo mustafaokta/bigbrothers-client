@@ -197,7 +197,7 @@ export const ticketGenerate = (params: { data:  any }) => {
 			});
 		};
 
-		export const updateUsers= (postData: { data:  any }, token: string) => {
+		export const updateUsers= (postData: any, token: string) => {
 			return new Promise((resolve, reject) => {
 			axios
 				.post(USER_UPDATE, postData, { headers: { Authorization: `Bearer ${token}` } })
@@ -336,7 +336,7 @@ export const ticketGenerate = (params: { data:  any }) => {
 	});
   };
 
-  export const updateDrivers= (postData: { data:  any }, token: string) => {
+  export const updateDrivers= (postData: any, token: string) => {
 	return new Promise((resolve, reject) => {
 	  axios
 		.post(UPDATE_DRIVER, postData, { headers: { Authorization: `Bearer ${token}` } })

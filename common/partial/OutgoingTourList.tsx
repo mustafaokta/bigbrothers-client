@@ -208,7 +208,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			);
 		  })
 		  .catch((err:any) => {
-			console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+			// console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
 		  });
 	  }
 
@@ -238,7 +238,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		);
 	if (tourIsError || hotelIsError || userListIsError || paymentMethodIsError || agencyIsError || tourTypeIsError ) return <div className="flex flex-col w-full">BİR HATA MEYDANA GELDİ....</div>;
 	// console.log('userListData', userListData);
-	 console.log('tourData', tourData);
 
 	let items = incomingTourData.content;
 	return (

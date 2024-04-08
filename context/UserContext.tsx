@@ -116,13 +116,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response:any = await fetchUserPhoto({ userId: user.id });
 
-      console.log(response.status, 'response.status');
       
    /*    if (response.status!==200) {
         throw new Error(`API request failed with status: ${response.status}`);
       } */
       const pictureUrl = URL.createObjectURL(response);
-      console.log(pictureUrl, 'pictureUrl');
       
       setUser(prevUser => ({
         ...prevUser,
@@ -173,7 +171,6 @@ const handleLoginResponse = (res: any, setUser: Dispatch<SetStateAction<IUserCon
        email: res.content.user.email,
        roleId: res.content.user.roleId,
     };
-    console.log(res.content.user, 'userrrrrr',res.content.accessToken  );
     
     localStorage.setItem("agency-web-user", JSON.stringify(obj));
     localStorage.setItem("facit_authUsername", res.content.user.name);

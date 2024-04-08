@@ -50,10 +50,8 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [displayPeriodQuantity, setDisplayPeriodQuantity] = useState(0);
 
 	useEffect(() => {
-		console.log('tekrar çalıştı');
 
 			listTour({ data : {} }, user.token!).then((res:any) => {
-						 console.log('listTourData', res);
 						 setTourData(res);
 			}
 			);
@@ -62,13 +60,11 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 
 if (!typeIsLoading || !typeIsError) {
-	console.log('typeData', typeData);
 }
 
 
 
 if (!agencyIsLoading || !agencyIsError) {
-	console.log('agencyData---', agencyData);
 }
 
 
@@ -129,7 +125,6 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 		deleteTours({ data: postData}, user.token!)
 	   .then((res) => {
 		listTour({ data : {} }, user.token!).then((res:any) => {
-			console.log('listTourData', res);
 			setTourData(res);
 }
 );
@@ -143,7 +138,6 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 
 	const handleNewAction = (post_data: any) => {
 		let postData = post_data;
-	console.log('post_data', postData);
 
 		postAddTour({ tour: postData }, user.token!)
 			.then((res) => {
@@ -638,7 +632,7 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 			);
 			
 		}
-			console.log(fragments.length, 'fragments', fragments);
+			//console.log(fragments.length, 'fragments', fragments);
 			const confirmation = window.confirm('Silmek istediğinizden emin misiniz?'); // Tarayıcı standart onay kutusu
 
 			if (confirmation) {

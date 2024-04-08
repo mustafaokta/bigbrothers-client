@@ -15,7 +15,6 @@ import Spinner from '../../../components/bootstrap/Spinner';
 const DefaultHeader = () => {
 	const deviceScreen = useDeviceScreen();
 	const {user}= useUserContext();
-	console.log('dddd', user);
 	
    const { data: userRoleData, isLoading: userRoleIsLoading, isError: userRoleIsError } = useDataUserRoleList();
       if (userRoleIsLoading ) 	return (

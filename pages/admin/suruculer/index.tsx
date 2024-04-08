@@ -56,7 +56,6 @@ const Index: NextPage = () => {
 		});
 	};
 	const handleEditItem = (itm:any) => {
-			console.log('itm', itm);
 			reset({
 			id: itm.id,
 			foto: itm.avatar|| UserImage,
@@ -75,13 +74,10 @@ const Index: NextPage = () => {
 	};
 
 	const deleteItem = (data:any) => {
-		//console.log('id', id);
 		deleteUsers({ data: data.id}, user.token!)
 			.then((res : any) => {
-				console.log('deletePilot', res);
 				setUsersList((prev: any[])=> prev.filter((item:any)=> item.id !== data.id) );
 			/* 	listDrivers({ data : '' }, user.token!).then((res:any) => {
-					console.log('listTourReservation', res);
 					setUsersList(res.content);
 				}); */
 				showNotification(

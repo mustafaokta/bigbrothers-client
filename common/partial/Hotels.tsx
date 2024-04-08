@@ -54,7 +54,6 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 
 		listHotel({ data : {} }, user.token!).then((res:any) => {
-			console.log('tekrar çalıştı listHotel : ', res);
 				setListData(res);
 				setIsLoading(false);
 				setIsError(null);
@@ -110,7 +109,6 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	};
 	const handleNewAction = (post_data: any) => {
 		let postData = post_data;
-	console.log('post_data', postData);
 
 	addHotel ({ data: postData }, user.token!)
 			.then((res) => {
@@ -142,7 +140,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 				setListData(res);
 		})
 		.catch((err:any) => {
-			console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+			// console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
 		});
 	}
 

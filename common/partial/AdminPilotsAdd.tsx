@@ -53,8 +53,6 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 		const formData = new FormData();
 		formData.append("image", selectedImage as File);
 		formData.append("data", JSON.stringify(data));
-		console.log('gelen datalar--', data);
-		// console.log('post_data', data);
 
 	postAddPilot(formData, user.token!)
 				.then((res) => {

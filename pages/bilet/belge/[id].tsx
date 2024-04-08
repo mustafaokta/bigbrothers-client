@@ -58,7 +58,6 @@ const Id: NextPage = () => {
 		if (id) {
 			ticketGenerate({ data: id })
 				.then((res: any) => {
-					console.log('res ticketGenerate', res);
 					setPdfBuffer(res.data);
 					setIsLoading(false);
 				})

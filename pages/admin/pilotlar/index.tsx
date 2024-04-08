@@ -62,7 +62,6 @@ const Index: NextPage = () => {
 		});
 	};
 	const handleEditItem = (itm:any) => {
-			console.log('itm', itm);
 			reset({
 			foto: itm.user.avatar|| UserImage,
 			name: itm.user.name,
@@ -92,7 +91,6 @@ const Index: NextPage = () => {
 		//console.log('id', id);
 		deletePilot({ data: {contactInformationId:data.contactInformationId,pilotId:data.id,licensingAndCertificationId:data.licensingAndCertificationId,userId:data.userId}}, user.token!)
 			.then((res : any) => {
-				console.log('deletePilot', res);
 				setPilotList((prev: any[])=> prev.filter((item:any)=> item.id !== data.id) );
 
 			/* 	postPilotList({ data : '' }, user.token!).then((res:any) => {

@@ -64,14 +64,13 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 			deleteMedia({ data: postData}, user.token!)
 		   .then((res) => {
 			postMediaList({ data : {} }, user.token!).then((res:any) => {
-				console.log('postMediaList', res);
 				setMediaListData(res);
 			   }
    );
 
 		})
 			.catch((err:any) => {
-				console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+			//	console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
 			});
 		}
 
@@ -100,10 +99,8 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 	const [newItemOffcanvas, setNewItemOffcanvas] = useState<boolean>(false);
 
 	useEffect(() => {
-	console.log('tekrar çalıştı');
 
 	postMediaList({ data : {} }, user.token!).then((res:any) => {
-		 			console.log('postMediaList', res);
 					 setMediaListData(res);
 		 								setMediaListIsLoading(false)
 		}
@@ -137,7 +134,6 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 	};
 	const handleUpdateAction = (post_data: any) => {
 		let postData = post_data;
-	 console.log('post_data update !!!!!!!', postData);
 
 	 updateMediaPayment({ mediaPayment: postData }, user.token!)
 			.then((res) => {
@@ -150,7 +146,6 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 			});
 	};
 	const handleSaveAction = (data: any) => {
-	 console.log('post_data', data);
 
 	postAddMediaPayment({ mediaPayment :  data  }, user.token!)
 			.then((res) => {

@@ -8,7 +8,6 @@ import { useUserContext } from "../../../context/UserContext";
 
 const ProfilePageHeader = () => {
 	const { user } = useUserContext();
-console.log('src: ',user.src);
 
 	return (
 		<Header>

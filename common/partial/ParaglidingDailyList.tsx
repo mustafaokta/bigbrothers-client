@@ -56,7 +56,6 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	useEffect(() => {
 
 		listParachuteEntry({ data : {} }, user.token!).then((res:any) => {
-						 console.log('listTourData', res);
 						 setlistEntry(res);
 			}
 			);
@@ -142,7 +141,6 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 	const handleUpdateAction = (post_data: any) => {
 		let postData = post_data;
-	 console.log('post_data update', postData);
 
 	 parachuteEntryUpdate({ data: postData }, user.token!)
 			.then((res) => {
@@ -160,7 +158,6 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			});
 	};
 	const handleSaveAction = (data: any) => {
-		 console.log('post_data----------', data);
 		postAddParachuteEntry({ data : data }, user.token!)
 				.then((res) => {
 					setNewItemOffcanvas(false)
@@ -176,7 +173,6 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		};
 		const handleDeleteAction = (postData: any) => {
 			parachuteEntryDelete({ data : {id: postData.id } }, user.token!).then((res:any) => {
-				// console.log('listTourReservation', res);
 				setlistEntry(res);
 	}
 	)

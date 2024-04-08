@@ -146,7 +146,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	};
 	const handleUpdateAction = (post_data: any) => {
 		let postData = post_data;
-	 console.log('post_data update', postData);
 
 	postUpdateTransfer({ data: postData }, user.token!)
 			.then((res) => {
@@ -162,7 +161,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			});
 	};
 	const handleSaveAction = (data: any) => {
-	console.log('post_data', data);
 
 	postAddTransfer({ data : data }, user.token!)
 			.then((res) => {
@@ -175,7 +173,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			});
 	};
 	const handleDeleteAction = (data: any) => {
-	console.log('post_data', data);
 
 	postDeleteTransfer({ data : data }, user.token!)
 			.then((res:any) => {
