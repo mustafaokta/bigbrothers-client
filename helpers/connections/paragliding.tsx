@@ -117,7 +117,7 @@ export const parachuteEntryDelete = (postData: { data:  any }, token: string) =>
     });
     };
 
-export const updatePilot = (postData: { data:  any }, token: string) => {
+export const updatePilot = (postData: any, token: string) => {
     return new Promise((resolve, reject) => {
       axios
       .post(UPDATE_PILOT, postData, { headers: { Authorization: `Bearer ${token}` } })
