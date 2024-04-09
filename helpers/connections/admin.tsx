@@ -3,8 +3,6 @@ import useSWR from "swr";
 import { ITour, ITourResponse } from "./connectiontypes";
 import { fetcher } from "./fetcher";
 
-
-
 const TOUR_TYPE_LIST = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/listTypes`;
 const TOUR_TYPE_UPDATE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/updateTourTypes`;
 const TOUR_TYPE_ADD = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/addTourTypes`;
@@ -45,302 +43,371 @@ const REGION_UPDATE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/updateRegion
 const REGION_ADD = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/addRegion`;
 const REGION_DELETE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/admin/deleteRegion`;
 
-
 const TICKET_GENERATE = `${process.env.NEXT_PUBLIC_API_HOST}/v1/ticket/`;
-
-
-
-
 
 /* Admin */
 
-   /* Tour Types */
-  export const addTourTypes = (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(TOUR_TYPE_ADD, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const updateTourTypes = (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(TOUR_TYPE_UPDATE, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const deleteTourTypes = (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(TOUR_TYPE_DELETE, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const listTourTypes = (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(TOUR_TYPE_LIST, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  
-  
-  
-export const ticketGenerate = (params: { data:  any }) => {
-	return new Promise((resolve, reject) => {
-		axios
-			.get(TICKET_GENERATE, {params: params.data} )
-			.then((res) => resolve(res.data))
-			.catch((err) => reject(err));
-	});
+/* Tour Types */
+export const addTourTypes = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(TOUR_TYPE_ADD, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const updateTourTypes = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(TOUR_TYPE_UPDATE, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const deleteTourTypes = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(TOUR_TYPE_DELETE, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const listTourTypes = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(TOUR_TYPE_LIST, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
 };
 
+export const ticketGenerate = (params: { data: any }) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(TICKET_GENERATE, { params: params.data })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
 
-   /* Agencies */
-  export const addAgency= (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(AGENCY_ADD, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const updateAgency= (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(AGENCY_UPDATE, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const deleteAgency = (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(AGENCY_DELETE, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const listAgency= (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(AGENCY_LIST, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
+/* Agencies */
+export const addAgency = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(AGENCY_ADD, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const updateAgency = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(AGENCY_UPDATE, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const deleteAgency = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(AGENCY_DELETE, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const listAgency = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(AGENCY_LIST, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
 
+/* Hotels */
+export const addHotel = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(HOTEL_ADD, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const updateHotel = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(HOTEL_UPDATE, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const deleteHotel = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(HOTEL_DELETE, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const listHotel = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(HOTEL_LIST, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
 
+// Users
+export const listUsers = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(USER_LIST, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const deleteUsers = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(USER_DELETE, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
 
-   /* Hotels */
-  export const addHotel= (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(HOTEL_ADD, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const updateHotel= (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(HOTEL_UPDATE, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const deleteHotel = (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(HOTEL_DELETE, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const listHotel= (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(HOTEL_LIST, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
+export const addUsers = (postData: any, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(USER_ADD, postData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Origin": `${process.env.NEXT_PUBLIC_CLIENT_HOST}`
+        },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
 
-    // Users
-	export const listUsers= (postData: { data:  any }, token: string) => {
-		return new Promise((resolve, reject) => {
-		  axios
-			.post(USER_LIST, postData, { headers: { Authorization: `Bearer ${token}` } })
-			.then((res) => resolve(res.data))
-			.catch((err) => reject(err));
-		});
-	  };
-	export const deleteUsers= (postData: { data:  any }, token: string) => {
-		return new Promise((resolve, reject) => {
-		  axios
-			.post(USER_DELETE, postData, { headers: { Authorization: `Bearer ${token}` } })
-			.then((res) => resolve(res.data))
-			.catch((err) => reject(err));
-		});
-	  };
+export const updateUsers = (postData: any, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(USER_UPDATE, postData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+		  "Access-Control-Allow-Origin": `${process.env.NEXT_PUBLIC_CLIENT_HOST}`,
+        },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
 
-	export const addUsers= (postData: any, token: string) => {
-			return new Promise((resolve, reject) => {
-			axios
-				.post(USER_ADD, postData, { headers: { Authorization: `Bearer ${token}` } })
-				.then((res) => resolve(res.data))
-				.catch((err) => reject(err));
-			});
-		};
+// PAYMENTS
+export const listPayments = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(PAYMENTS_LIST, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const deletePayments = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(PAYMENTS_DELETE, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
 
-		export const updateUsers= (postData: any, token: string) => {
-			return new Promise((resolve, reject) => {
-			axios
-				.post(USER_UPDATE, postData, { headers: { Authorization: `Bearer ${token}` } })
-				.then((res) => resolve(res.data))
-				.catch((err) => reject(err));
-			});
-		};
-		
-		// PAYMENTS
-		export const listPayments= (postData: { data:  any }, token: string) => {
-			return new Promise((resolve, reject) => {
-			  axios
-				.post(PAYMENTS_LIST, postData, { headers: { Authorization: `Bearer ${token}` } })
-				.then((res) => resolve(res.data))
-				.catch((err) => reject(err));
-			});
-		  };
-		  export const deletePayments= (postData: { data:  any }, token: string) => {
-			return new Promise((resolve, reject) => {
-			  axios
-				.post(PAYMENTS_DELETE, postData, { headers: { Authorization: `Bearer ${token}` } })
-				.then((res) => resolve(res.data))
-				.catch((err) => reject(err));
-			});
-		  };
-	
-		export const addPayments= (postData: { data:  any }, token: string) => {
-				return new Promise((resolve, reject) => {
-				axios
-					.post(PAYMENTS_ADD, postData, { headers: { Authorization: `Bearer ${token}` } })
-					.then((res) => resolve(res.data))
-					.catch((err) => reject(err));
-				});
-			};
-	
-			export const updatePayments= (postData: { data:  any }, token: string) => {
-				return new Promise((resolve, reject) => {
-				axios
-					.post(PAYMENTS_UPDATE, postData, { headers: { Authorization: `Bearer ${token}` } })
-					.then((res) => resolve(res.data))
-					.catch((err) => reject(err));
-				});
-			};
-			export const updatePaymentStatus= (postData: { data:  any }, token: string) => {
-				return new Promise((resolve, reject) => {
-				axios
-					.post(PAYMENTS_UPDATE_STATUS, postData, { headers: { Authorization: `Bearer ${token}` } })
-					.then((res) => resolve(res.data))
-					.catch((err) => reject(err));
-				});
-			};
+export const addPayments = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(PAYMENTS_ADD, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
 
+export const updatePayments = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(PAYMENTS_UPDATE, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const updatePaymentStatus = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(PAYMENTS_UPDATE_STATUS, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
 
-   /* Vehicle */
-  export const addVehicle= (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(VEHICLE_ADD, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const updateVehicle= (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(VEHICLE_UPDATE, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const deleteVehicle = (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(VEHICLE_DELETE, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const listVehicle= (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(VEHICLE_LIST, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-   /* Regions */
-  export const addRegion= (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(REGION_ADD, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const updateRegion= (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(REGION_UPDATE, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const deleteRegion = (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(REGION_DELETE, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
-  export const listRegion= (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(REGION_LIST, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
+/* Vehicle */
+export const addVehicle = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(VEHICLE_ADD, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const updateVehicle = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(VEHICLE_UPDATE, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const deleteVehicle = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(VEHICLE_DELETE, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const listVehicle = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(VEHICLE_LIST, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+/* Regions */
+export const addRegion = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(REGION_ADD, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const updateRegion = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(REGION_UPDATE, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const deleteRegion = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(REGION_DELETE, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+export const listRegion = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(REGION_LIST, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
 
- export const listDrivers= (postData: { data:  any }, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(DRIVER_LIST, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
+export const listDrivers = (postData: { data: any }, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(DRIVER_LIST, postData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
 
-  export const addDrivers= (postData: any, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(ADD_DRIVER, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
+export const addDrivers = (postData: any, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(ADD_DRIVER, postData, {
+        headers: { 
+        Authorization: `Bearer ${token}`,
+		"Content-Type": "multipart/form-data",
+		"Access-Control-Allow-Origin": `${process.env.NEXT_PUBLIC_CLIENT_HOST}`,
+        },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
 
-  export const updateDrivers= (postData: any, token: string) => {
-	return new Promise((resolve, reject) => {
-	  axios
-		.post(UPDATE_DRIVER, postData, { headers: { Authorization: `Bearer ${token}` } })
-		.then((res) => resolve(res.data))
-		.catch((err) => reject(err));
-	});
-  };
+export const updateDrivers = (postData: any, token: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(UPDATE_DRIVER, postData, {
+        headers: { 
+        Authorization: `Bearer ${token}`,
+		"Content-Type": "multipart/form-data",
+		"Access-Control-Allow-Origin": `${process.env.NEXT_PUBLIC_CLIENT_HOST}`,
+        },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
