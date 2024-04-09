@@ -71,7 +71,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							  tourDate: itm.tourDate.split('T')[0],
 							  tourTime: itm.tourTime,
 							  extraLocation: itm.extraLocation,
-							  hotelId: itm.hotel.id,
+							  hotelId: itm.hotel?.id,
 							  roomNumber: itm.roomNumber,
 							  timeToPickUp: itm.timeToPickUp,
 							  salesmanId: itm.salesmanId,
@@ -141,7 +141,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 	const handleUpdateAction = (post_data: any) => {
 		let postData = post_data;
-
+		console.log("postData",postData);
 	 parachuteEntryUpdate({ data: postData }, user.token!)
 			.then((res) => {
 			// 	toast.success(`Tur kaydı güncelleştirildi`);
@@ -251,7 +251,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					<table className='table table-modern'>
 						<thead>
 							<tr>
-								{/* <td style={{ width: 60 }} /> */}
+								<td style={{ width: 60 }} />
 								<th
 									onClick={() => requestSort('date')}
 									className='cursor-pointer text-decoration-underline'>
@@ -289,7 +289,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 											onClick={()=>handleDeleteAction(item)}
 											aria-label='Sil'
 										/>
-									</td> 
+									</td>
 									<td>
 										<div className='d-flex align-items-center'>
 											{/* <span
@@ -344,7 +344,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 										</div>
 									</td>
 									<td>{item.salesman.name}</td>
-									<td>{hotelData.content.filter((el:any)=>el.id==item.hotelId)[0].name}</td>
+									<td>{hotelData.content.filter((el:any)=>el.id==item.hotelId)[0]?.name}</td>
 									<td>{item.roomNumber}</td>
 									<td>{item.paymentMethod.name} - {item.currency}</td>
 									<td>{item.price}</td>
@@ -391,7 +391,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					</ModalHeader>
 					<form onSubmit={handleSubmit((data) => handleUpdateAction(data))}>
 					<ModalBody>
-						<div className='row g-4'>
+					<div className='row g-4'>
 							<div className='col-6'>
 						    <FormGroup id='tourId' label='Tur Adı' isFloating>
 						        <Controller name="tourId"
@@ -416,7 +416,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
+							 {errors.tourId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-6'>
 							<FormGroup id='tourDate' label='Tur Tarih' isFloating>
@@ -432,6 +432,8 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.tourDate && <span>Bu alan gerekli</span>}
+
 							</div>
 							<div className='col-6'>
 								<FormGroup id='tourTime' label='Sorti Saati' isFloating>
@@ -456,6 +458,8 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 								</FormGroup>
+								{errors.tourTime && <span>Bu alan gerekli</span>}
+
 							</div>
 							<div className='col-6'>
 						    <FormGroup id='pilotId' label='Pilot' isFloating>
@@ -480,7 +484,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
+							 {errors.pilotId && <span>Bu alan gerekli</span>}
 							</div>
 
 
@@ -507,7 +511,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.salesman && <span>Bu alan gerekli</span>}
+							 {errors.salesmanId && <span>Bu alan gerekli</span>}
 							</div>
 
 							<div className='col-3'>
@@ -524,6 +528,8 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.price && <span>Bu alan gerekli</span>}
+
 							</div>
 							<div className='col-3'>
 							<FormGroup id='paid' label='Ödenen' isFloating>
@@ -539,6 +545,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.paid && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 						    <FormGroup id='paymentMethodId' label='Ödeme Yöntemi' isFloating>
@@ -563,7 +570,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.paymentMethod && <span>Bu alan gerekli</span>}
+							 {errors.paymentMethodId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 							<FormGroup id='currency' label='Birim' isFloating>
@@ -597,7 +604,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='ticketNumber' label='Bilet Numarası' isFloating>
 						        <Controller name="ticketNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Tur Adı'
@@ -611,7 +618,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='roomNumber' label='Oda/Kapı Numarası' isFloating>
 						        <Controller name="roomNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Oda/Kapı Numarası'
@@ -625,7 +632,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						<FormGroup id='hotelId' label='Otel' isFloating>
 							<Controller name="hotelId"
 											control={control}
-											rules={{ required: true }}
+											rules={{ required: false }}
 											render={({ field }) => (
 																	<Select
 																	size='sm'
@@ -644,13 +651,12 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 													 )}
 							/>
 						</FormGroup>
-						 {errors.salesman && <span>Bu alan gerekli</span>}
 						</div>
 							<div className='col-6'>
 							<FormGroup id='extraLocation' label='Extra Konum' isFloating>
 						        <Controller name="extraLocation"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Extra Konum'
@@ -664,7 +670,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='customerName' label='Müşteri Adı' isFloating>
 						        <Controller name="customerName"
 	                                            control={control}
-	                                            rules={{ required: false }}
+	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Müşteri Adı'
@@ -673,11 +679,12 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.customerName && <span>Bu alan gerekli</span>}
 							</div><div className='col-4'>
 							<FormGroup id='customerSurname' label='Müşteri Soyadı' isFloating>
 						        <Controller name="customerSurname"
 	                                            control={control}
-	                                            rules={{ required: false }}
+	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Müşteri Adı'
@@ -686,6 +693,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.customerSurname && <span>Bu alan gerekli</span>}
 							</div>
 								<div className='col-4'>
 							<FormGroup id='customerIdentityNumber' label='Müşteri TC/PP' isFloating>
@@ -705,7 +713,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='customerPhoneNumber' label='Müşteri Telefon' isFloating>
 						        <Controller name="customerPhoneNumber"
 	                                            control={control}
-	                                            rules={{ required: false }}
+	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
 													<Input
 													type='tel'
@@ -715,12 +723,13 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.customerPhoneNumber && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-6'>
 							<FormGroup id='customerDateOfBirth' label='Müşteri Doğum Tarihi' isFloating>
 						        <Controller name="customerDateOfBirth"
 	                                            control={control}
-	                                            rules={{ required: false }}
+	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
 													<Input
 													type='date'
@@ -730,12 +739,13 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.customerDateOfBirth && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-12'>
-							<FormGroup id='note' label='Not' isFloating>
+							<FormGroup id='note' label='Not1' isFloating>
 						        <Controller name="note"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Yazınız'
@@ -797,7 +807,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
+							 {errors.tourId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-6'>
 							<FormGroup id='tourDate' label='Tur Tarih' isFloating>
@@ -813,6 +823,8 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.tourDate && <span>Bu alan gerekli</span>}
+
 							</div>
 							<div className='col-6'>
 								<FormGroup id='tourTime' label='Sorti Saati' isFloating>
@@ -837,6 +849,8 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 								</FormGroup>
+								{errors.tourTime && <span>Bu alan gerekli</span>}
+
 							</div>
 							<div className='col-6'>
 						    <FormGroup id='pilotId' label='Pilot' isFloating>
@@ -861,7 +875,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
+							 {errors.pilotId && <span>Bu alan gerekli</span>}
 							</div>
 
 
@@ -888,7 +902,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.salesman && <span>Bu alan gerekli</span>}
+							 {errors.salesmanId && <span>Bu alan gerekli</span>}
 							</div>
 
 							<div className='col-3'>
@@ -905,6 +919,8 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.price && <span>Bu alan gerekli</span>}
+
 							</div>
 							<div className='col-3'>
 							<FormGroup id='paid' label='Ödenen' isFloating>
@@ -920,6 +936,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.paid && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 						    <FormGroup id='paymentMethodId' label='Ödeme Yöntemi' isFloating>
@@ -944,7 +961,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.paymentMethod && <span>Bu alan gerekli</span>}
+							 {errors.paymentMethodId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 							<FormGroup id='currency' label='Birim' isFloating>
@@ -978,7 +995,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='ticketNumber' label='Bilet Numarası' isFloating>
 						        <Controller name="ticketNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Tur Adı'
@@ -992,7 +1009,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='roomNumber' label='Oda/Kapı Numarası' isFloating>
 						        <Controller name="roomNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Oda/Kapı Numarası'
@@ -1006,7 +1023,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						<FormGroup id='hotelId' label='Otel' isFloating>
 							<Controller name="hotelId"
 											control={control}
-											rules={{ required: true }}
+											rules={{ required: false }}
 											render={({ field }) => (
 																	<Select
 																	size='sm'
@@ -1025,13 +1042,12 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 													 )}
 							/>
 						</FormGroup>
-						 {errors.salesman && <span>Bu alan gerekli</span>}
 						</div>
 							<div className='col-6'>
 							<FormGroup id='extraLocation' label='Extra Konum' isFloating>
 						        <Controller name="extraLocation"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Extra Konum'
@@ -1045,7 +1061,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='customerName' label='Müşteri Adı' isFloating>
 						        <Controller name="customerName"
 	                                            control={control}
-	                                            rules={{ required: false }}
+	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Müşteri Adı'
@@ -1054,11 +1070,12 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.customerName && <span>Bu alan gerekli</span>}
 							</div><div className='col-4'>
 							<FormGroup id='customerSurname' label='Müşteri Soyadı' isFloating>
 						        <Controller name="customerSurname"
 	                                            control={control}
-	                                            rules={{ required: false }}
+	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Müşteri Adı'
@@ -1067,6 +1084,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.customerSurname && <span>Bu alan gerekli</span>}
 							</div>
 								<div className='col-4'>
 							<FormGroup id='customerIdentityNumber' label='Müşteri TC/PP' isFloating>
@@ -1086,7 +1104,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='customerPhoneNumber' label='Müşteri Telefon' isFloating>
 						        <Controller name="customerPhoneNumber"
 	                                            control={control}
-	                                            rules={{ required: false }}
+	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
 													<Input
 													type='tel'
@@ -1096,12 +1114,13 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.customerPhoneNumber && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-6'>
 							<FormGroup id='customerDateOfBirth' label='Müşteri Doğum Tarihi' isFloating>
 						        <Controller name="customerDateOfBirth"
 	                                            control={control}
-	                                            rules={{ required: false }}
+	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
 													<Input
 													type='date'
@@ -1111,12 +1130,13 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							{errors.customerDateOfBirth && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-12'>
-							<FormGroup id='note' label='Not' isFloating>
+							<FormGroup id='note' label='Not1' isFloating>
 						        <Controller name="note"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Yazınız'

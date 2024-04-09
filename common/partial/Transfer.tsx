@@ -46,6 +46,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [transferIsLoading, setTransferIsLoading] = useState(true);
 
 
+
+
 	const [editOffcanvas, setEditOffcanvas] = useState(false);
 
 
@@ -72,7 +74,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						        id: itm.id,
 								transferDate: itm.transferDate.split('T')[0],
 								transferTime: itm.transferTime,
-								distanceKm: Number(itm.distanceKm),
 						        direction: itm.direction,
 						        flightNumber: itm.flightNumber,
 								startPoint: itm.startPoint,
@@ -83,7 +84,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								roomNumber: Number(itm.roomNumber),
 								timeToPickUp: itm.timeToPickUp,
 								salesmanId: itm.salesman.id,
-								sellerAgencyId: itm.sellerAgency?.id ||'',
+								agencyId: itm.agencyId,
 								price: itm.price,
 								paid: itm.paid,
 								unit: itm.currency,
@@ -124,7 +125,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			transferDate: '',
 			transferTime: '',
 			direction: '',
-			distanceKm: '',
 			flightNumber: '',
 			startPoint: '',
 			endPoint: '',
@@ -134,7 +134,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			roomNumber: '',
 			timeToPickUp: '',
 			salesmanId: '',
-			sellerAgencyId: '',
+			agencyId: '',
 			price:'',
 			paid:'',
 			unit: '',
@@ -204,7 +204,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		const sellerCompany = [
 			{id: 1, value: 'bigbrothersTravel', label: 'Bigbrothers Travel' },
 			{id: 14, value: 'oludenizTravel', label: 'Ölüdeniz Travel' },
-			{id:42, value: 'fethiyeTatilTurlari', label: 'Fethiye Tatil Turları' }	
+			{id:42, value: 'fethiyeTatilTurlari', label: 'Fethiye Tatil Turları' }
 			]
 
 
@@ -277,7 +277,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 									/> */}
 								</th>
 								<th>Yön</th>
-								<th>Mesafe</th>
+								{/* <th>Mesafe</th> */}
 								<th>Uçuş Numarası</th>
 								<th>Kalkış</th>
 								<th>Varış</th>
@@ -305,7 +305,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 									</td>
 									<td>{item.transferDate + item.transferTime}</td>
 									<td>{item.direction}</td>
-									<td>{item.distanceKm}</td>
 									<td>{item.flightNumber}</td>
 									<td>{item.startPoint}</td>
 									<td>{item.endPoint}</td>
@@ -373,29 +372,30 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						</FormGroup>
 						</div>
 						<div className='col-4'>
-						    <FormGroup id='sellerAgencyId' label='Şirket' isFloating>
-						        <Controller name="sellerAgencyId"
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-						                                                <Select
-																		size='sm'
-																		placeholder='Seçiniz'
-																		ariaLabel='Seçiniz'
-																		list={sellerCompany.map((el: any) => ({
-																			value: el.id,
-																			text: el.label,
-																			label: el.label,
-																		}))}
-																		className={classNames('rounded-1', {
-																		'bg-white': !darkModeStatus,
-																		})}
-																		{...field}
-																			/>
-                                                         )}
-								/>
-							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
+								<FormGroup id='agencyId' label='Satıcı Acenta' isFloating>
+									<Controller name="agencyId"
+                                            rules={{ required: true }}
+                                             control={ control}
+                                            render={({ field }) => (
+												<Select
+												size='sm'
+												placeholder='Seçiniz'
+												ariaLabel='Seçiniz'
+												list={agencyData.content.map((el: any) => ({
+													value: el.id,
+													text: el.name,
+													label: el.name,
+												}))}
+												className={classNames('rounded-1', {
+													'bg-white': !darkModeStatus,
+												})}
+												{...field}
+												/>
+                                             )}
+                                    />
+								</FormGroup>
+								{errors.agencyId && <span>Bu alan gerekli</span>}
+
 							</div>
 						<div className='col-3'>
 							<FormGroup id='direction' label='Yön' isFloating>
@@ -439,21 +439,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							/>
 						</FormGroup>
 						</div>
-						<div className='col-3'>
-						<FormGroup id='distanceKm' label='Mesafe' isFloating>
-							<Controller name="distanceKm"
-											control={control}
-											rules={{ required: true}}
-											render={({ field }) => (
-												<Input
-											placeholder='Mesafe'
-											type='number'
-											{...field}
-										/>
-													 )}
-							/>
-						</FormGroup>
-						</div>
+
 						<div className='col-3'>
 						<FormGroup id='startPoint' label='Kalkış' isFloating>
 							<Controller name="startPoint"
@@ -804,29 +790,30 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							</FormGroup>
 							</div>
 							<div className='col-4'>
-						    <FormGroup id='sellerAgencyId' label='Şirket' isFloating>
-						        <Controller name="sellerAgencyId"
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-						                                                <Select
-																		size='sm'
-																		placeholder='Seçiniz'
-																		ariaLabel='Seçiniz'
-																		list={sellerCompany.map((el: any) => ({
-																			value: el.id,
-																			text: el.label,
-																			label: el.label,
-																		}))}
-																		className={classNames('rounded-1', {
-																		'bg-white': !darkModeStatus,
-																		})}
-																		{...field}
-																			/>
-                                                         )}
-								/>
-							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
+								<FormGroup id='agencyId' label='Satıcı Acenta' isFloating>
+									<Controller name="agencyId"
+                                            rules={{ required: true }}
+                                             control={ control}
+                                            render={({ field }) => (
+												<Select
+												size='sm'
+												placeholder='Seçiniz'
+												ariaLabel='Seçiniz'
+												list={agencyData.content.map((el: any) => ({
+													value: el.id,
+													text: el.name,
+													label: el.name,
+												}))}
+												className={classNames('rounded-1', {
+													'bg-white': !darkModeStatus,
+												})}
+												{...field}
+												/>
+                                             )}
+                                    />
+								</FormGroup>
+								{errors.agencyId && <span>Bu alan gerekli</span>}
+
 							</div>
 							<div className='col-3'>
 								<FormGroup id='direction' label='Yön' isFloating>
@@ -870,21 +857,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
-								<FormGroup id='distanceKm' label='Mesafe' isFloating>
-									<Controller name="distanceKm"
-													control={control}
-													rules={{ required: false}}
-													render={({ field }) => (
-														<Input
-													placeholder='Mesafe'
-													type='number'
-													{...field}
-												/>
-															 )}
-									/>
-								</FormGroup>
-						</div>
+
 							<div className='col-3'>
 							<FormGroup id='startPoint' label='Kalkış' isFloating>
 						        <Controller name="startPoint"
