@@ -83,6 +83,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								roomNumber: Number(itm.roomNumber),
 								timeToPickUp: itm.timeToPickUp,
 								salesmanId: itm.salesman.id,
+								sellerAgencyId: itm.sellerAgency?.id ||'',
 								price: itm.price,
 								paid: itm.paid,
 								unit: itm.currency,
@@ -133,6 +134,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			roomNumber: '',
 			timeToPickUp: '',
 			salesmanId: '',
+			sellerAgencyId: '',
 			price:'',
 			paid:'',
 			unit: '',
@@ -199,6 +201,11 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		{ value: 'gelen', label: 'Gelen' }
 
 		]
+		const sellerCompany = [
+			{id: 1, value: 'bigbrothersTravel', label: 'Bigbrothers Travel' },
+			{id: 14, value: 'oludenizTravel', label: 'Ölüdeniz Travel' },
+			{id:42, value: 'fethiyeTatilTurlari', label: 'Fethiye Tatil Turları' }	
+			]
 
 
 
@@ -365,6 +372,31 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							/>
 						</FormGroup>
 						</div>
+						<div className='col-4'>
+						    <FormGroup id='sellerAgencyId' label='Şirket' isFloating>
+						        <Controller name="sellerAgencyId"
+	                                            control={control}
+	                                            rules={{ required: true }}
+	                                            render={({ field }) => (
+						                                                <Select
+																		size='sm'
+																		placeholder='Seçiniz'
+																		ariaLabel='Seçiniz'
+																		list={sellerCompany.map((el: any) => ({
+																			value: el.id,
+																			text: el.label,
+																			label: el.label,
+																		}))}
+																		className={classNames('rounded-1', {
+																		'bg-white': !darkModeStatus,
+																		})}
+																		{...field}
+																			/>
+                                                         )}
+								/>
+							</FormGroup>
+							 {errors.typeId && <span>Bu alan gerekli</span>}
+							</div>
 						<div className='col-3'>
 							<FormGroup id='direction' label='Yön' isFloating>
 							<Controller name="direction"
@@ -770,6 +802,31 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
+							</div>
+							<div className='col-4'>
+						    <FormGroup id='sellerAgencyId' label='Şirket' isFloating>
+						        <Controller name="sellerAgencyId"
+	                                            control={control}
+	                                            rules={{ required: true }}
+	                                            render={({ field }) => (
+						                                                <Select
+																		size='sm'
+																		placeholder='Seçiniz'
+																		ariaLabel='Seçiniz'
+																		list={sellerCompany.map((el: any) => ({
+																			value: el.id,
+																			text: el.label,
+																			label: el.label,
+																		}))}
+																		className={classNames('rounded-1', {
+																		'bg-white': !darkModeStatus,
+																		})}
+																		{...field}
+																			/>
+                                                         )}
+								/>
+							</FormGroup>
+							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 								<FormGroup id='direction' label='Yön' isFloating>
