@@ -85,7 +85,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								roomNumber: Number(itm.roomNumber),
 								timeToPickUp: itm.timeToPickUp,
 								salesmanId: itm.salesman.id,
-								agencyId: itm.agencyId,
+								sellerAgencyId: itm.sellerAgency.id,
 								price: itm.price,
 								paid: itm.paid,
 								unit: itm.currency,
@@ -136,7 +136,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			roomNumber: '',
 			timeToPickUp: '',
 			salesmanId: '',
-			agencyId: '',
+			sellerAgencyId: '',
 			price:'',
 			paid:'',
 			unit: '',
@@ -374,8 +374,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						</FormGroup>
 						</div>
 						<div className='col-4'>
-								<FormGroup id='agencyId' label='Satıcı Acenta' isFloating>
-									<Controller name="agencyId"
+								<FormGroup id='sellerAgencyId' label='Satıcı Acenta' isFloating>
+									<Controller name="sellerAgencyId"
                                             rules={{ required: true }}
                                              control={ control}
                                             render={({ field }) => (
@@ -792,8 +792,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							</FormGroup>
 							</div>
 							<div className='col-4'>
-								<FormGroup id='agencyId' label='Satıcı Acenta' isFloating>
-									<Controller name="agencyId"
+								<FormGroup id='sellerAgencyId' label='Satıcı Acenta' isFloating>
+									<Controller name="sellerAgencyId"
                                             rules={{ required: true }}
                                              control={ control}
                                             render={({ field }) => (
