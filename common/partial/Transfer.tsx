@@ -396,7 +396,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                              )}
                                     />
 								</FormGroup>
-								{errors.agencyId && <span>Bu alan gerekli</span>}
+								{errors.sellerAgencyId && <span>Bu alan gerekli</span>}
 
 							</div>
 						<div className='col-3'>
@@ -814,7 +814,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                              )}
                                     />
 								</FormGroup>
-								{errors.agencyId && <span>Bu alan gerekli</span>}
+								{errors.sellerAgencyId && <span>Bu alan gerekli</span>}
 
 							</div>
 							<div className='col-3'>
