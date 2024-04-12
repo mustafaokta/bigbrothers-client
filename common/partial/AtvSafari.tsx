@@ -1168,7 +1168,7 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 							<FormGroup id={`customerName${index +1}`} label='Müşteri Adı' isFloating>
 						        <Controller name={`customerName${index +1}`}
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Müşteri Adı'
@@ -1177,13 +1177,12 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
                                                          )}
 								/>
 							</FormGroup>
-							{errors["customerName"+index +1] && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-2'>
 							<FormGroup id={`customerSurname${index +1}`} label='Müşteri Soyadı' isFloating>
 						        <Controller name={`customerSurname${index +1}`}
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Müşteri Soyadı'
@@ -1192,7 +1191,6 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
                                                          )}
 								/>
 							</FormGroup>
-							{errors["customerSurname"+index +1] && <span>Bu alan gerekli</span>}
 
 							</div>
 							<div className='col-3'>

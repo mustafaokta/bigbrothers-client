@@ -670,7 +670,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='customerName' label='Müşteri Adı' isFloating>
 						        <Controller name="customerName"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Müşteri Adı'
@@ -679,12 +679,11 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							{errors.customerName && <span>Bu alan gerekli</span>}
 							</div><div className='col-4'>
 							<FormGroup id='customerSurname' label='Müşteri Soyadı' isFloating>
 						        <Controller name="customerSurname"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Müşteri Adı'
@@ -693,7 +692,6 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							{errors.customerSurname && <span>Bu alan gerekli</span>}
 							</div>
 								<div className='col-4'>
 							<FormGroup id='customerIdentityNumber' label='Müşteri TC/PP' isFloating>
@@ -742,7 +740,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							{errors.customerDateOfBirth && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-12'>
-							<FormGroup id='note' label='Not1' isFloating>
+							<FormGroup id='note' label='Not' isFloating>
 						        <Controller name="note"
 	                                            control={control}
 	                                            rules={{ required: false }}
@@ -1061,7 +1059,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='customerName' label='Müşteri Adı' isFloating>
 						        <Controller name="customerName"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Müşteri Adı'
@@ -1070,12 +1068,11 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							{errors.customerName && <span>Bu alan gerekli</span>}
 							</div><div className='col-4'>
 							<FormGroup id='customerSurname' label='Müşteri Soyadı' isFloating>
 						        <Controller name="customerSurname"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Müşteri Adı'
@@ -1084,7 +1081,6 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							{errors.customerSurname && <span>Bu alan gerekli</span>}
 							</div>
 								<div className='col-4'>
 							<FormGroup id='customerIdentityNumber' label='Müşteri TC/PP' isFloating>
@@ -1133,7 +1129,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							{errors.customerDateOfBirth && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-12'>
-							<FormGroup id='note' label='Not1' isFloating>
+							<FormGroup id='note' label='Not' isFloating>
 						        <Controller name="note"
 	                                            control={control}
 	                                            rules={{ required: false }}
