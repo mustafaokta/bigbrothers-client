@@ -1073,7 +1073,7 @@ export const adminMenu = {
 		   path: 'admin/bolgeler',
 			icon: 'AddLocationAlt'
 		   },
-   
+
  }
 },
 }
@@ -1086,22 +1086,8 @@ export const reservationMenu = {
 	singlePages: {
 		id: 'singlePages',
 		text: 'Tur Rezervasyonu',
-		path: 'single-pages',
+		path: 'tur',
 		icon: 'Surfing',
-		subMenu: {
-			boxedSingle: {
-				id: 'boxedSingle',
-				text: 'Gelen',
-				path: 'tur/gelen',
-				icon: 'CallReceived',
-			},
-			fluidSingle: {
-				id: 'fluidSingle',
-				text: 'Giden',
-				path: 'tur/giden',
-				icon: 'CallMade',
-			},
-		},
 	},
 	listPages: {
 		id: 'listPages',
@@ -1148,7 +1134,7 @@ export const reservationMenu = {
 		text: 'Atv Safari',
 		path: 'atv-safari',
 		icon: 'SportsScore',
-	},	
+	},
 };
 export const ticketMenu = {
 	pages: {
@@ -1163,5 +1149,5 @@ export const ticketMenu = {
 		icon: 'Extension',
 		subMenu: null
 	},
-	
+
 };

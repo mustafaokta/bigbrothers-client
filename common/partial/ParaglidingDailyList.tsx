@@ -26,11 +26,12 @@ import { Controller, useForm } from 'react-hook-form';
 import { useUserContext } from '../../context/UserContext';
 import Select from '../../components/bootstrap/forms/Select';
 import { useDataUserList } from '../../helpers/connections/user';
-import {  useDataPaymentMethods,useDataHotelList } from '../../helpers/connections/tour';
+import {useDataAgency, useDataPaymentMethods,useDataHotelList } from '../../helpers/connections/tour';
 import { postAddParachuteEntry,listParachuteEntry,parachuteEntryUpdate } from '../../helpers/connections/paragliding';
 import UserImage from '../../assets/img/wanna/wanna1.png';
 import showNotification from '../../components/extras/showNotification';
 import Spinner from '../../components/bootstrap/Spinner';
+
 
 interface ICommonUpcomingEventsProps {
 	isFluid?: boolean;
@@ -47,6 +48,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const { data:pilotListData, isLoading: pilotlistIsLoading, isError: pilotlistIsError } = useDataPilotName();
 	const { data:userListData, isLoading:userListIsLoading, isError:userListIsError } = useDataUserList();
 	const { data:paymentMethodsData, isLoading:paymentMethodsIsLoading, isError:paymentMethodIsError } = useDataPaymentMethods();
+	const { data: agencyData, isLoading: agencyIsLoading, isError: agencyIsError } = useDataAgency();
 
 
 	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState(false);
@@ -91,9 +93,11 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							  customerSurname: itm.customers[0].customerSurname,
 							  customerIdentityNumber: itm.customers[0].customerIdentityNumber,
 							  customerPhoneNumber: itm.customers[0].customerPhoneNumber,
-							  customerDateOfBirth: itm.customers[0].customerDateOfBirth.split('T')[0],
+							  customerDateOfBirth: itm.customers[0].customerDateOfBirth?.split('T')[0],
 							  customerId: itm.customers[0].id,
-							  sortieId: itm.sortie.id
+							  sortieId: itm.sortie.id,
+							  sellerAgencyId: itm.sellerAgencyId,
+
 
 					   }
 	   reset(itemm);
@@ -129,6 +133,8 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			child: '',
 			baby: '',
 			currency: '',
+			sellerAgencyId: '',
+
 		});
 
 	};
@@ -435,7 +441,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							{errors.tourDate && <span>Bu alan gerekli</span>}
 
 							</div>
-							<div className='col-6'>
+							<div className='col-2'>
 								<FormGroup id='tourTime' label='Sorti Saati' isFloating>
 								<Controller name="tourTime"
 	                                            control={control}
@@ -461,7 +467,33 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								{errors.tourTime && <span>Bu alan gerekli</span>}
 
 							</div>
-							<div className='col-6'>
+							<div className='col-5'>
+								<FormGroup id='sellerAgencyId' label='Satıcı Acenta' isFloating>
+									<Controller name="sellerAgencyId"
+                                            rules={{ required: true }}
+                                             control={ control}
+                                            render={({ field }) => (
+												<Select
+												size='sm'
+												placeholder='Seçiniz'
+												ariaLabel='Seçiniz'
+												list={agencyData.content.map((el: any) => ({
+													value: el.id,
+													text: el.name,
+													label: el.name,
+												}))}
+												className={classNames('rounded-1', {
+													'bg-white': !darkModeStatus,
+												})}
+												{...field}
+												/>
+                                             )}
+                                    />
+								</FormGroup>
+								{errors.sellerAgencyId && <span>Bu alan gerekli</span>}
+
+							</div>
+							<div className='col-5'>
 						    <FormGroup id='pilotId' label='Pilot' isFloating>
 						        <Controller name="pilotId"
 	                                            control={control}
@@ -711,7 +743,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='customerPhoneNumber' label='Müşteri Telefon' isFloating>
 						        <Controller name="customerPhoneNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 													type='tel'
@@ -824,7 +856,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							{errors.tourDate && <span>Bu alan gerekli</span>}
 
 							</div>
-							<div className='col-6'>
+							<div className='col-2'>
 								<FormGroup id='tourTime' label='Sorti Saati' isFloating>
 								<Controller name="tourTime"
 	                                            control={control}
@@ -850,7 +882,33 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								{errors.tourTime && <span>Bu alan gerekli</span>}
 
 							</div>
-							<div className='col-6'>
+							<div className='col-5'>
+								<FormGroup id='sellerAgencyId' label='Satıcı Acenta' isFloating>
+									<Controller name="sellerAgencyId"
+                                            rules={{ required: true }}
+                                             control={ control}
+                                            render={({ field }) => (
+												<Select
+												size='sm'
+												placeholder='Seçiniz'
+												ariaLabel='Seçiniz'
+												list={agencyData.content.map((el: any) => ({
+													value: el.id,
+													text: el.name,
+													label: el.name,
+												}))}
+												className={classNames('rounded-1', {
+													'bg-white': !darkModeStatus,
+												})}
+												{...field}
+												/>
+                                             )}
+                                    />
+								</FormGroup>
+								{errors.sellerAgencyId && <span>Bu alan gerekli</span>}
+
+							</div>
+							<div className='col-5'>
 						    <FormGroup id='pilotId' label='Pilot' isFloating>
 						        <Controller name="pilotId"
 	                                            control={control}
@@ -1100,7 +1158,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='customerPhoneNumber' label='Müşteri Telefon' isFloating>
 						        <Controller name="customerPhoneNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 													type='tel'

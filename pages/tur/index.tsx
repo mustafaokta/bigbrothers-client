@@ -5,14 +5,14 @@ import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Calendar as DatePicker } from 'react-date-range';
 import dayjs from 'dayjs';
-import useDarkMode from '../../../hooks/useDarkMode';
-import PageWrapper from '../../../layout/PageWrapper/PageWrapper';
-import SubHeader, { SubHeaderLeft, SubHeaderRight } from '../../../layout/SubHeader/SubHeader';
-import Icon from '../../../components/icon/Icon';
-import Popovers from '../../../components/bootstrap/Popovers';
-import Button from '../../../components/bootstrap/Button';
-import Page from '../../../layout/Page/Page';
-import IncomingTourList from '../../../common/partial/IncomingTourList';
+import useDarkMode from '../../hooks/useDarkMode';
+import PageWrapper from '../../layout/PageWrapper/PageWrapper';
+import SubHeader, { SubHeaderLeft, SubHeaderRight } from '../../layout/SubHeader/SubHeader';
+import Icon from '../../components/icon/Icon';
+import Popovers from '../../components/bootstrap/Popovers';
+import Button from '../../components/bootstrap/Button';
+import Page from '../../layout/Page/Page';
+import IncomingTourList from '../../common/partial/TourList';
 
 const Index: NextPage = () => {
 	const { themeStatus } = useDarkMode();
@@ -22,7 +22,7 @@ const Index: NextPage = () => {
 	return (
 		<PageWrapper>
 			<Head>
-				<title>Gelen Turlar</title>
+				<title>Gelen-Giden Turlar</title>
 			</Head>
 			<SubHeader>
 				<SubHeaderLeft>

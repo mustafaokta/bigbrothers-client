@@ -61,20 +61,20 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	 useEffect(() => {
 		const selectedTourTypeId = getValues('tourTypeId');
 		console.log('selectedTourTypeId', selectedTourTypeId);
-		
+
 		if (tourData && selectedTourTypeId) {
 		console.log('tourData', tourData);
-		
+
 		  const filteredTours = tourData.content.filter((tour:any) => tour.type.id == selectedTourTypeId);
 		  console.log('filteredTours', filteredTours);
-		  
+
 		  setFilteredTourData({content:filteredTours});
 		} else {
 		  setFilteredTourData(tourData); // Reset filter if tourTypeId is not selected
 		}
 	  }, [watch('tourTypeId'), tourData]);
 	useEffect(() => {
-	listTourReservation({ data : {reservationType:'gelen'} }, user.token!).then((res:any) => {
+	listTourReservation({ data : {reservationType:['gelen']} }, user.token!).then((res:any) => {
 		 			// console.log('listTourReservation', res);
 		 								setIncomingTourData(res);
 		 								setIncomingIsLoading(false)
@@ -126,7 +126,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						   console.log('itm.customers[i]', itm.customers[i]);
 
 						   let id: number = itm.customers[i]['id'];
-			
+
 						   itemm[`customerName${i+1}`] = itm.customers[i]['customerName'];
 						   itemm[`customerId${i+1}`] = id;
 						   itemm[`customerSurname${i+1}`] = itm.customers[i]['customerSurname'];
@@ -146,7 +146,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		// open a route in new window
 		//window.open(`/bilet/belge/${itm.reservationUUID}`, '_blank');
 		//console.log( `${process.env.NEXT_PUBLIC_API_HOST}/ticket/${itm.reservationUUID}`);
-		
+
 		window.open(`${process.env.NEXT_PUBLIC_API_HOST}/ticket/${itm.reservationUUID}`, '_blank');
 	}
 	const handleNewItem = () => {
@@ -180,7 +180,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	};
 	const handleUpdateAction = (post_data: any) => {
 		let postData = post_data;
-	
+
 
 	postUpdateTourReservation({ tour: postData }, user.token!)
 			.then((res) => {
@@ -223,7 +223,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		const sellerCompany = [
 			{ value: 'bigbrothersTravel', label: 'Bigbrothers Travel' },
 			{ value: 'oludenizTravel', label: 'Ölüdeniz Travel' },
-			{ value: 'fethiyeTatilTurlari', label: 'Fethiye Tatil Turları' }	
+			{ value: 'fethiyeTatilTurlari', label: 'Fethiye Tatil Turları' }
 			]
 
 
@@ -1281,16 +1281,16 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 				'En az bir müşteri bilgisi girilmelidir.', // String, HTML or Component
 				'danger' // 'default' || 'info' || 'warning' || 'success' || 'danger',
 			);
-			
+
 		}
 			console.log(fragments.length, 'fragments', fragments);
-				
+
 			const confirmation = window.confirm('Silmek istediğinizden emin misiniz?'); // Tarayıcı standart onay kutusu
 			let indexDeleted=	fragments.findIndex((object: { id: any; }) => object.id === id)
 		console.log('indexDeleted', indexDeleted);
 		console.log(`customerName${indexDeleted +1}` );
-		
-		
+
+
 			if (confirmation) {
 			    setFragments((prev:any[]) => prev.filter(fragment => fragment.id !== id));
 			    setValue(`customerName${indexDeleted +1}`, undefined);
@@ -1298,7 +1298,7 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 			    setValue(`customerIdentityNumber${indexDeleted +1}`, undefined);
 			    setValue(`customerPhoneNumber${indexDeleted +1}`, undefined);
 			    setValue(`customerDateOfBirth${indexDeleted +1}`, undefined);
-			    
+
 				for (let i = 0; i < fragments.filter((fragment: { id: any; }) => fragment.id !== id).length; i++) {
 					console.log('delete func içi fragments[i]', fragments[i]);
 
@@ -1313,11 +1313,11 @@ const DynamicFragments = ({ control, errors, isDisabled=false, fragments, setFra
 					setValue(`customerAddress${i+1}`, fragments[i]['customerAddress']);
 					setValue(`customerDateOfBirth${i+1}`, fragments[i]['customerDateOfBirth']?.split('T')[0]);
 					setValue(`customerEmail${i+1}`, fragments[i]['customerEmail'])
-					 
-							
+
+
 					}
-				
-			    
+
+
 				showNotification(
 					'Başarılı', // String, HTML or Component
 					'Fiyat dönemi başarıyla silindi..', // String, HTML or Component
@@ -1409,8 +1409,8 @@ console.log('fragments', fragments);
 								/>
 							</FormGroup>
 							</div>
-		 
-		 
+
+
 			  {((fragments.length > 0)&&!isDisabled) && (
 				<div className='col-1'><Icon icon='DeleteForever' className='me-2' size='2x' onClick={() => deleteFragment(fragment.id)} />Sil</div>
 				  )}
