@@ -110,6 +110,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							  needsTransfer: itm.needsTransfer,
 							  doubleCount: itm.doubleCount,
 							  singleCount: itm.singleCount,
+							  sellerAgencyId: itm.sellerAgencyId,
 
 					   }
 					   for (let i = 0; i < itm.customers.length; i++) {
@@ -156,6 +157,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			note: '',
 			doubleCount:'',
 			singleCount:'',
+			sellerAgencyId: '',
 			needsTransfer: false,
 		});
 		setFragments([{ id: 0 }]);
@@ -398,7 +400,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					<form onSubmit={handleSubmit((data) => handleUpdateAction(data))}>
 					<ModalBody>
 					<div className='row g-4'>
-						<div className='col-3'>
+						<div className='col-2'>
 						    <FormGroup id='type' label='Satış Tipi' isFloating>
 						        <Controller name="type"
 	                                            control={control}
@@ -421,7 +423,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.type && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
@@ -447,7 +448,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-4'>
+							<div className='col-3'>
 						    <FormGroup id='tourId' label='Tur Adı' isFloating>
 						        <Controller name="tourId"
 	                                            control={control}
@@ -486,6 +487,44 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
+							<div className='col-2'>
+							<FormGroup id='timeToPickUp' label='Müşteri Alış Saati' isFloating>
+						        <Controller name="timeToPickUp"
+	                                            control={control}
+	                                            render={({ field }) => (
+													<Input
+												placeholder='Giriniz'
+												type='time'
+												required
+												{...field}
+											/>
+                                                         )}
+								/>
+							</FormGroup>
+							</div>
+							<div className='col-3'>
+								<FormGroup id='sellerAgencyId' label='Paslanan Acenta' isFloating>
+									<Controller name="sellerAgencyId"
+                                             control={ control}
+                                            render={({ field }) => (
+												<Select
+												size='sm'
+												placeholder='Seçiniz'
+												ariaLabel='Seçiniz'
+												list={agencyData.content.map((el: any) => ({
+													value: el.id,
+													text: el.name,
+													label: el.name,
+												}))}
+												className={classNames('rounded-1', {
+													'bg-white': !darkModeStatus,
+												})}
+												{...field}
+												/>
+                                             )}
+                                    />
+								</FormGroup>
+							</div>
 							<div className='col-3'>
 						<FormGroup id='hotelId' label='Otel' isFloating>
 							<Controller name="hotelId"
@@ -510,7 +549,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							/>
 						</FormGroup>
 						</div>
-							<div className='col-3'>
+							<div className='col-2'>
 							<FormGroup id='roomNumber' label='Oda/Kapı Numarası' isFloating>
 						        <Controller name="roomNumber"
 	                                            control={control}
@@ -523,7 +562,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-4'>
 							<FormGroup id='extraLocation' label='Ekstra Konum' isFloating>
 						        <Controller name="extraLocation"
 	                                            control={control}
@@ -536,21 +575,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
-							<FormGroup id='timeToPickUp' label='Müşteri Alış Saati' isFloating>
-						        <Controller name="timeToPickUp"
-	                                            control={control}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Giriniz'
-												type='time'
-												required
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
+
 							<div className='col-3'>
 						    <FormGroup id='salesmanId' label='Satıcı' isFloating>
 						        <Controller name="salesmanId"
@@ -821,7 +846,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 					<form onSubmit={handleSubmit((data) => handleSaveAction(data))}>
 					<ModalBody>
 						<div className='row g-4'>
-						<div className='col-3'>
+						<div className='col-2'>
 						    <FormGroup id='type' label='Satış Tipi' isFloating>
 						        <Controller name="type"
 	                                            control={control}
@@ -844,7 +869,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							 {errors.type && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-3'>
 						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
@@ -870,7 +894,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-4'>
+							<div className='col-3'>
 						    <FormGroup id='tourId' label='Tur Adı' isFloating>
 						        <Controller name="tourId"
 	                                            control={control}
@@ -909,6 +933,44 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
+							<div className='col-2'>
+							<FormGroup id='timeToPickUp' label='Müşteri Alış Saati' isFloating>
+						        <Controller name="timeToPickUp"
+	                                            control={control}
+	                                            render={({ field }) => (
+													<Input
+												placeholder='Giriniz'
+												type='time'
+												required
+												{...field}
+											/>
+                                                         )}
+								/>
+							</FormGroup>
+							</div>
+							<div className='col-3'>
+								<FormGroup id='sellerAgencyId' label='Paslanan Acenta' isFloating>
+									<Controller name="sellerAgencyId"
+                                             control={ control}
+                                            render={({ field }) => (
+												<Select
+												size='sm'
+												placeholder='Seçiniz'
+												ariaLabel='Seçiniz'
+												list={agencyData.content.map((el: any) => ({
+													value: el.id,
+													text: el.name,
+													label: el.name,
+												}))}
+												className={classNames('rounded-1', {
+													'bg-white': !darkModeStatus,
+												})}
+												{...field}
+												/>
+                                             )}
+                                    />
+								</FormGroup>
+							</div>
 							<div className='col-3'>
 						<FormGroup id='hotelId' label='Otel' isFloating>
 							<Controller name="hotelId"
@@ -933,7 +995,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							/>
 						</FormGroup>
 						</div>
-							<div className='col-3'>
+							<div className='col-2'>
 							<FormGroup id='roomNumber' label='Oda/Kapı Numarası' isFloating>
 						        <Controller name="roomNumber"
 	                                            control={control}
@@ -946,7 +1008,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-4'>
 							<FormGroup id='extraLocation' label='Ekstra Konum' isFloating>
 						        <Controller name="extraLocation"
 	                                            control={control}
@@ -959,21 +1021,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
-							<FormGroup id='timeToPickUp' label='Müşteri Alış Saati' isFloating>
-						        <Controller name="timeToPickUp"
-	                                            control={control}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Giriniz'
-												type='time'
-												required
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
+
 							<div className='col-3'>
 						    <FormGroup id='salesmanId' label='Satıcı' isFloating>
 						        <Controller name="salesmanId"
