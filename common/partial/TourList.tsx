@@ -449,7 +449,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							</FormGroup>
 							</div>
 							<div className='col-3'>
-						    <FormGroup id='tourId' label='Tur Adı' isFloating>
+						    <FormGroup id='tourId' label='Düzenleyen Acenta' isFloating>
 						        <Controller name="tourId"
 	                                            control={control}
 	                                            render={({ field }) => (
@@ -459,8 +459,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		ariaLabel='Seçiniz'
 																		list={filteredTourData.content.map((el: any) => ({
 																			value: el.id,
-																			text: el.type.name+'-'+el.agency.name,
-																			label: el.type.name+'-'+el.agency.name,
+																			text: el.agency.name,
+																			label: el.agency.name,
 																		}))}
 																		className={classNames('rounded-1', {
 																		'bg-white': !darkModeStatus,
@@ -577,7 +577,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							</div>
 
 							<div className='col-3'>
-						    <FormGroup id='salesmanId' label='Satıcı' isFloating>
+						    <FormGroup id='salesmanId' label='Satış Personeli' isFloating>
 						        <Controller name="salesmanId"
 	                                            control={control}
 	                                            render={({ field }) => (
@@ -895,7 +895,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							</FormGroup>
 							</div>
 							<div className='col-3'>
-						    <FormGroup id='tourId' label='Tur Adı' isFloating>
+						    <FormGroup id='tourId' label='Düzenleyen Acenta' isFloating>
 						        <Controller name="tourId"
 	                                            control={control}
 	                                            render={({ field }) => (
@@ -905,8 +905,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		ariaLabel='Seçiniz'
 																		list={filteredTourData.content.map((el: any) => ({
 																			value: el.id,
-																			text: el.type.name+'-'+el.agency.name,
-																			label: el.type.name+'-'+el.agency.name,
+																			text: el.agency.name,
+																			label: el.agency.name,
 																		}))}
 																		className={classNames('rounded-1', {
 																		'bg-white': !darkModeStatus,
@@ -1023,7 +1023,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							</div>
 
 							<div className='col-3'>
-						    <FormGroup id='salesmanId' label='Satıcı' isFloating>
+						    <FormGroup id='salesmanId' label='Satış Personeli' isFloating>
 						        <Controller name="salesmanId"
 	                                            control={control}
 	                                            render={({ field }) => (
