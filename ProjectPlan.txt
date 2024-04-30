@@ -70,8 +70,8 @@
 
 Toplantı notları
 
-Paslanan acenta satici acenta olcak adi
-Tur tipi tur adı olcak
++ Paslanan acenta satici acenta olcak adi
++ Tur tipi tur adı olcak
 Tur adı düzenleyen acentalar olcak
 Bilet satışı ATV tür olunca doble singe gelsin
 Ofis seçilince sadece bigbrothers gelsin

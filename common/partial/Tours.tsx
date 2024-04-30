@@ -231,7 +231,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 						<thead>
 							<tr>
 							<td style={{ width: 60 }} />
-								<th>Tur Tipi</th>
+								<th>Tur Adı</th>
 								<th>Düzenleyen Acenta</th>
 								<th>Fiyat (Çocuk)</th>
 								<th>Fiyat (Yetişkin)</th>
@@ -306,15 +306,15 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 					<OffCanvasBody>
 					<div className='row g-4'>
 						    <div className='col-6'>
-						    <FormGroup id='typeId' label='Tur Tipi' isFloating>
+						    <FormGroup id='typeId' label='Tur Adı' isFloating>
 						        <Controller name="typeId"
 	                                            control={control}
 	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
 						                                                <Select
 																		size='sm'
-																		placeholder='Tur Tipi'
-																		ariaLabel='Tur Tipi'
+																		placeholder='Tur Adı'
+																		ariaLabel='Tur Adı'
 																		list={typeData.content.map((el: any) => ({
 																			value: el.id,
 																			text: el.name,
@@ -468,15 +468,15 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 					<ModalBody>
 						<div className='row g-4'>
 						    <div className='col-6'>
-						    <FormGroup id='typeId' label='Tur Tipi' isFloating>
+						    <FormGroup id='typeId' label='Tur Adı' isFloating>
 						        <Controller name="typeId"
 	                                            control={control}
 	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
 						                                                <Select
 																		size='sm'
-																		placeholder='Tur Tipi'
-																		ariaLabel='Tur Tipi'
+																		placeholder='Tur Adı'
+																		ariaLabel='Tur Adı'
 																		list={typeData.content.map((el: any) => ({
 																			value: el.id,
 																			text: el.name,

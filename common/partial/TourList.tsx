@@ -425,7 +425,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							</FormGroup>
 							</div>
 							<div className='col-3'>
-						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
+						    <FormGroup id='tourTypeId' label='Tur Adı' isFloating>
 						        <Controller name="tourTypeId"
 	                                            control={control}
 	                                            render={({ field }) => (
@@ -871,7 +871,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							</FormGroup>
 							</div>
 							<div className='col-3'>
-						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
+						    <FormGroup id='tourTypeId' label='Tur Adı' isFloating>
 						        <Controller name="tourTypeId"
 	                                            control={control}
 	                                            render={({ field }) => (

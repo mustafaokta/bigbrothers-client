@@ -462,7 +462,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-4'>
-						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
+						    <FormGroup id='tourTypeId' label='Tur Adı' isFloating>
 						        <Controller name="tourTypeId"
 	                                            control={control}
 	                                            rules={{ required: true }}
@@ -897,7 +897,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-4'>
-						    <FormGroup id='tourTypeId' label='Tur Tipi' isFloating>
+						    <FormGroup id='tourTypeId' label='Tur Adı' isFloating>
 						        <Controller name="tourTypeId"
 	                                            control={control}
 	                                            rules={{ required: true }}
