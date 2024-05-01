@@ -294,7 +294,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<tr>
 								<td style={{ width: 60 }} />
 								<th>Satış Methodu</th>
-								<th>Acente</th>
+								<th>Satıcı Acente</th>
 								<th
 									//onClick={() => requestSort('date')}
 									onClick={() => null}
@@ -337,7 +337,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 									</td>
 									<td>{'Satış Methodu'}</td>
 									<td>{'Acente'}</td>
-									<td>{item.tourDate + item.tourTime}</td>
+									<td>{item.tourDate.split('T')[0] + item.tourTime}</td>
 									<td>
 										<div>
 											<div>{tourData.content.filter((el:any)=>el.id==item.tourId)[0].name}</div>
@@ -437,7 +437,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-4'>
-						    <FormGroup id='sellerCompany' label='Acente' isFloating>
+						    <FormGroup id='sellerCompany' label='Satıcı Acente' isFloating>
 						        <Controller name="sellerCompany"
 	                                            control={control}
 	                                            rules={{ required: true }}
@@ -595,7 +595,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							</FormGroup>
 							</div>
 							<div className='col-3'>
-						    <FormGroup id='salesmanId' label='Satıcı' isFloating>
+						    <FormGroup id='salesmanId' label='Satış Personeli' isFloating>
 						        <Controller name="salesmanId"
 	                                            control={control}
 	                                            rules={{ required: true }}
@@ -716,8 +716,9 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
+							{watch('tourTypeId')!='6' && 	
 							<div className='col-3'>
-							<FormGroup  id='cvc' label='Yetişkin'>
+							<FormGroup  id='adult' label='Yetişkin'>
 							<Controller name="adult"
 	                                            control={control}
 	                                            rules={{ required: true }}
@@ -732,41 +733,69 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							</div>
+							</div>}
+							{watch('tourTypeId')!='6' && 	
 							<div className='col-3'>
 							<FormGroup  id='child' label='Çocuk'>
 							<Controller name="child"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 													type='number'
 													autoComplete='cc-csc'
 													placeholder='Giriniz'
-													required
 													{...field}
 												/>
                                                          )}
 								/>
 							</FormGroup>
-							</div>
+							</div>}
+							{watch('tourTypeId')!='6' && 	
 							<div className='col-3'>
 							<FormGroup  id='baby' label='Bebek'>
 							<Controller name="baby"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 													type='number'
 													autoComplete='cc-csc'
 													placeholder='Giriniz'
-													required
 													{...field}
 												/>
                                                          )}
 								/>
 							</FormGroup>
-							</div>
+							</div>}
+							{watch('tourTypeId')=='6' && 	<div className='col-2'>
+							<FormGroup  id='singleCount' label='Atv Single'>
+							<Controller name="singleCount"
+	                                            control={control}
+	                                            render={({ field }) => (
+													<Input
+													type='number'
+													placeholder='Giriniz'
+													{...field}
+												/>
+                                                         )}
+								/>
+							</FormGroup>
+							</div> }
+							{	watch('tourTypeId')=='6' && <div className='col-2'>
+							<FormGroup  id='doubleCount' label='Atv Double'>
+							<Controller name="doubleCount"
+	                                            control={control}
+	                                            render={({ field }) => (
+													<Input
+													type='number'
+													placeholder='Giriniz'
+													{...field}
+												/>
+                                                         )}
+								/>
+							</FormGroup>
+							</div>}
 
 							<DynamicFragments  control={control} errors={errors} fragments={fragments} setFragments={setFragments} setValue={setValue}  />
 
@@ -872,7 +901,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-4'>
-						    <FormGroup id='sellerCompany' label='Acente' isFloating>
+						    <FormGroup id='sellerCompany' label='Satıcı Acente' isFloating>
 						        <Controller name="sellerCompany"
 	                                            control={control}
 	                                            rules={{ required: true }}
@@ -1030,7 +1059,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							</FormGroup>
 							</div>
 							<div className='col-3'>
-						    <FormGroup id='salesmanId' label='Satıcı' isFloating>
+						    <FormGroup id='salesmanId' label='Satış Personeli' isFloating>
 						        <Controller name="salesmanId"
 	                                            control={control}
 	                                            rules={{ required: true }}
@@ -1151,6 +1180,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
+							{watch('tourTypeId')!='6' && 	
 							<div className='col-3'>
 							<FormGroup  id='adult' label='Yetişkin'>
 							<Controller name="adult"
@@ -1167,7 +1197,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							</div>
+							</div>}
+							{watch('tourTypeId')!='6' && 	
 							<div className='col-3'>
 							<FormGroup  id='child' label='Çocuk'>
 							<Controller name="child"
@@ -1183,7 +1214,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							</div>
+							</div>}
+							{watch('tourTypeId')!='6' && 	
 							<div className='col-3'>
 							<FormGroup  id='baby' label='Bebek'>
 							<Controller name="baby"
@@ -1199,7 +1231,35 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							</div>
+							</div>}
+							{watch('tourTypeId')=='6' && 	<div className='col-2'>
+							<FormGroup  id='singleCount' label='Atv Single'>
+							<Controller name="singleCount"
+	                                            control={control}
+	                                            render={({ field }) => (
+													<Input
+													type='number'
+													placeholder='Giriniz'
+													{...field}
+												/>
+                                                         )}
+								/>
+							</FormGroup>
+							</div> }
+							{	watch('tourTypeId')=='6' && <div className='col-2'>
+							<FormGroup  id='doubleCount' label='Atv Double'>
+							<Controller name="doubleCount"
+	                                            control={control}
+	                                            render={({ field }) => (
+													<Input
+													type='number'
+													placeholder='Giriniz'
+													{...field}
+												/>
+                                                         )}
+								/>
+							</FormGroup>
+							</div>}
 
 							<DynamicFragments  control={control} errors={errors} fragments={fragments} setFragments={setFragments} setValue={setValue}  />
 
@@ -1369,7 +1429,7 @@ console.log('fragments', fragments);
 							<FormGroup id={`customerIdentityNumber${index +1}`} label='Müşteri TC/PP' isFloating>
 						        <Controller name={`customerIdentityNumber${index +1}`}
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Müşteri TC/PP'
@@ -1383,7 +1443,7 @@ console.log('fragments', fragments);
 							<FormGroup id={`customerPhoneNumber${index +1}`} label='Müşteri Telefon' isFloating>
 						        <Controller name={`customerPhoneNumber${index +1}`}
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 													type='tel'
@@ -1398,7 +1458,7 @@ console.log('fragments', fragments);
 							<FormGroup id={`customerDateOfBirth${index +1}`} label='Müşteri Doğum Tarihi' isFloating>
 						        <Controller name={`customerDateOfBirth${index +1}`}
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Müşteri Doğum Tarihi'
