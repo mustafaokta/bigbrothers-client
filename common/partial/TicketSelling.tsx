@@ -294,7 +294,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<tr>
 								<td style={{ width: 60 }} />
 								<th>Satış Methodu</th>
-								<th>Şirket</th>
+								<th>Acente</th>
 								<th
 									//onClick={() => requestSort('date')}
 									onClick={() => null}
@@ -336,7 +336,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 										/>
 									</td>
 									<td>{'Satış Methodu'}</td>
-									<td>{'Şirket'}</td>
+									<td>{'Acente'}</td>
 									<td>{item.tourDate + item.tourTime}</td>
 									<td>
 										<div>
@@ -437,7 +437,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-4'>
-						    <FormGroup id='sellerCompany' label='Şirket' isFloating>
+						    <FormGroup id='sellerCompany' label='Acente' isFloating>
 						        <Controller name="sellerCompany"
 	                                            control={control}
 	                                            rules={{ required: true }}
@@ -872,7 +872,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-4'>
-						    <FormGroup id='sellerCompany' label='Şirket' isFloating>
+						    <FormGroup id='sellerCompany' label='Acente' isFloating>
 						        <Controller name="sellerCompany"
 	                                            control={control}
 	                                            rules={{ required: true }}

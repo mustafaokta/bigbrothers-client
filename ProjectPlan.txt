@@ -107,7 +107,7 @@ Paylaş i yap bilet
 
 Bilet sayfası görüldü işareti görülmedi ise sesli yazılı uyarı yanıp sönsün ve liste satış sonrasi otomatik guncellensin
 Satış methidu satış tipi olcak
-Şirket acenta olcak
++Şirket acenta olcak
 Bilet ekranında satıcı kendi olacak eğer rol satıcı ise
 Bilette TC tel doğum tarihi zorunlu olmasin
 Bilet toplam ücret olacak toplam ödenen kısmı ve rakam doğru olcak
