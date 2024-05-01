@@ -221,6 +221,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	  }
 
 
+
 	const currency = [
 		{ value: 'TRY', label: 'TL' },
 		{ value: 'USD', label: 'Dolar' },
@@ -728,7 +729,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-2'>
+							
+						{ watch('tourTypeId')=='6' &&	<div className='col-2'>
 							<FormGroup  id='singleCount' label='Atv Single'>
 							<Controller name="singleCount"
 	                                            control={control}
@@ -742,8 +744,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							</div>
-							<div className='col-2'>
+							</div>}
+							{watch('tourTypeId')=='6' && <div className='col-2'>
 							<FormGroup  id='doubleCount' label='Atv Double'>
 							<Controller name="doubleCount"
 	                                            control={control}
@@ -757,7 +759,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
                                                          )}
 								/>
 							</FormGroup>
-							</div>
+							</div> }
 
 							<DynamicFragments  control={control} errors={errors} fragments={fragments} setFragments={setFragments} setValue={setValue}  />
 							<div className='col-3'>
@@ -1114,7 +1116,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		placeholder='Seçiniz'
 																		ariaLabel='Seçiniz'
 																		list={paymentMethodsData.content.map((el: any) => ({
-																			value: el.id,
+																			value: el.id.toString(),
 																			text: el.name,
 																			label: el.name,
 																		}))}
@@ -1136,7 +1138,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	                                            render={({ field }) => (
 													<Input
 													type='number'
-													autoComplete='cc-csc'
 													placeholder='Giriniz'
 													{...field}
 												/>
@@ -1151,7 +1152,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	                                            render={({ field }) => (
 													<Input
 													type='number'
-													autoComplete='cc-csc'
 													placeholder='Giriniz'
 													{...field}
 												/>
@@ -1166,7 +1166,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	                                            render={({ field }) => (
 													<Input
 													type='number'
-													autoComplete='cc-csc'
 													placeholder='Giriniz'
 													{...field}
 												/>
@@ -1174,36 +1173,34 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-2'>
+						{watch('tourTypeId')=='6' && 	<div className='col-2'>
 							<FormGroup  id='singleCount' label='Atv Single'>
 							<Controller name="singleCount"
 	                                            control={control}
 	                                            render={({ field }) => (
 													<Input
 													type='number'
-													autoComplete='cc-csc'
 													placeholder='Giriniz'
 													{...field}
 												/>
                                                          )}
 								/>
 							</FormGroup>
-							</div>
-							<div className='col-2'>
+							</div> }
+							{	watch('tourTypeId')=='6' && <div className='col-2'>
 							<FormGroup  id='doubleCount' label='Atv Double'>
 							<Controller name="doubleCount"
 	                                            control={control}
 	                                            render={({ field }) => (
 													<Input
 													type='number'
-													autoComplete='cc-csc'
 													placeholder='Giriniz'
 													{...field}
 												/>
                                                          )}
 								/>
 							</FormGroup>
-							</div>
+							</div>}
 
 							<DynamicFragments  control={control} errors={errors} fragments={fragments} setFragments={setFragments} setValue={setValue}  />
 							<div className='col-3'>
