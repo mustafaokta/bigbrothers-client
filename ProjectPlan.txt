@@ -67,7 +67,7 @@
 
 
 
-
+ backend domaini kısıtla
 Toplantı notları
 
 + Paslanan acenta satici acenta olcak adi
@@ -76,14 +76,14 @@ Toplantı notları
 +Bilet satışı ATV tür olunca doble singe gelsin
 Ofis seçilince sadece bigbrothers gelsin
 +ATV seçince yetişkin bebek vs kapansın listeleme ekranından da
-Pilotlara ek kutu
++Pilotlara ek kutu
 Rapor bitiş tarihleri son 5 gün kala uyarı cikacak
 
-Bağımlılık test
-Kanat kontrol
-Sağlık raporu
-İlkyardım raporu
-Yabancı dil belgesi
++Bağımlılık test
++Kanat kontrol
++Sağlık raporu
++İlkyardım raporu
++Yabancı dil belgesi
 
 
 Telefon zorunlu kapat
