@@ -75,7 +75,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	  }, [watch('tourTypeId'), tourData]);
 	useEffect(() => {
 	listTourReservation({ data : {reservationType:['gelen']} }, user.token!).then((res:any) => {
-		 			// console.log('listTourReservation', res);
+		 			console.log('bilet gelen', res);
 		 								setIncomingTourData(res);
 		 								setIncomingIsLoading(false)
 		}
@@ -101,7 +101,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							 tourId: itm.tourId,
 							  tourTypeId: itm.tour.typeId,
 							  sellingType: itm.sellingType,
-							  sellerCompany: itm.sellerCompany,
+							  sellerAgencyId: itm.sellerAgencyId.toString(),
 							  tourDate: itm.tourDate.split('T')[0],
 							  tourTime: itm.tourTime,
 							  extraLocation: itm.extraLocation,
@@ -117,6 +117,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							  adult: itm.adult,
 							  child: itm.child,
 							  baby: itm.baby,
+							  singleCount:itm.singleCount,
+							  doubleCount:itm.doubleCount,
 							  transferNumber: itm.transferNumber,
 							  note: itm.note,
 							  needsTransfer: itm.needsTransfer,
@@ -157,6 +159,9 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		    reservationUUID:'',
 		    type : 'gelen',
 		    tourId: '',
+			tourTypeId: '',
+			sellingType: '',
+			sellerAgencyId: '',
 			tourDate: '',
 			tourTime: '',
 			extraLocation: '',
@@ -172,6 +177,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			adult: '',
 			child: '',
 			baby: '',
+			singleCount:'',
+			doubleCount:'',
 			transferNumber: '',
 			note: '',
 			needsTransfer: false,
@@ -221,9 +228,9 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			{ value: 'online', label: 'Online' }
 			]
 		const sellerCompany = [
-			{ value: 'bigbrothersTravel', label: 'Bigbrothers Travel' },
-			{ value: 'oludenizTravel', label: 'Ölüdeniz Travel' },
-			{ value: 'fethiyeTatilTurlari', label: 'Fethiye Tatil Turları' }
+			{ value: 'bigbrothersTravel', label: 'Bigbrothers Travel', id: 1 },
+			{ value: 'oludenizTravel', label: 'Ölüdeniz Travel', id:14 },
+			{ value: 'fethiyeTatilTurlari', label: 'Fethiye Tatil Turları', id: 42 }
 			]
 
 
@@ -293,23 +300,19 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						<thead>
 							<tr>
 								<td style={{ width: 60 }} />
-								<th>Satış Methodu</th>
+								<th>Satış Tipi</th>
 								<th>Satıcı Acente</th>
 								<th
-									//onClick={() => requestSort('date')}
 									onClick={() => null}
 									className='cursor-pointer text-decoration-underline'>
 									Tur Tarih / Saat{' '}
-									{/* <Icon
-										size='lg'
-										className={getClassNamesFor('date')}
-										icon='FilterList'
-									/> */}
 								</th>
 								<th>Tur Adı</th>
-								<th>Yetişkin</th>
-								<th>Çocuk</th>
-								<th>Bebek</th>
+								<th>Y</th>
+								<th>Ç</th>
+								<th>B</th>
+								<th>D</th>
+								<th>S</th>
 								<th>Bilet No</th>
 								<th>Ödeme Türü</th>
 								<th>Ücret</th>
@@ -335,20 +338,19 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 											aria-label='Detailed information'
 										/>
 									</td>
-									<td>{'Satış Methodu'}</td>
-									<td>{'Acente'}</td>
+									<td>{item.sellingType}</td>
+									<td>{item.sellerAgency?.name}</td>
 									<td>{item.tourDate.split('T')[0] + item.tourTime}</td>
 									<td>
 										<div>
-											<div>{tourData.content.filter((el:any)=>el.id==item.tourId)[0].name}</div>
-											<div className='small text-muted'>
-											{agencyData.content.filter((el:any)=>el.id==item.tour.agencyId)[0].name}
-											</div>
+											<div>{item.tour.type.name}</div>
 										</div>
 									</td>
 									<td>{item.adult}</td>
 									<td>{item.child}</td>
 									<td>{item.baby}</td>
+									<td>{item.doubleCount}</td>
+									<td>{item.singleCount}</td>
 									<td>{item.ticketNumber}</td>
 									<td>{paymentMethodsData.content.filter((el:any)=>el.id==item.paymentMethodId)[0].name} - {item.currency}</td>
 									<td>{item.price}</td>
@@ -437,8 +439,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-4'>
-						    <FormGroup id='sellerCompany' label='Satıcı Acente' isFloating>
-						        <Controller name="sellerCompany"
+						    <FormGroup id='sellerAgencyId' label='Satıcı Acente' isFloating>
+						        <Controller name="sellerAgencyId"
 	                                            control={control}
 	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
@@ -447,7 +449,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		placeholder='Seçiniz'
 																		ariaLabel='Seçiniz'
 																		list={sellerCompany.map((el: any) => ({
-																			value: el.value,
+																			value: el.id.toString(),
 																			text: el.label,
 																			label: el.label,
 																		}))}
@@ -487,7 +489,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-4'>
-						    <FormGroup id='tourId' label='Tur Adı' isFloating>
+						    <FormGroup id='tourId' label='Düzenleyen Acente' isFloating>
 						        <Controller name="tourId"
 	                                            control={control}
 	                                            rules={{ required: true }}
@@ -498,8 +500,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		ariaLabel='Seçiniz'
 																		list={filteredTourData.content.map((el: any) => ({
 																			value: el.id.toString(),
-																			text: el.type.name+'-'+el.agency.name,
-																			label: el.type.name+'-'+el.agency.name,
+																			text: el.agency.name,
+																			label: el.agency.name,
 																		}))}
 																		className={classNames('rounded-1', {
 																		'bg-white': !darkModeStatus,
@@ -901,8 +903,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-4'>
-						    <FormGroup id='sellerCompany' label='Satıcı Acente' isFloating>
-						        <Controller name="sellerCompany"
+						    <FormGroup id='sellerAgencyId' label='Satıcı Acente' isFloating>
+						        <Controller name="sellerAgencyId"
 	                                            control={control}
 	                                            rules={{ required: true }}
 	                                            render={({ field }) => (
@@ -911,7 +913,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		placeholder='Seçiniz'
 																		ariaLabel='Seçiniz'
 																		list={sellerCompany.map((el: any) => ({
-																			value: el.value,
+																			value: el.id.toString(),
 																			text: el.label,
 																			label: el.label,
 																		}))}
@@ -951,7 +953,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-4'>
-						    <FormGroup id='tourId' label='Tur Adı' isFloating>
+						    <FormGroup id='tourId' label='Düzenleyen Acente' isFloating>
 						        <Controller name="tourId"
 	                                            control={control}
 	                                            rules={{ required: true }}
@@ -962,8 +964,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		ariaLabel='Seçiniz'
 																		list={filteredTourData.content.map((el: any) => ({
 																			value: el.id,
-																			text: el.type.name+'-'+el.agency.name,
-																			label: el.type.name+'-'+el.agency.name,
+																			text: el.agency.name,
+																			label: el.agency.name,
 																		}))}
 																		className={classNames('rounded-1', {
 																		'bg-white': !darkModeStatus,
