@@ -390,6 +390,100 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 								</CardBody>
 							</Card>
 						</div>
+						<div className='col-md-6'>
+							<Card className='rounded-1 mb-0'>
+								<CardHeader>
+									<CardLabel icon='LocalShipping'>
+										<CardTitle>Test Bilgileri</CardTitle>
+									</CardLabel>
+								</CardHeader>
+								<CardBody>
+									<div className='row g-3'>
+									<div className='col-12'>
+												<FormGroup id='addictionTestExpirationDate' label='Bağımlılık Testi' isFloating>
+													        <Controller name="addictionTestExpirationDate"
+								                                            control={control}
+								                                            rules={{ required: false }}
+								                                            render={({ field }) => (
+																				<Input
+																				placeholder='Bağımlılık Testi'
+																				type='date'
+																				{...field}
+																			/>
+
+							                                                         )}
+															/>
+														</FormGroup>
+												</div>
+												<div className='col-md-12'>
+												<FormGroup id='medicalReportExpirationDate' label='Sağlık Raporu' isFloating>
+													        <Controller name="medicalReportExpirationDate"
+								                                            control={control}
+								                                            rules={{ required: false }}
+								                                            render={({ field }) => (
+																				<Input
+																				placeholder='Sağlık Raporu'
+																				type='date'
+																				{...field}
+																			/>
+
+							                                                         )}
+															/>
+														</FormGroup>
+												</div>
+
+												<div className='col-md-12'>
+												<FormGroup id='wingControlExpirationDate' label='Kanat Kontrol' isFloating>
+													        <Controller name="wingControlExpirationDate"
+								                                            control={control}
+								                                            rules={{ required: false }}
+								                                            render={({ field }) => (
+																				<Input
+																				placeholder='Kanat Kontrol'
+																				type='date'
+																				{...field}
+																			/>
+
+							                                                         )}
+															/>
+														</FormGroup>
+												</div>
+												<div className='col-md-12'>
+												<FormGroup id='firsAidExpirationDate' label='İlk Yardım' isFloating>
+													        <Controller name="firsAidExpirationDate"
+								                                            control={control}
+								                                            rules={{ required: false }}
+								                                            render={({ field }) => (
+																				<Input
+																				placeholder='İlk Yardım'
+																				type='date'
+																				{...field}
+																			/>
+
+							                                                         )}
+															/>
+														</FormGroup>
+												</div>
+												<div className='col-md-12'>
+												<FormGroup id='foreignLangTestExpirationDate' label='Yabancı Dil' isFloating>
+													        <Controller name="foreignLangTestExpirationDate"
+								                                            control={control}
+								                                            rules={{ required: false }}
+								                                            render={({ field }) => (
+																				<Input
+																				placeholder='Yabancı Dil'
+																				type='date'
+																				{...field}
+																			/>
+
+							                                                         )}
+															/>
+														</FormGroup>
+												</div>
+									</div>
+								</CardBody>
+							</Card>
+						</div>
 					</div>
 				</ModalBody>
 				<ModalFooter className='px-4 pb-4'>

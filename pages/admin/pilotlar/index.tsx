@@ -58,7 +58,16 @@ const Index: NextPage = () => {
 			licenseExpirationDate: '',
 			emergencyContactFullName: '',
 			emergencyContactPhone: '',
-			emergencyContactRelationship: ''
+			emergencyContactRelationship: '',
+			contactInformationId: '',
+			pilotId: '',
+			licensingAndCertificationId: '',
+			userId: '',
+			addictionTestExpirationDate : '',
+			medicalReportExpirationDate : '',
+			wingControlExpirationDate : '',
+			firsAidExpirationDate : '',
+			foreignLangTestExpirationDate : '',
 		});
 	};
 	const handleEditItem = (itm:any) => {
@@ -82,7 +91,12 @@ const Index: NextPage = () => {
 			contactInformationId: itm.contactInformationId,
 			pilotId: itm.id,
 			licensingAndCertificationId: itm.licensingAndCertificationId,
-			userId: itm.userId
+			userId: itm.userId,
+			addictionTestExpirationDate : itm.licensingAndCertification.addictionTestExpirationDate?.split('T')[0],
+			medicalReportExpirationDate : itm.licensingAndCertification.medicalReportExpirationDate?.split('T')[0],
+			wingControlExpirationDate : itm.licensingAndCertification.wingControlExpirationDate?.split('T')[0],
+			firsAidExpirationDate : itm.licensingAndCertification.firsAidExpirationDate?.split('T')[0],
+			foreignLangTestExpirationDate :  itm.licensingAndCertification.foreignLangTestExpirationDate?.split('T')[0],	
 		});
 		setEditModalStatus(true)
 	};
