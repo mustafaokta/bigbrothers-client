@@ -34,7 +34,7 @@ interface ISelectProps extends Partial<IOptionsProps>, HTMLAttributes<HTMLSelect
     onInput?(...args: unknown[]): unknown;
     onInvalid?(...args: unknown[]): unknown;
     onSelect?(...args: unknown[]): unknown;
-    list?: Array<{ value: string; label: string }>; // Updated type definition for list prop
+    list?: Array<{ value: string; label?: string; text?: string }>; // Updated type definition for list prop}
 }
 
 const Select = forwardRef<HTMLSelectElement, ISelectProps>(
@@ -73,8 +73,8 @@ const Select = forwardRef<HTMLSelectElement, ISelectProps>(
 
         ref,
     ) => {
-        // Add { value: '', label: 'Seçiniz' } to the list prop if it exists
-        const updatedList = list ? [{ value: '', label: 'Seçiniz' }, ...list] : undefined;
+        // Add { value: '', label: 'Seçiniz' } to the list prop if it exists text
+        const updatedList = list ? [{ value: '', label: 'Seçiniz' }, ...list.map(item => ({ value: item.value, label: item.label })) ] : undefined;
 
         return (
             <>
