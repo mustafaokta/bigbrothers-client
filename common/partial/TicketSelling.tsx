@@ -889,11 +889,11 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		size='sm'
 																		placeholder='Seçiniz'
 																		ariaLabel='Seçiniz'
-																		list={sellingType.map((el: any) => ({
+																		list={sellingType.map((el) => ({
 																			value: el.value,
 																			text: el.label,
 																			label: el.label,
-																		}))}
+																			}))}
 																		className={classNames('rounded-1', {
 																		'bg-white': !darkModeStatus,
 																		})}
