@@ -448,7 +448,9 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		size='sm'
 																		placeholder='Seçiniz'
 																		ariaLabel='Seçiniz'
-																		list={sellerCompany.map((el: any) => ({
+																		list={(watch('sellingType')=='office'? 
+																		sellerCompany.filter((el: any) => el.id === 1):sellerCompany)
+																		.map((el: any) => ({
 																			value: el.id.toString(),
 																			text: el.label,
 																			label: el.label,
@@ -912,7 +914,9 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		size='sm'
 																		placeholder='Seçiniz'
 																		ariaLabel='Seçiniz'
-																		list={sellerCompany.map((el: any) => ({
+																		list={(watch('sellingType')=='office'? 
+																		sellerCompany.filter((el: any) => el.id === 1):sellerCompany)
+																		.map((el: any) => ({
 																			value: el.id.toString(),
 																			text: el.label,
 																			label: el.label,

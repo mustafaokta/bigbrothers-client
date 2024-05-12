@@ -72,26 +72,18 @@
  
  
  
-Toplantı notları
 
-+ Paslanan acenta satici acenta olcak adi
-+ Tur tipi tur adı olcak
-+ Tur adı düzenleyen acentalar olcak
-+ Bilet satışı ATV tür olunca doble singe gelsin
+
+
+
 Ofis seçilince sadece bigbrothers gelsin
-+ATV seçince yetişkin bebek vs kapansın listeleme ekranından da
-+Pilotlara ek kutu
+
 Rapor bitiş tarihleri son 5 gün kala uyarı cikacak
 
-+Bağımlılık test
-+Kanat kontrol
-+Sağlık raporu
-+İlkyardım raporu
-+Yabancı dil belgesi
+
 
 
 Telefon zorunlu kapat
-+Satıcı satıcı personel olcak
 Ödeme yöntemine ofiste ödeme ekle
 Seçiniz diye default value ekle
 Ödenen Bossa sıfır alsın zorunlu olmasın
@@ -111,9 +103,7 @@ Satış personeli edit delete yapamasin
 Paylaş i yap bilet
 
 Bilet sayfası görüldü işareti görülmedi ise sesli yazılı uyarı yanıp sönsün ve liste satış sonrasi otomatik guncellensin
-+Satış methidu satış tipi olcak
-+Şirket acenta olcak
+
 Bilet ekranında satıcı kendi olacak eğer rol satıcı ise
-+Bilette TC tel doğum tarihi zorunlu olmasin
-+Bilet toplam ücret olacak toplam ödenen kısmı ve rakam doğru olcak
--Bilet atv ise double single sayısını yazsın
+
+-Bilet atv ise double single sayısını yazsın?
