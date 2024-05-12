@@ -57,7 +57,9 @@ const Payments: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [perPage, setPerPage] = useState(PER_COUNT['5']);
 
 	useEffect(() => {
-
+	
+	
+	if(user){
 		listPayments({ data : {} }, user.token!).then((res:any) => {
 				setListData(res);
 				setIsLoading(false);
@@ -67,6 +69,7 @@ const Payments: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			 				setIsError(err?.response?.data?.content);
 				setIsLoading(false);
 			});
+		}
 
 		}, [newItemOffcanvas, upcomingEventsEditOffcanvas])
 

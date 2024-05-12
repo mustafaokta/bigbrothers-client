@@ -67,6 +67,8 @@ const CommonDashboardUserIssue = () => {
 	//const listLength = list.length;
 	//const completeTaskLength = list.filter((i) => i.status).length;
 	useEffect(() => {
+	console.log('listPayments', user);
+	if(user.token)
 		listPayments({ data : {} }, user.token!).then((res:any) => {
 
 				setListData(res.content.map((item:any) => {

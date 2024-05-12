@@ -147,6 +147,7 @@ const VehiclePerformance = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [isError, setIsError] = useState<null|string>(null);
 useEffect(() => {
+if(user.token)
 	postVehiclePerformance({ data: {} }, user.token!).then((res: any) => {
 	console.log('res', res);
 	
