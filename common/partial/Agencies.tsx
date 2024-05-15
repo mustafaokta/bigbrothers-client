@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useRef } from 'react';
 import classNames from 'classnames';
 import Card, {
 	CardActions,
@@ -22,6 +22,7 @@ import { listAgency, addAgency, updateAgency, deleteAgency } from '../../helpers
 import { useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import Spinner from '../../components/bootstrap/Spinner';
+import ReactToPrint from 'react-to-print';
 
 
 
@@ -30,6 +31,7 @@ interface ICommonUpcomingEventsProps {
 }
 const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const { themeStatus, darkModeStatus } = useDarkMode();
+	const componentRef = useRef<HTMLDivElement>(null)
 
 	const { register, handleSubmit, reset, formState: { errors }, getValues, control } = useForm();
 	const { user } = useUserContext();
@@ -164,22 +166,26 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 						</Button>
 					</CardActions>
 					<CardActions>
-						<Button
-							color='info'
-							icon='CloudDownload'
-							isLight
-							tag='a'
-							to='/somefile.txt'
-							target='_blank'
-							download>
-							Export
-						</Button>
+					<ReactToPrint
+  trigger={() => <Button
+	color='info'
+	icon='CloudDownload'
+	isLight
+	tag='a'
+	to='/somefile.txt'
+	target='_blank'
+	download>
+	Export
+</Button>}
+  content={() => componentRef.current}
+/>
+						
 					</CardActions>
 					</div>
 
 				</CardHeader>
 				<CardBody className='table-responsive' isScrollable={isFluid}>
-					<table className='table table-modern'>
+					<table className='table table-modern'  ref={componentRef as React.RefObject<HTMLTableElement>}>
 						<thead>
 							<tr>
 								<td style={{ width: 60 }} />

@@ -602,7 +602,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						    <FormGroup id='salesmanId' label='Satış Personeli' isFloating>
 						        <Controller name="salesmanId"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 						                                                <Select
 																		size='sm'
@@ -1068,7 +1068,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						    <FormGroup id='salesmanId' label='Satış Personeli' isFloating>
 						        <Controller name="salesmanId"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 						                                                <Select
 																		size='sm'

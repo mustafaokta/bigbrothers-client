@@ -1041,7 +1041,6 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 																		className={classNames('rounded-1', {
 																		'bg-white': !darkModeStatus,
 																		})}
-																		required
 																		{...field}
 																			/>
                                                          )}

@@ -524,7 +524,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						    <FormGroup id='salesmanId' label='Satıcı' isFloating>
 						        <Controller name="salesmanId"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 						                                                <Select
 																		size='sm'
@@ -939,7 +939,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						    <FormGroup id='salesmanId' label='Satıcı' isFloating>
 						        <Controller name="salesmanId"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 						                                                <Select
 																		size='sm'
