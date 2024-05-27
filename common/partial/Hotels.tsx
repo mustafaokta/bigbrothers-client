@@ -77,9 +77,9 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
     "name": itm.name,
     "address": itm.address,
     "regionId": itm.region.id,
-	"contactPhone": itm.contactInformation.emergencyContactPhone,
-	"contactEmail": itm.contactInformation.emergencyContactEmail,
-	"contactPerson": itm.contactInformation.emergencyContactFullName,
+	"contactPhone": itm.contactInformation?.emergencyContactPhone ,
+	"contactEmail": itm.contactInformation?.emergencyContactEmail,
+	"contactPerson": itm.contactInformation?.emergencyContactFullName,
 			}
 
 
@@ -229,9 +229,9 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 									<td>{item.name}</td>
 									<td>{item.address}</td>
 									<td>{item.region?.name}</td>
-									<td>{item.contactInformation.emergencyContactPhone}</td>
-									<td>{item.contactInformation.emergencyContactEmail}</td>
-									<td>{item.contactInformation.emergencyContactFullName}</td>
+									<td>{item.contactInformation?.emergencyContactPhone}</td>
+									<td>{item.contactInformation?.emergencyContactEmail}</td>
+									<td>{item.contactInformation?.emergencyContactFullName}</td>
 									<td>
 										<Button
 											isOutline={!darkModeStatus}
