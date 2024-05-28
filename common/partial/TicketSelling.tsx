@@ -227,11 +227,15 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			{ value: 'office', label: 'Ofis' },
 			{ value: 'online', label: 'Online' }
 			]
-		const sellerCompany = [
+	/* 	const sellerCompany = [
 			{ value: 'bigbrothersTravel', label: 'Bigbrothers Travel', id: 1 },
 			{ value: 'oludenizTravel', label: 'Ölüdeniz Travel', id:14 },
 			{ value: 'fethiyeTatilTurlari', label: 'Fethiye Tatil Turları', id: 42 }
-			]
+			] */
+			
+			const sellerCompany = [
+				{ value: 'tigersson', label: 'Tigersson Travel', id: 1 }
+				]
 
 
 

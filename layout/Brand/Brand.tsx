@@ -14,7 +14,8 @@ const Brand: FC<IBrandProps> = ({ asideStatus, setAsideStatus }) => {
 			<div className='brand-logo'>
 				<h1 className='brand-title '>
 					<Link href='../' aria-label='Logo'>
-					<Logo height={55} color={'#ffffff'} />
+					{/* <Logo height={55} color={'#ffffff'} /> */}
+					Tigersson Travel
 					</Link>
 				</h1>
 			</div>

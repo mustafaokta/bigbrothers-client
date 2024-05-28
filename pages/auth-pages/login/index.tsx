@@ -222,7 +222,8 @@ const Login: NextPage<ILoginProps> = ({ isSignUp }) => {
 												'text-light': darkModeStatus,
 											},
 										)}>
-										<Logo width={250} />
+									{/* 	<Logo width={250} /> */}
+									Tigersson Travel
 									</Link>
 								</div>
 
@@ -243,7 +244,7 @@ const Login: NextPage<ILoginProps> = ({ isSignUp }) => {
 													/* setSignInPassword(false);
 													setSingUpStatus(!singUpStatus); */
 												}}>
-												BigBrothers ERP System
+												Tur Yönetim Sistemi
 											</Button>
 										</div>
 								{/* 		<div className='col'>

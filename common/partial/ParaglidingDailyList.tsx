@@ -140,7 +140,7 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	};
 
 	const tourData = [
-		{ value: 1, label: 'Bigbrothers Yamaç Paraşütü' },
+		{ value: 1, label: 'Yamaç Paraşütü' },
 	];
 
 	//console.log('pilotListData', pilotListData);
