@@ -610,7 +610,7 @@ $table-variants: (
 									.
 								</p>
 								<CommonCodePreview code={MODERN}>
-									<table className='table table-modern'>
+									<table className='table table-modern'  ref={componentRef as React.RefObject<HTMLTableElement>}>
 										<thead>
 											<tr>
 												<th scope='col'>#</th>

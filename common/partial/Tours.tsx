@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import Card, {
 	CardActions,
@@ -25,6 +25,8 @@ import { useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import showNotification from '../../components/extras/showNotification';
 import Spinner from '../../components/bootstrap/Spinner';
+import ReactToPrint from 'react-to-print';
+
 
 
 
@@ -36,6 +38,8 @@ const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 	const { register, handleSubmit, reset, formState: { errors }, getValues, control } = useForm();
 	const { user } = useUserContext();
+	const componentRef = useRef<HTMLDivElement>(null);
+
 
 	const [tourData, setTourData] = useState<any>({content:[]});
 	const [fragments, setFragments] = useState([{ id: 0 }]); // Initial fragment
@@ -212,22 +216,26 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 						</Button>
 					</CardActions>
 					<CardActions>
-						<Button
-							color='info'
-							icon='CloudDownload'
-							isLight
-							tag='a'
-							to='/somefile.txt'
-							target='_blank'
-							download>
-							Export
-						</Button>
+						<ReactToPrint
+  trigger={() => <Button
+	color='info'
+	icon='CloudDownload'
+	isLight
+	tag='a'
+	/* to='/somefile.txt' */
+	target='_blank'
+	/*download*/
+	>
+	Export
+</Button>}
+  content={() => componentRef.current}
+/>
 					</CardActions>
 					</div>
 
 				</CardHeader>
 				<CardBody className='table-responsive' isScrollable={isFluid}>
-					<table className='table table-modern'>
+					<table className='table table-modern'  ref={componentRef as React.RefObject<HTMLTableElement>}>
 						<thead>
 							<tr>
 							<td style={{ width: 60 }} />

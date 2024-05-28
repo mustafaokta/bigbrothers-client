@@ -63,7 +63,7 @@ const Foo = () => {
 		<Card>
 			<CardBody>
 				<table>
-					<thead className='table table-modern'>
+					<thead className='table table-modern'  ref={componentRef as React.RefObject<HTMLTableElement>}>
 						<tr>
 							<th>{SelectAllCheck}</th>
 							<th onClick={() => requestSort('firstName')}>
@@ -170,7 +170,7 @@ const Foo = () => {
 					<div className='col-12'>
 						<Card>
 							<CardBody>
-								<table className='table table-modern'>
+								<table className='table table-modern'  ref={componentRef as React.RefObject<HTMLTableElement>}>
 									<thead>
 										<tr>
 											<th style={{ width: 50 }}>{SelectAllCheck}</th>

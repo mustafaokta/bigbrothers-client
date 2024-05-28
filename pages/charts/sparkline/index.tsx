@@ -479,7 +479,7 @@ const Index: NextPage = () => {
 						<div className='row'>
 							<div className='col-12'>
 								<div className='table-responsive'>
-									<table className='table table-modern'>
+									<table className='table table-modern'  ref={componentRef as React.RefObject<HTMLTableElement>}>
 										<thead>
 											<tr>
 												<th>Total Value</th>

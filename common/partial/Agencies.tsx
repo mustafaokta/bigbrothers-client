@@ -31,7 +31,7 @@ interface ICommonUpcomingEventsProps {
 }
 const Tours: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const { themeStatus, darkModeStatus } = useDarkMode();
-	const componentRef = useRef<HTMLDivElement>(null)
+	const componentRef = useRef<HTMLDivElement>(null);
 
 	const { register, handleSubmit, reset, formState: { errors }, getValues, control } = useForm();
 	const { user } = useUserContext();
@@ -172,9 +172,10 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	icon='CloudDownload'
 	isLight
 	tag='a'
-	to='/somefile.txt'
+	/* to='/somefile.txt' */
 	target='_blank'
-	download>
+	/*download*/
+	>
 	Export
 </Button>}
   content={() => componentRef.current}

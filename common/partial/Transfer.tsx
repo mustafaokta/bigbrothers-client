@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import Card, {
 	CardActions,
@@ -25,6 +25,8 @@ import { useDataUserList } from '../../helpers/connections/user';
 import showNotification from '../../components/extras/showNotification';
 import { listTransfer, postAddTransfer, postDeleteTransfer, postUpdateTransfer } from '../../helpers/connections/transfer';
 import Spinner from '../../components/bootstrap/Spinner';
+import ReactToPrint from 'react-to-print';
+
 
 
 interface ICommonUpcomingEventsProps {
@@ -32,6 +34,8 @@ interface ICommonUpcomingEventsProps {
 }
 const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const { themeStatus, darkModeStatus } = useDarkMode();
+	const componentRef = useRef<HTMLDivElement>(null)
+
 	const { register, handleSubmit, reset, formState: { errors }, getValues, setValue, control, watch } = useForm();
 	const { user } = useUserContext();
 	const [fragments, setFragments] = useState([{ id: 0 }]); // Initial fragment
@@ -248,22 +252,26 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						</Button>
 					</CardActions>
 					<CardActions>
-						<Button
-							color='info'
-							icon='CloudDownload'
-							isLight
-							tag='a'
-							to='/somefile.txt'
-							target='_blank'
-							download>
-							Export
-						</Button>
+						<ReactToPrint
+  trigger={() => <Button
+	color='info'
+	icon='CloudDownload'
+	isLight
+	tag='a'
+	/* to='/somefile.txt' */
+	target='_blank'
+	/*download*/
+	>
+	Export
+</Button>}
+  content={() => componentRef.current}
+/>
 					</CardActions>
 					</div>
 
 				</CardHeader>
 				<CardBody className='table-responsive' isScrollable={isFluid}>
-					<table className='table table-modern'>
+					<table className='table table-modern'  ref={componentRef as React.RefObject<HTMLTableElement>}>
 						<thead>
 							<tr>
 								<td style={{ width: 60 }} />

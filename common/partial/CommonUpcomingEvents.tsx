@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { FormikHelpers, useFormik } from 'formik';
@@ -34,12 +34,16 @@ import Avatar from '../../components/Avatar';
 import PaginationButtons, { dataPagination, PER_COUNT } from '../../components/PaginationButtons';
 import useSortableData from '../../hooks/useSortableData';
 import useDarkMode from '../../hooks/useDarkMode';
+import ReactToPrint from 'react-to-print';
+
 
 interface ICommonUpcomingEventsProps {
 	isFluid?: boolean;
 }
 const CommonUpcomingEvents: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const { themeStatus, darkModeStatus } = useDarkMode();
+	const componentRef = useRef<HTMLDivElement>(null);
+
 
 	// BEGIN :: Upcoming Events
 	const [upcomingEventsInfoOffcanvas, setUpcomingEventsInfoOffcanvas] = useState(false);
@@ -84,20 +88,24 @@ const CommonUpcomingEvents: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						<CardTitle>Upcoming Appointments</CardTitle>
 					</CardLabel>
 					<CardActions>
-						<Button
-							color='info'
-							icon='CloudDownload'
-							isLight
-							tag='a'
-							to='/somefile.txt'
-							target='_blank'
-							download>
-							Export
-						</Button>
+						<ReactToPrint
+  trigger={() => <Button
+	color='info'
+	icon='CloudDownload'
+	isLight
+	tag='a'
+	/* to='/somefile.txt' */
+	target='_blank'
+	/*download*/
+	>
+	Export
+</Button>}
+  content={() => componentRef.current}
+/>
 					</CardActions>
 				</CardHeader>
 				<CardBody className='table-responsive' isScrollable={isFluid}>
-					<table className='table table-modern'>
+					<table className='table table-modern'  ref={componentRef as React.RefObject<HTMLTableElement>}>
 						<thead>
 							<tr>
 								<td style={{ width: 60 }} />

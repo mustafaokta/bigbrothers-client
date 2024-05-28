@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import Card, {
@@ -27,6 +27,8 @@ import { deleteMedia,postAddMediaPayment, postMediaList ,updateMediaPayment} fro
 import { useDataPilotName} from '../../helpers/connections/paragliding';
 import UserImage from '../../assets/img/wanna/wanna1.png';
 import Spinner from '../../components/bootstrap/Spinner';
+import ReactToPrint from 'react-to-print';
+
 
 
 interface ICommonUpcomingEventsProps {
@@ -37,6 +39,8 @@ const Media: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const [mediaListData, setMediaListData] = useState<any>({content:[]});
 	const { register, handleSubmit, reset, formState: { errors }, getValues, control } = useForm();
 	const { user } = useUserContext();
+	const componentRef = useRef<HTMLDivElement>(null);
+
 
 	const { data:tourData, isLoading:tourIsLoading, isError:tourIsError } = useDataTourList();
 	const { data:userListData, isLoading:userListIsLoading, isError:userListIsError } = useDataUserList();
@@ -196,22 +200,26 @@ const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 3
 						</Button>
 					</CardActions>
 					<CardActions>
-						<Button
-							color='info'
-							icon='CloudDownload'
-							isLight
-							tag='a'
-							to='/somefile.txt'
-							target='_blank'
-							download>
-							Export
-						</Button>
+						<ReactToPrint
+  trigger={() => <Button
+	color='info'
+	icon='CloudDownload'
+	isLight
+	tag='a'
+	/* to='/somefile.txt' */
+	target='_blank'
+	/*download*/
+	>
+	Export
+</Button>}
+  content={() => componentRef.current}
+/>
 					</CardActions>
 					</div>
 
 				</CardHeader>
 				<CardBody className='table-responsive' isScrollable={isFluid}>
-					<table className='table table-modern'>
+					<table className='table table-modern'  ref={componentRef as React.RefObject<HTMLTableElement>}>
 						<thead>
 							<tr>
 							<td style={{ width: 60 }} />

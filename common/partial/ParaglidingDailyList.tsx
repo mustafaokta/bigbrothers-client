@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import Card, {
@@ -31,6 +31,8 @@ import { postAddParachuteEntry,listParachuteEntry,parachuteEntryUpdate } from '.
 import UserImage from '../../assets/img/wanna/wanna1.png';
 import showNotification from '../../components/extras/showNotification';
 import Spinner from '../../components/bootstrap/Spinner';
+import ReactToPrint from 'react-to-print';
+
 
 
 interface ICommonUpcomingEventsProps {
@@ -41,6 +43,8 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 	const { register, handleSubmit, reset, formState: { errors }, getValues, control } = useForm();
 	const { user } = useUserContext();
+	const componentRef = useRef<HTMLDivElement>(null);
+
 
 	const [listEntry, setlistEntry] = useState<any>({content:[]});
 
@@ -239,22 +243,26 @@ const ParaglidingDailyList: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						</Button>
 					</CardActions>
 					<CardActions>
-						<Button
-							color='info'
-							icon='CloudDownload'
-							isLight
-							tag='a'
-							to='/somefile.txt'
-							target='_blank'
-							download>
-							Export
-						</Button>
+						<ReactToPrint
+  trigger={() => <Button
+	color='info'
+	icon='CloudDownload'
+	isLight
+	tag='a'
+	/* to='/somefile.txt' */
+	target='_blank'
+	/*download*/
+	>
+	Export
+</Button>}
+  content={() => componentRef.current}
+/>
 					</CardActions>
 					</div>
 
 				</CardHeader>
 				<CardBody className='table-responsive' isScrollable={isFluid}>
-					<table className='table table-modern'>
+					<table className='table table-modern'  ref={componentRef as React.RefObject<HTMLTableElement>}>
 						<thead>
 							<tr>
 								<td style={{ width: 60 }} />
