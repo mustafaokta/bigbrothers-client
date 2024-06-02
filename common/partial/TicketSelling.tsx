@@ -20,7 +20,7 @@ import useDarkMode from '../../hooks/useDarkMode';
 import Modal, { ModalBody, ModalFooter, ModalHeader } from '../../components/bootstrap/Modal';
 import { useForm, Controller } from 'react-hook-form';
 import Select from '../../components/bootstrap/forms/Select';
-import { postAddTourReservation, useDataAgency, useDataPaymentMethods,useDataHotelList, useDataTourList, listTourReservation, postUpdateTourReservation, useDataTourType } from '../../helpers/connections/tour';
+import { postAddTourReservation, useDataAgency, useDataPaymentMethods,useDataHotelList, useDataTourList, listTourReservation, postUpdateTourReservation, useDataTourType, deleteTourReservation } from '../../helpers/connections/tour';
 import { useUserContext } from '../../context/UserContext';
 import { useDataUserList } from '../../helpers/connections/user';
 import showNotification from '../../components/extras/showNotification';
@@ -262,6 +262,29 @@ if (phoneNumber) {
 }
       
     };
+
+
+	const handleDeleteAction = (postData: any) => {
+		const isConfirmed = window.confirm("Silmek istediğinizden emin misiniz?");
+		if (!isConfirmed) {
+		  return; // Kullanıcı onay vermezse işlemi iptal et
+		}
+		//(Number(user.roleId) === 1 || Number(user.roleId) === 6) && 
+		deleteTourReservation({ data : {reservationType:['gelen','giden'], reservationId: postData.id } }, user.token!)
+		  .then((res:any) => {
+			setIncomingTourData(res);
+
+			showNotification(
+			  'Başarılı', // String, HTML or Component
+			  'Tour rezervasyon kaydı silindi', // String, HTML or Component
+			  'success' // 'default' || 'info' || 'warning' || 'success' || 'danger',
+			);
+		  })
+		  .catch((err:any) => {
+		// 	console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
+		  });
+	  }
+    
     const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 360'}]
 
 
@@ -394,7 +417,7 @@ if (phoneNumber) {
 												'border-light': !darkModeStatus,
 											})}
 											icon='Delete'
-											//onClick={()=> handleDeleteAction(item)}
+											onClick={()=> handleDeleteAction(item)}
 											aria-label='Detailed information'
 										/>
 									</td>
