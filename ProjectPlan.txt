@@ -117,3 +117,5 @@ Bilet kısmı
 - Bilet isim Büyük harf
 - Bilet makinesi 
 - Aktiviteler tr ve en olsun bilette
+
+Update

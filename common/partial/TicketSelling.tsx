@@ -128,12 +128,12 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							  note: itm.note,
 							  needsTransfer: itm.needsTransfer,
 							  // media
-							  mediaType :  itm.mediaPayment.type,
-							  mediaPrice   :  itm.mediaPayment.price,
-							  mediaPaid   : itm.mediaPayment.paid,
-							  isSold  :  itm.mediaPayment.isSold,
-							  soldDate : new Date(itm.mediaPayment.soldDate).toISOString().split('T')[0],
-							  soldTime : itm.mediaPayment.soldTime,
+							  mediaType : itm.mediaPayment?  itm.mediaPayment?.type: '',
+							  mediaPrice   : itm.mediaPayment?  itm.mediaPayment?.price: '',
+							  mediaPaid   : itm.mediaPayment? itm.mediaPayment?.paid: '',
+							  isSold  :  itm.mediaPayment ? itm.mediaPayment?.isSold: '',
+							  soldDate : itm.mediaPayment ? new Date(itm.mediaPayment?.soldDate).toISOString().split('T')[0]: '' ,
+							  soldTime : itm.mediaPayment?.soldTime,
 
 					   }
 					   for (let i = 0; i < itm.customers.length; i++) {
