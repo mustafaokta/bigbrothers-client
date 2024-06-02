@@ -153,6 +153,9 @@ if(user.token)
 	
 		setListData(res);
 		setIsLoading(false);
+	}).catch((err) => {
+	 		setIsError(err);
+		setIsLoading(false);
 	});
 }
 , [listData.length, user.token]);

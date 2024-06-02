@@ -28,6 +28,7 @@ import { listTransfer } from '../../helpers/connections/transfer';
 import { useRouter } from 'next/router';
 import Spinner from '../../components/bootstrap/Spinner';
 import ReactToPrint from 'react-to-print';
+import { PiWhatsappLogoBold } from "react-icons/pi";
 
 
 interface ICommonUpcomingEventsProps {
@@ -126,6 +127,13 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							  transferNumber: itm.transferNumber,
 							  note: itm.note,
 							  needsTransfer: itm.needsTransfer,
+							  // media
+							  mediaType :  itm.mediaPayment.type,
+							  mediaPrice   :  itm.mediaPayment.price,
+							  mediaPaid   : itm.mediaPayment.paid,
+							  isSold  :  itm.mediaPayment.isSold,
+							  soldDate : new Date(itm.mediaPayment.soldDate).toISOString().split('T')[0],
+							  soldTime : itm.mediaPayment.soldTime,
 
 					   }
 					   for (let i = 0; i < itm.customers.length; i++) {
@@ -186,6 +194,12 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			transferNumber: '',
 			note: '',
 			needsTransfer: false,
+			mediaType :  "" ,
+			mediaPrice   :  "",
+			mediaPaid   : "",
+			isSold  :  "",
+			soldDate : "",
+			soldTime : ""
 		});
 		setFragments([{ id: 0 }]);
 	};
@@ -219,6 +233,37 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 				// toast.error(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
 			});
 	};
+
+	const handleWhatsapp = (itm:any, e:any) => {
+        e.preventDefault();
+
+		console.log('itm', itm);
+		
+        // Telefon numarası ve mesaj içeriğini oluşturun
+        //const phoneNumber = '+90533 580 8682';
+        let phoneNumber = itm.customers[0].customerPhoneNumber;
+   // Todo tüm müşterilere gönder
+	     
+        const message = `${process.env.NEXT_PUBLIC_API_HOST}/ticket/${itm.reservationUUID}`
+
+if (phoneNumber) {
+	  // WhatsApp linkini oluşturun
+	  const whatsappLink = `https://api.whatsapp.com/send/?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+
+	  // WhatsApp linkine yönlendirme yapın
+	  window.open(whatsappLink);
+}else {
+ 	//showNotification('error', 'Hata', 'Telefon numarası bulunamadı');
+	 showNotification(
+		'Hata', // String, HTML or Component
+		'İlk müşteri telefon numarası girilmelidir.', // String, HTML or Component
+		'danger' // 'default' || 'info' || 'warning' || 'success' || 'danger',
+	);
+}
+      
+    };
+    const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 360'}]
+
 
 	const currency = [
 		{ value: 'TRY', label: 'TL' },
@@ -378,7 +423,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 											})}
 											icon='Print'
 											onClick={()=>handleUpcomingPrint(item)}>
-											Yazdır
+											
 										</Button>
 									</td>
 									<td>
@@ -391,7 +436,18 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 											})}
 											icon='Edit'
 											onClick={()=>handleUpcomingEdit(item)}>
-											Düzenle
+										</Button>
+									</td>
+									<td>
+										<Button
+											isOutline={!darkModeStatus}
+											color='dark'
+											isLight={darkModeStatus}
+											className={classNames('text-nowrap', {
+												'border-light': !darkModeStatus,
+											})}
+											onClick={(event)=>handleWhatsapp(item, event)}>
+											<PiWhatsappLogoBold/>
 										</Button>
 									</td>
 								</tr>
@@ -531,7 +587,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='tourDate' label='Tur Tarih' isFloating>
 						        <Controller name="tourDate"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Tur Tarihi'
@@ -546,7 +602,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						<FormGroup id='hotelId' label='Otel' isFloating>
 							<Controller name="hotelId"
 											control={control}
-											rules={{ required: true }}
+											rules={{ required: false }}
 											render={({ field }) => (
 																	<Select
 																	size='sm'
@@ -571,7 +627,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='roomNumber' label='Oda/Kapı Numarası' isFloating>
 						        <Controller name="roomNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Giriniz'
@@ -722,7 +778,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='ticketNumber' label='Bilet Numarası' isFloating>
 						        <Controller name="ticketNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Tur Adı'
@@ -847,6 +903,82 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 
 								</FormGroup>
+							</div>
+							{/* Media */}
+							<div className='col-2'>
+								<FormGroup id='isSold' isFloating>
+								<Controller name="isSold"
+                                            rules={{ required: false }}
+                                             control={ control}
+                                            render={({ field }) => (
+												<Checks
+												id='isSold'
+												type='switch'
+												label='Media istiyor'
+												onChange={(e:any) => field.onChange(e.target.checked)} // Manually handle onChange
+												checked={field.value} // Use field.value instead of {...field}
+											/>
+                                             )}
+                                    />
+
+
+								</FormGroup>
+							</div>
+							
+							<div className='col-6'>
+							<FormGroup id='mediaPrice' label='Media Ücret' isFloating>
+						        <Controller name="mediaPrice"
+	                                            control={control}
+	                                            rules={{ required: false }}
+	                                            render={({ field }) => (
+													<Input
+												placeholder='Giriniz'
+												type='number'
+												{...field}
+											/>
+                                                         )}
+								/>
+							</FormGroup>
+							</div>
+							<div className='col-4'>
+							<FormGroup id='mediaPaid' label='Media Ödenen' isFloating>
+						        <Controller name="mediaPaid"
+	                                            control={control}
+	                                            rules={{ required: false }}
+	                                            render={({ field }) => (
+													<Input
+												placeholder='Giriniz'
+												type='number'
+												{...field}
+											/>
+                                                         )}
+								/>
+							</FormGroup>
+							</div>
+							<div className='col-6'>
+						    <FormGroup id='mediaType' label='Tipi' isFloating>
+						        <Controller name="mediaType"
+	                                            control={control}
+	                                            rules={{ required: false }}
+	                                            render={({ field }) => (
+						                                                <Select
+																		size='sm'
+																		placeholder='Seçiniz'
+																		ariaLabel='Seçiniz'
+																		list={mediaPaymentTypes.map((el: any) => ({
+																			value: el.id,
+																			text: el.name,
+																			label: el.name,
+																		}))}
+																		className={classNames('rounded-1', {
+																		'bg-white': !darkModeStatus,
+																		})}
+																		{...field}
+																			/>
+                                                         )}
+								/>
+							</FormGroup>
+							 {errors.paymentMethod && <span>Bu alan gerekli</span>}
 							</div>
 							<div className='col-7'>
 							<FormGroup id='note' label='Not' isFloating>
@@ -1012,7 +1144,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						<FormGroup id='hotelId' label='Otel' isFloating>
 							<Controller name="hotelId"
 											control={control}
-											rules={{ required: true }}
+											rules={{ required: false }}
 											render={({ field }) => (
 																	<Select
 																	size='sm'
@@ -1037,7 +1169,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='roomNumber' label='Oda/Kapı Numarası' isFloating>
 						        <Controller name="roomNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Giriniz'
@@ -1188,7 +1320,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 							<FormGroup id='ticketNumber' label='Bilet Numarası' isFloating>
 						        <Controller name="ticketNumber"
 	                                            control={control}
-	                                            rules={{ required: true }}
+	                                            rules={{ required: false }}
 	                                            render={({ field }) => (
 													<Input
 												placeholder='Tur Adı'
@@ -1314,6 +1446,84 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 								</FormGroup>
 							</div>
+							{/* Media */}
+							<div className='col-2'>
+								<FormGroup id='isSold' isFloating>
+								<Controller name="isSold"
+                                            rules={{ required: false }}
+                                             control={ control}
+                                            render={({ field }) => (
+												<Checks
+												id='isSold'
+												type='switch'
+												label='Media istiyor'
+												onChange={(e:any) => field.onChange(e.target.checked)} // Manually handle onChange
+												checked={field.value} // Use field.value instead of {...field}
+											/>
+                                             )}
+                                    />
+
+
+								</FormGroup>
+							</div>
+							
+							<div className='col-6'>
+							<FormGroup id='mediaPrice' label='Media Ücret' isFloating>
+						        <Controller name="mediaPrice"
+	                                            control={control}
+	                                            rules={{ required: false }}
+	                                            render={({ field }) => (
+													<Input
+												placeholder='Giriniz'
+												type='number'
+												{...field}
+											/>
+                                                         )}
+								/>
+							</FormGroup>
+							</div>
+							<div className='col-4'>
+							<FormGroup id='mediaPaid' label='Media Ödenen' isFloating>
+						        <Controller name="mediaPaid"
+	                                            control={control}
+	                                            rules={{ required: false }}
+	                                            render={({ field }) => (
+													<Input
+												placeholder='Giriniz'
+												type='number'
+												{...field}
+											/>
+                                                         )}
+								/>
+							</FormGroup>
+							</div>
+							<div className='col-6'>
+						    <FormGroup id='mediaType' label='Tipi' isFloating>
+						        <Controller name="mediaType"
+	                                            control={control}
+	                                            rules={{ required: false }}
+	                                            render={({ field }) => (
+						                                                <Select
+																		size='sm'
+																		placeholder='Seçiniz'
+																		ariaLabel='Seçiniz'
+																		list={mediaPaymentTypes.map((el: any) => ({
+																			value: el.id,
+																			text: el.name,
+																			label: el.name,
+																		}))}
+																		className={classNames('rounded-1', {
+																		'bg-white': !darkModeStatus,
+																		})}
+																		{...field}
+																			/>
+                                                         )}
+								/>
+							</FormGroup>
+							 {errors.paymentMethod && <span>Bu alan gerekli</span>}
+							</div>
+
+						
 							<div className='col-7'>
 							<FormGroup id='note' label='Not' isFloating>
 						        <Controller name="note"

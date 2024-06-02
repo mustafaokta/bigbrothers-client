@@ -64,9 +64,6 @@
 # ISSUES
 - paraşüt gps
  - Çok satanlar kısmına whatsapp
-
-
-
  backend domaini kısıtla
  
  
@@ -107,3 +104,16 @@ Bilet sayfası görüldü işareti görülmedi ise sesli yazılı uyarı yanıp 
 Bilet ekranında satıcı kendi olacak eğer rol satıcı ise
 
 -Bilet atv ise double single sayısını yazsın?
+
+
+
+
+
+
+Bilet kısmı
+
+- Bilet satici rolü ise kendi seçili gelsin
+- bilet no girilmezse kendi atasın suan zorunlu
+- Bilet isim Büyük harf
+- Bilet makinesi 
+- Aktiviteler tr ve en olsun bilette
