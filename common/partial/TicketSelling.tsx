@@ -276,15 +276,18 @@ if (phoneNumber) {
 			{ value: 'office', label: 'Ofis' },
 			{ value: 'online', label: 'Online' }
 			]
-	/* 	const sellerCompany = [
+			let sellerCompany = [];
+	 	const sellerCompanyBigbrothers = [
 			{ value: 'bigbrothersTravel', label: 'Bigbrothers Travel', id: 1 },
 			{ value: 'oludenizTravel', label: 'Ölüdeniz Travel', id:14 },
 			{ value: 'fethiyeTatilTurlari', label: 'Fethiye Tatil Turları', id: 42 }
-			] */
+			] 
 			
-			const sellerCompany = [
+			const sellerCompanyTigersson = [
 				{ value: 'tigersson', label: 'Tigersson Travel', id: 1 }
 				]
+				sellerCompany=	process.env.NEXT_PUBLIC_COMPANY_NAME==='Bigbrothers'?sellerCompanyBigbrothers: sellerCompanyTigersson;
+console.log(process.env.NEXT_PUBLIC_COMPANY_NAME);
 
 
 
