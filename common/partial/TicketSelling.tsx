@@ -276,7 +276,7 @@ if (phoneNumber) {
 			{ value: 'office', label: 'Ofis' },
 			{ value: 'online', label: 'Online' }
 			]
-			let sellerCompany = [];
+			let sellerCompany: { value: string, label: string, id?: number }[] = [];
 	 	const sellerCompanyBigbrothers = [
 			{ value: 'bigbrothersTravel', label: 'Bigbrothers Travel', id: 1 },
 			{ value: 'oludenizTravel', label: 'Ölüdeniz Travel', id:14 },
@@ -287,7 +287,7 @@ if (phoneNumber) {
 				{ value: 'tigersson', label: 'Tigersson Travel', id: 1 }
 				]
 				sellerCompany=	process.env.NEXT_PUBLIC_COMPANY_NAME==='Bigbrothers'?sellerCompanyBigbrothers: sellerCompanyTigersson;
-console.log(process.env.NEXT_PUBLIC_COMPANY_NAME);
+//console.log(process.env.NEXT_PUBLIC_COMPANY_NAME);
 
 
 
