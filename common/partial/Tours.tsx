@@ -126,7 +126,8 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 
 
 	const handleDeleteAction = (postData: any) => {
-		deleteTours({ data: postData}, user.token!)
+	// ondelete cascade yapıyo diye kapattım
+	/* 	deleteTours({ data: postData}, user.token!)
 	   .then((res) => {
 		listTour({ data : {} }, user.token!).then((res:any) => {
 			setTourData(res);
@@ -136,7 +137,7 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 	})
 		.catch((err:any) => {
 			console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
-		});
+		}); */
 	}
 
 

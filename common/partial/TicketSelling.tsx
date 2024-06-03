@@ -42,7 +42,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const { user } = useUserContext();
 	const componentRef = useRef<HTMLDivElement>(null);
 
-	const [fragments, setFragments] = useState([{ id: 0 }]); // Initial fragment
+	const [fragments, setFragments] = useState([{ id: 0}]); // Initial fragment
 
 	const { data:hotelData, isLoading:hotelIsLoading, isError:hotelIsError } = useDataHotelList();
 	const { data:tourData, isLoading:tourIsLoading, isError:tourIsError } = useDataTourList();
@@ -172,8 +172,8 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		    type : 'gelen',
 		    tourId: '',
 			tourTypeId: '',
-			sellingType: '',
-			sellerAgencyId: '',
+			sellingType: 'office',
+			sellerAgencyId: sellerCompany[0].id,
 			tourDate: '',
 			tourTime: '',
 			extraLocation: '',
@@ -183,10 +183,10 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			salesmanId: '',
 			price: '',
 			paid: '',
-			paymentMethodId: '',
+			paymentMethodId: 1,
 			currency: '',
 			ticketNumber: '',
-			adult: '',
+			adult: 1,
 			child: '',
 			baby: '',
 			singleCount:'',
@@ -194,12 +194,13 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			transferNumber: '',
 			note: '',
 			needsTransfer: false,
-			mediaType :  "" ,
+			mediaType :  mediaPaymentTypes[0].name ,
 			mediaPrice   :  "",
 			mediaPaid   : "",
-			isSold  :  "",
+			isSold  :  false,
 			soldDate : "",
-			soldTime : ""
+			soldTime : "",
+			customerPhoneNumber1:'+'
 		});
 		setFragments([{ id: 0 }]);
 	};
@@ -1701,7 +1702,7 @@ console.log('fragments', fragments);
 	                                            render={({ field }) => (
 													<Input
 													type='tel'
-													mask='+90 (999) 999-9999'
+													/* mask='+90 (999) 999-9999' */
 												{...field}
 											/>
                                                          )}

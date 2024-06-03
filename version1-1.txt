@@ -1,0 +1,23 @@
+Tur ERP Yazılımı Versiyon Güncelleme Notları
+Versiyon 1.0.1 - [Tarih: 2024-06-02]
+
+Yeni Özellikler
+Yeni Kayıt Ekleme Kontrolleri:
+Zorunlu alan validasyonları revize edildi.
+Raporlama:
+Tüm listeleme sayfalarına ‘Export’ butonu eklendi. Bu buton Kaydetme / Yazdırma olanağı sağlar.
+Export butonu ile ‘pdf’ formatında döküm alınabilmekte olup, bu sayede lokal bilgisayara gün sonu arşivlemesi veya anlık döküm alınabilecektir.
+CRM - Müşteri İletişim
+Bilet ekranına Whatsapp butonu eklenerek, bilet sahibi müşteriye tek tuşla biletini anlık paylaşma özelliği eklendi.
+İyileştirmeler
+Performans:
+Veritabanı sorgu optimizasyonları ile genel performans %20 arttırıldı.
+Kullanıcı Arayüzü:
+Ana kontrol panelinde düzenlemeler yapıldı.
+Form elemanlarının düzeni ve tasarımı geliştirildi.
+Bilet Atv ise double-single sayısına çevrildi.
+Bilet no girilmezse sistem otomatik üretiyor.
+Bilet bilgilerine İngilizce desteği eklendi.
+“Seçiniz” default value eklendi.
+Güvenlik:
+Spesifik Client API kısıtlaması express sunucuda yapıldı.

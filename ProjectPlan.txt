@@ -82,9 +82,9 @@ Rapor bitiş tarihleri son 5 gün kala uyarı cikacak
 
 Telefon zorunlu kapat
 Ödeme yöntemine ofiste ödeme ekle
-Seçiniz diye default value ekle
+
 Ödenen Bossa sıfır alsın zorunlu olmasın
-Export olayi
+
 
 
 Transfer de 
@@ -97,7 +97,6 @@ Plaka araç türü transfer sayısı
 Mail zorunlu olmasin
 
 Satış personeli edit delete yapamasin
-Paylaş i yap bilet
 
 Bilet sayfası görüldü işareti görülmedi ise sesli yazılı uyarı yanıp sönsün ve liste satış sonrasi otomatik guncellensin
 
@@ -113,7 +112,6 @@ Bilet ekranında satıcı kendi olacak eğer rol satıcı ise
 Bilet kısmı
 
 - Bilet satici rolü ise kendi seçili gelsin
-- bilet no girilmezse kendi atasın suan zorunlu
 - Bilet isim Büyük harf
 - Bilet makinesi 
 - Aktiviteler tr ve en olsun bilette

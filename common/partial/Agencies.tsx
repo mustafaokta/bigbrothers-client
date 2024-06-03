@@ -120,13 +120,13 @@ setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 			});
 	};
 	const handleDeleteAction = (postData: any) => {
-		deleteAgency({ data: postData}, user.token!)
+	/* 	deleteAgency({ data: postData}, user.token!)
 			.then((res) => {
 				setListData(res);
 		})
 		.catch((err:any) => {
 			// console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
-		});
+		}); */
 	}
 
 
