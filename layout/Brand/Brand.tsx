@@ -14,8 +14,9 @@ const Brand: FC<IBrandProps> = ({ asideStatus, setAsideStatus }) => {
 			<div className='brand-logo'>
 				<h1 className='brand-title '>
 					<Link href='../' aria-label='Logo'>
-					{/* <Logo height={55} color={'#ffffff'} /> */}
-					Tigersson Travel
+					
+					{process.env.NEXT_PUBLIC_COMPANY_NAME === 'Bigbrothers' && <Logo height={55} color={'#ffffff'} />  }
+ 									 {process.env.NEXT_PUBLIC_COMPANY_NAME === 'Tigersson' && 'Tigersson Travel' } 
 					</Link>
 				</h1>
 			</div>
