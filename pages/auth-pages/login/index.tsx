@@ -222,8 +222,9 @@ const Login: NextPage<ILoginProps> = ({ isSignUp }) => {
 												'text-light': darkModeStatus,
 											},
 										)}>
-									{/* 	<Logo width={250} /> */}
-									Tigersson Travel
+										{process.env.NEXT_PUBLIC_COMPANY_NAME == 'Bigbrothers' && <Logo width={250} /> }
+										{process.env.NEXT_PUBLIC_COMPANY_NAME == 'Tigersson' && 'Tigersson Travel' }
+									
 									</Link>
 								</div>
 
