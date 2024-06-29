@@ -26,3 +26,8 @@ Spesifik Client API kısıtlaması express sunucuda yapıldı.
 UPDATE LIST :
     - Tel format düzenlendi, tüm ülkelere whatsapp destekli tel formatı eklendi.
     - Yeni bilet oluştururken, hızlandırmak amaçlı bazı alanlar seçili şekilde ayarlandı.
+    
+    
+
+UPDATE LIST :
+ -      

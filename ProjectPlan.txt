@@ -113,7 +113,8 @@ Bilet kısmı
 
 - Bilet satici rolü ise kendi seçili gelsin
 - Bilet isim Büyük harf
-- Bilet makinesi 
+- Bilet makinesi  - Zebra Zd220D
+- Bilet kağıdı
 - Aktiviteler tr ve en olsun bilette
 
 Update
