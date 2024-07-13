@@ -36,9 +36,11 @@ interface ICommonUpcomingEventsProps {
 }
 const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const { themeStatus, darkModeStatus } = useDarkMode();
+	const newFormRef = useRef<HTMLFormElement>(null);
+	const editFormRef = useRef<HTMLFormElement>(null);
 	
 	const [incomingTourData, setIncomingTourData] = useState<any>({content:[]});
-	const { register, handleSubmit, reset, formState: { errors }, getValues, setValue, control, watch } = useForm();
+	const { register, handleSubmit, reset, formState: { errors }, getValues, setValue, control, watch, trigger } = useForm();
 	const { user } = useUserContext();
 	const componentRef = useRef<HTMLDivElement>(null);
 
@@ -285,6 +287,12 @@ if (phoneNumber) {
 		// 	console.log(`Bir hata meydana geldi. Err:${err?.response?.data?.content}`);
 		  });
 	  }
+	  
+	  const handleExternalButtonClick = () => {
+		if (newFormRef.current) {
+			newFormRef.current.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+		}
+	  };
     
     const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 360'}]
 
@@ -1047,8 +1055,8 @@ if (phoneNumber) {
 					<ModalHeader setIsOpen={setNewItemOffcanvas}>
 						<OffCanvasTitle id='newRecordIncomingTitle'>Yeni Kayıt</OffCanvasTitle>
 					</ModalHeader>
-					<form onSubmit={handleSubmit((data) => handleSaveAction(data))}>
 					<ModalBody>
+					<form ref={newFormRef}  onSubmit={handleSubmit((data) => handleSaveAction(data))}>
 						<div className='row g-4'>
 							<div className='col-4'>
 						    <FormGroup id='sellingType' label='Satış Tipi' isFloating>
@@ -1567,17 +1575,20 @@ if (phoneNumber) {
 							</div>
 
 						</div>
+						</form>
 					</ModalBody>
 					<ModalFooter className='bg-transparent'>
 						<Button
 							color='info'
-							type='submit'
-							className='w-100'
+							type='button'
+//							onClick={handleSubmit((data) => handleSaveAction(data))}
+							onClick={handleExternalButtonClick}
+ 						className='w-100'
 							>
 							Kaydet
 						</Button>
 					</ModalFooter>
-					</form>
+					
 			</Modal>
 		</>
 	);
