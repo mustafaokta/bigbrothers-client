@@ -22,7 +22,7 @@ const Index: NextPage = () => {
 	return (
 		<PageWrapper>
 			<Head>
-				<title>Gelen Turlar</title>
+				<title>Biletler</title>
 			</Head>
 			<SubHeader>
 				<SubHeaderLeft>

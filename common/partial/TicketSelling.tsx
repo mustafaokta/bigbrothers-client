@@ -53,17 +53,13 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 	const { data: agencyData, isLoading: agencyIsLoading, isError: agencyIsError } = useDataAgency();
 	const { data: tourTypeData, isLoading: tourTypeIsLoading, isError: tourTypeIsError } = useDataTourType();
 	const [incomingIsLoading, setIncomingIsLoading] = useState(true);
-
-
-	const [editOffcanvas, setEditOffcanvas] = useState(false);
-
-
-
 	const [newItemOffcanvas, setNewItemOffcanvas] = useState<boolean>(false);
 	const [tourDate, setTourDate] = useState<any>(null);
 	const [transferData, setTransferData] = useState<any>(null);
+	const [postType, setPostType] = useState<any>(null);
 	const [filteredTourData, setFilteredTourData] = useState({content:[]});
 	const router = useRouter();
+	
 	 // Filter tour data on change of tourTypeId
 	 useEffect(() => {
 		const selectedTourTypeId = getValues('tourTypeId');
@@ -87,7 +83,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		 								setIncomingIsLoading(false)
 		}
 		);
-	}, [newItemOffcanvas, editOffcanvas])
+	}, [newItemOffcanvas])
 	useEffect(() => {
 	listTransfer({ data : {} }, user.token!).then((res:any) => {
 	 		// console.log('listTransfer', res);
@@ -99,6 +95,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 
 	const handleUpcomingEdit = (itm:any) => {
 		console.log('handleUpcomingEdit', itm);
+		setPostType('update');
 					  setFragments(itm.customers.length>0?itm.customers:[{ id: 0 }]);
 
 			   let itemm : { [key: string]: any }=	{
@@ -153,8 +150,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 						   itemm[`customerEmail${i+1}`] = itm.customers[i]['customerEmail'];
 						   }
 						   reset(itemm);
-						   setEditOffcanvas(true);
-
+						   setNewItemOffcanvas(!newItemOffcanvas);
    };
 
 	const handleUpcomingPrint = (itm:any) => {
@@ -166,6 +162,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		window.open(`${process.env.NEXT_PUBLIC_API_HOST}/ticket/${itm.reservationUUID}`, '_blank');
 	}
 	const handleNewItem = () => {
+		setPostType('create');
 		setNewItemOffcanvas(!newItemOffcanvas);
 		 // set form to default empty values
 		reset({
@@ -206,6 +203,17 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 		});
 		setFragments([{ id: 0 }]);
 	};
+	const handleAction = (post_data: any) => {
+		if (postType === 'create') {
+			handleSaveAction(post_data);
+		}else if (postType === 'update') {
+			handleUpdateAction(post_data);
+		}
+
+
+
+	};
+	
 	const handleUpdateAction = (post_data: any) => {
 		let postData = post_data;
 
@@ -215,7 +223,7 @@ const List: FC<ICommonUpcomingEventsProps> = ({ isFluid }) => {
 			// 	toast.success(`Tur kaydı güncelleştirildi`);
 
 
-			setEditOffcanvas(false);
+			setNewItemOffcanvas(false);
 
 			})
 			.catch((err) => {
@@ -506,551 +514,6 @@ if (phoneNumber) {
 			</Card>
 
 
-
-			{/* Edit Modal */}
-			<Modal
-					setIsOpen={setEditOffcanvas}
-					isOpen={editOffcanvas}
-					titleId='newRecordIncomingModal'
-					isCentered
-					isScrollable
-					size='xl'>
-					<ModalHeader setIsOpen={setEditOffcanvas}>
-						<OffCanvasTitle id='newRecordIncomingTitle'>Kayıt Düzenle</OffCanvasTitle>
-					</ModalHeader>
-					<ModalBody>
-					<form ref={editFormRef}  onSubmit={handleSubmit((data) => handleUpdateAction(data))}>
-						<div className='row g-4'>
-						<div className='col-4'>
-						    <FormGroup id='sellingType' label='Satış Tipi' isFloating>
-						        <Controller name="sellingType"
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-						                                                <Select
-																		size='sm'
-																		placeholder='Seçiniz'
-																		ariaLabel='Seçiniz'
-																		list={sellingType.map((el: any) => ({
-																			value: el.value,
-																			text: el.label,
-																			label: el.label,
-																		}))}
-																		className={classNames('rounded-1', {
-																		'bg-white': !darkModeStatus,
-																		})}
-																		{...field}
-																			/>
-                                                         )}
-								/>
-							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
-							</div>
-							<div className='col-4'>
-						    <FormGroup id='sellerAgencyId' label='Satıcı Acente' isFloating>
-						        <Controller name="sellerAgencyId"
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-						                                                <Select
-																		size='sm'
-																		placeholder='Seçiniz'
-																		ariaLabel='Seçiniz'
-																		list={(watch('sellingType')=='office'? 
-																		sellerCompany.filter((el: any) => el.id === 1):sellerCompany)
-																		.map((el: any) => ({
-																			value: el.id.toString(),
-																			text: el.label,
-																			label: el.label,
-																		}))}
-																		className={classNames('rounded-1', {
-																		'bg-white': !darkModeStatus,
-																		})}
-																		{...field}
-																			/>
-                                                         )}
-								/>
-							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
-							</div>
-							<div className='col-4'>
-						    <FormGroup id='tourTypeId' label='Tur Adı' isFloating>
-						        <Controller name="tourTypeId"
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-						                                                <Select
-																		size='sm'
-																		placeholder='Seçiniz'
-																		ariaLabel='Seçiniz'
-																		list={tourTypeData.content.map((el: any) => ({
-																			value: el.id,
-																			text: el.name,
-																			label: el.name,
-																		}))}
-																		className={classNames('rounded-1', {
-																		'bg-white': !darkModeStatus,
-																		})}
-																		{...field}
-																			/>
-                                                         )}
-								/>
-							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
-							</div>
-							<div className='col-4'>
-						    <FormGroup id='tourId' label='Düzenleyen Acente' isFloating>
-						        <Controller name="tourId"
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-						                                                <Select
-																		size='sm'
-																		placeholder='Seçiniz'
-																		ariaLabel='Seçiniz'
-																		list={filteredTourData.content.map((el: any) => ({
-																			value: el.id.toString(),
-																			text: el.agency.name,
-																			label: el.agency.name,
-																		}))}
-																		className={classNames('rounded-1', {
-																		'bg-white': !darkModeStatus,
-																		})}
-																		{...field}
-																			/>
-                                                         )}
-								/>
-							</FormGroup>
-							 {errors.typeId && <span>Bu alan gerekli</span>}
-							</div>
-							<div className='col-2'>
-							<FormGroup id='tourDate' label='Tur Tarih' isFloating>
-						        <Controller name="tourDate"
-	                                            control={control}
-	                                            rules={{ required: false }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Tur Tarihi'
-												type='date'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-3'>
-						<FormGroup id='hotelId' label='Otel' isFloating>
-							<Controller name="hotelId"
-											control={control}
-											rules={{ required: false }}
-											render={({ field }) => (
-																	<Select
-																	size='sm'
-																	placeholder='Seçiniz'
-																	ariaLabel='Seçiniz'
-																	list={hotelData.content.map((el: any) => ({
-																		value: el.id,
-																		text: el.name,
-																		label: el.name,
-																	}))}
-																	className={classNames('rounded-1', {
-																	'bg-white': !darkModeStatus,
-																	})}
-																	{...field}
-																		/>
-													 )}
-							/>
-						</FormGroup>
-						 {errors.salesman && <span>Bu alan gerekli</span>}
-						</div>
-							<div className='col-3'>
-							<FormGroup id='roomNumber' label='Oda/Kapı Numarası' isFloating>
-						        <Controller name="roomNumber"
-	                                            control={control}
-	                                            rules={{ required: false }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Giriniz'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-6'>
-							<FormGroup id='extraLocation' label='Ekstra Konum' isFloating>
-						        <Controller name="extraLocation"
-	                                            control={control}
-	                                            rules={{ required: false }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Giriniz'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-3'>
-							<FormGroup id='timeToPickUp' label='Müşteri Alış Saati' isFloating>
-						        <Controller name="timeToPickUp"
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Giriniz'
-												type='time'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-3'>
-						    <FormGroup id='salesmanId' label='Satış Personeli' isFloating>
-						        <Controller name="salesmanId"
-	                                            control={control}
-	                                            rules={{ required: false }}
-	                                            render={({ field }) => (
-						                                                <Select
-																		size='sm'
-																		placeholder='Seçiniz'
-																		ariaLabel='Seçiniz'
-																		list={userListData.content.map((el: any) => ({
-																			value: el.id,
-																			text: el.name,
-																			label: el.name,
-																		}))}
-																		className={classNames('rounded-1', {
-																		'bg-white': !darkModeStatus,
-																		})}
-																		{...field}
-																			/>
-                                                         )}
-								/>
-							</FormGroup>
-							 {errors.salesman && <span>Bu alan gerekli</span>}
-							</div>
-							<div className='col-2'>
-								<FormGroup id='currency' label='Birim' isFloating>
-								<Controller name="currency"
-                                            rules={{ required: true }}
-                                             control={ control}
-                                            render={({ field }) => (
-												<Select
-												size='sm'
-												placeholder='Birim'
-												ariaLabel='Birim'
-												list={currency.map((el: any) => ({
-													value: el.value,
-													text: el.label,
-													label: el.label,
-												}))}
-												className={classNames('rounded-1', {
-													'bg-white': !darkModeStatus,
-												})}
-											{...field}
-											/>
-                                             )}
-                                    />
-
-
-								</FormGroup>
-								{errors.currency && <span>Bu alan gerekli</span>}
-
-							</div>
-							<div className='col-2'>
-							<FormGroup id='price' label='Ücret' isFloating>
-						        <Controller name="price"
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Giriniz'
-												type='number'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-2'>
-							<FormGroup id='paid' label='Ödenen' isFloating>
-						        <Controller name="paid"
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Giriniz'
-												type='number'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-3'>
-						    <FormGroup id='paymentMethodId' label='Ödeme Yöntemi' isFloating>
-						        <Controller name="paymentMethodId"
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-						                                                <Select
-																		size='sm'
-																		placeholder='Seçiniz'
-																		ariaLabel='Seçiniz'
-																		list={paymentMethodsData.content.map((el: any) => ({
-																			value: el.id,
-																			text: el.name,
-																			label: el.name,
-																		}))}
-																		className={classNames('rounded-1', {
-																		'bg-white': !darkModeStatus,
-																		})}
-																		{...field}
-																			/>
-                                                         )}
-								/>
-							</FormGroup>
-							 {errors.paymentMethod && <span>Bu alan gerekli</span>}
-							</div>
-							<div className='col-3'>
-							<FormGroup id='ticketNumber' label='Bilet Numarası' isFloating>
-						        <Controller name="ticketNumber"
-	                                            control={control}
-	                                            rules={{ required: false }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Tur Adı'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							{watch('tourTypeId')!='6' && 	
-							<div className='col-3'>
-							<FormGroup  id='adult' label='Yetişkin'>
-							<Controller name="adult"
-	                                            control={control}
-	                                            rules={{ required: true }}
-	                                            render={({ field }) => (
-													<Input
-													type='number'
-													autoComplete='cc-csc'
-													placeholder='Giriniz'
-													required
-													{...field}
-												/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>}
-							{watch('tourTypeId')!='6' && 	
-							<div className='col-3'>
-							<FormGroup  id='child' label='Çocuk'>
-							<Controller name="child"
-	                                            control={control}
-	                                            rules={{ required: false }}
-	                                            render={({ field }) => (
-													<Input
-													type='number'
-													autoComplete='cc-csc'
-													placeholder='Giriniz'
-													{...field}
-												/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>}
-							{watch('tourTypeId')!='6' && 	
-							<div className='col-3'>
-							<FormGroup  id='baby' label='Bebek'>
-							<Controller name="baby"
-	                                            control={control}
-	                                            rules={{ required: false }}
-	                                            render={({ field }) => (
-													<Input
-													type='number'
-													autoComplete='cc-csc'
-													placeholder='Giriniz'
-													{...field}
-												/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>}
-							{watch('tourTypeId')=='6' && 	<div className='col-2'>
-							<FormGroup  id='singleCount' label='Atv Single'>
-							<Controller name="singleCount"
-	                                            control={control}
-	                                            render={({ field }) => (
-													<Input
-													type='number'
-													placeholder='Giriniz'
-													{...field}
-												/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div> }
-							{	watch('tourTypeId')=='6' && <div className='col-2'>
-							<FormGroup  id='doubleCount' label='Atv Double'>
-							<Controller name="doubleCount"
-	                                            control={control}
-	                                            render={({ field }) => (
-													<Input
-													type='number'
-													placeholder='Giriniz'
-													{...field}
-												/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>}
-
-							<DynamicFragments  control={control} errors={errors} fragments={fragments} setFragments={setFragments} setValue={setValue}  />
-
-							<div className='col-3'>
-							<FormGroup id='transferNumber' label='Transfer Numarası' isFloating>
-						        <Controller name="transferNumber"
-	                                            control={control}
-	                                            rules={{ required: false }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Transfer Numarası'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-2'>
-								<FormGroup id='needsTransfer' isFloating>
-								<Controller name="needsTransfer"
-                                            rules={{ required: false }}
-                                             control={ control}
-                                            render={({ field }) => (
-												<Checks
-												id='needsTransfer'
-												type='switch'
-												label='Transfer istiyor'
-												onChange={(e:any) => field.onChange(e.target.checked)} // Manually handle onChange
-												checked={field.value} // Use field.value instead of {...field}
-											/>
-                                             )}
-                                    />
-
-
-								</FormGroup>
-							</div>
-							{/* Media */}
-							<div className='col-2'>
-								<FormGroup id='isSold' isFloating>
-								<Controller name="isSold"
-                                            rules={{ required: false }}
-                                             control={ control}
-                                            render={({ field }) => (
-												<Checks
-												id='isSold'
-												type='switch'
-												label='Media istiyor'
-												onChange={(e:any) => field.onChange(e.target.checked)} // Manually handle onChange
-												checked={field.value} // Use field.value instead of {...field}
-											/>
-                                             )}
-                                    />
-
-
-								</FormGroup>
-							</div>
-							
-							<div className='col-6'>
-							<FormGroup id='mediaPrice' label='Media Ücret' isFloating>
-						        <Controller name="mediaPrice"
-	                                            control={control}
-	                                            rules={{ required: false }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Giriniz'
-												type='number'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-4'>
-							<FormGroup id='mediaPaid' label='Media Ödenen' isFloating>
-						        <Controller name="mediaPaid"
-	                                            control={control}
-	                                            rules={{ required: false }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Giriniz'
-												type='number'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-6'>
-						    <FormGroup id='mediaType' label='Tipi' isFloating>
-						        <Controller name="mediaType"
-	                                            control={control}
-	                                            rules={{ required: false }}
-	                                            render={({ field }) => (
-						                                                <Select
-																		size='sm'
-																		placeholder='Seçiniz'
-																		ariaLabel='Seçiniz'
-																		list={mediaPaymentTypes.map((el: any) => ({
-																			value: el.id,
-																			text: el.name,
-																			label: el.name,
-																		}))}
-																		className={classNames('rounded-1', {
-																		'bg-white': !darkModeStatus,
-																		})}
-																		{...field}
-																			/>
-                                                         )}
-								/>
-							</FormGroup>
-							 {errors.paymentMethod && <span>Bu alan gerekli</span>}
-							</div>
-							<div className='col-7'>
-							<FormGroup id='note' label='Not' isFloating>
-						        <Controller name="note"
-	                                            control={control}
-	                                            rules={{ required: false }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Yazınız'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-
-						</div>
-						</form>
-					</ModalBody>
-					<ModalFooter className='bg-transparent'>
-					<Button
-							color='info'
-							type='button'
-//							onClick={handleSubmit((data) => handleSaveAction(data))}
-							onClick={handleEditButtonClick}
- 						className='w-100'
-							>
-							Kaydet
-						</Button>
-					</ModalFooter>
-			</Modal>
-
 			{/* New Record Modal */}
 			<Modal
 					setIsOpen={setNewItemOffcanvas}
@@ -1060,10 +523,10 @@ if (phoneNumber) {
 					isScrollable
 					size='xl'>
 					<ModalHeader setIsOpen={setNewItemOffcanvas}>
-						<OffCanvasTitle id='newRecordIncomingTitle'>Yeni Kayıt</OffCanvasTitle>
+						<OffCanvasTitle id='newRecordIncomingTitle'> {postType=== 'update' ? 'Düzenle' : 'Yeni' } </OffCanvasTitle>
 					</ModalHeader>
 					<ModalBody>
-					<form ref={newFormRef}  onSubmit={handleSubmit((data) => handleSaveAction(data))}>
+					<form ref={newFormRef}  onSubmit={handleSubmit((data) => handleAction(data))}>
 						<div className='row g-4'>
 							<div className='col-6 col-md-4'>
 						    <FormGroup id='sellingType' label='Satış Tipi' isFloating>
@@ -1142,7 +605,7 @@ if (phoneNumber) {
 							</FormGroup>
 							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
-							<div className='col-4'>
+							<div className='col-6 col-md-4'>
 						    <FormGroup id='tourId' label='Düzenleyen Acente' isFloating>
 						        <Controller name="tourId"
 	                                            control={control}
@@ -1167,7 +630,7 @@ if (phoneNumber) {
 							</FormGroup>
 							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
-							<div className='col-2'>
+							<div className='col-6 col-md-4'>
 							<FormGroup id='tourDate' label='Tur Tarih' isFloating>
 						        <Controller name="tourDate"
 	                                            control={control}
@@ -1182,7 +645,7 @@ if (phoneNumber) {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-6 col-md-4'>
 						<FormGroup id='hotelId' label='Otel' isFloating>
 							<Controller name="hotelId"
 											control={control}
@@ -1207,8 +670,8 @@ if (phoneNumber) {
 						</FormGroup>
 						 {errors.salesman && <span>Bu alan gerekli</span>}
 						</div>
-							<div className='col-3'>
-							<FormGroup id='roomNumber' label='Oda/Kapı Numarası' isFloating>
+						<div className='col-6 col-md-4'>
+						<FormGroup id='roomNumber' label='Oda/Kapı Numarası' isFloating>
 						        <Controller name="roomNumber"
 	                                            control={control}
 	                                            rules={{ required: false }}
@@ -1221,7 +684,7 @@ if (phoneNumber) {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-6'>
+							<div className='col-6 col-md-4'>
 							<FormGroup id='extraLocation' label='Ekstra Konum' isFloating>
 						        <Controller name="extraLocation"
 	                                            control={control}
@@ -1235,7 +698,7 @@ if (phoneNumber) {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-6 col-md-4'>
 							<FormGroup id='timeToPickUp' label='Müşteri Alış Saati' isFloating>
 						        <Controller name="timeToPickUp"
 	                                            control={control}
@@ -1250,7 +713,7 @@ if (phoneNumber) {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-6 col-md-4'>
 						    <FormGroup id='salesmanId' label='Satış Personeli' isFloating>
 						        <Controller name="salesmanId"
 	                                            control={control}
@@ -1275,7 +738,7 @@ if (phoneNumber) {
 							</FormGroup>
 							 {errors.salesman && <span>Bu alan gerekli</span>}
 							</div>
-							<div className='col-2'>
+							<div className='col-6 col-md-4'>
 								<FormGroup id='currency' label='Birim' isFloating>
 								<Controller name="currency"
                                             rules={{ required: true }}
@@ -1303,7 +766,7 @@ if (phoneNumber) {
 								{errors.currency && <span>Bu alan gerekli</span>}
 
 							</div>
-							<div className='col-2'>
+							<div className='col-6 col-md-4'>
 							<FormGroup id='price' label='Ücret' isFloating>
 						        <Controller name="price"
 	                                            control={control}
@@ -1318,7 +781,7 @@ if (phoneNumber) {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-2'>
+							<div className='col-6 col-md-4'>
 							<FormGroup id='paid' label='Ödenen' isFloating>
 						        <Controller name="paid"
 	                                            control={control}
@@ -1333,7 +796,7 @@ if (phoneNumber) {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-6 col-md-4'>
 						    <FormGroup id='paymentMethodId' label='Ödeme Yöntemi' isFloating>
 						        <Controller name="paymentMethodId"
 	                                            control={control}
@@ -1358,7 +821,7 @@ if (phoneNumber) {
 							</FormGroup>
 							 {errors.paymentMethod && <span>Bu alan gerekli</span>}
 							</div>
-							<div className='col-3'>
+							<div className='col-6 col-md-4'>
 							<FormGroup id='ticketNumber' label='Bilet Numarası' isFloating>
 						        <Controller name="ticketNumber"
 	                                            control={control}
@@ -1373,7 +836,7 @@ if (phoneNumber) {
 							</FormGroup>
 							</div>
 							{watch('tourTypeId')!='6' && 	
-							<div className='col-3'>
+							<div className='col-6 col-md-4'>
 							<FormGroup  id='adult' label='Yetişkin'>
 							<Controller name="adult"
 	                                            control={control}
@@ -1391,7 +854,7 @@ if (phoneNumber) {
 							</FormGroup>
 							</div>}
 							{watch('tourTypeId')!='6' && 	
-							<div className='col-3'>
+							<div className='col-6 col-md-4'>
 							<FormGroup  id='child' label='Çocuk'>
 							<Controller name="child"
 	                                            control={control}
@@ -1408,7 +871,7 @@ if (phoneNumber) {
 							</FormGroup>
 							</div>}
 							{watch('tourTypeId')!='6' && 	
-							<div className='col-3'>
+							<div className='col-6 col-md-4'>
 							<FormGroup  id='baby' label='Bebek'>
 							<Controller name="baby"
 	                                            control={control}
@@ -1424,7 +887,8 @@ if (phoneNumber) {
 								/>
 							</FormGroup>
 							</div>}
-							{watch('tourTypeId')=='6' && 	<div className='col-2'>
+							{watch('tourTypeId')=='6' && 	
+							<div className='col-6 col-md-4'>
 							<FormGroup  id='singleCount' label='Atv Single'>
 							<Controller name="singleCount"
 	                                            control={control}
@@ -1438,7 +902,8 @@ if (phoneNumber) {
 								/>
 							</FormGroup>
 							</div> }
-							{	watch('tourTypeId')=='6' && <div className='col-2'>
+							{	watch('tourTypeId')=='6' &&
+							<div className='col-6 col-md-4'>
 							<FormGroup  id='doubleCount' label='Atv Double'>
 							<Controller name="doubleCount"
 	                                            control={control}
@@ -1455,7 +920,7 @@ if (phoneNumber) {
 
 							<DynamicFragments  control={control} errors={errors} fragments={fragments} setFragments={setFragments} setValue={setValue}  />
 
-							<div className='col-3'>
+							<div className='col-6'>
 							<FormGroup id='transferNumber' label='Transfer Numarası' isFloating>
 						        <Controller name="transferNumber"
 	                                            control={control}
@@ -1469,7 +934,7 @@ if (phoneNumber) {
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-2'>
+							<div className='col-6 col-md-4'>
 								<FormGroup id='needsTransfer' isFloating>
 								<Controller name="needsTransfer"
                                             rules={{ required: false }}
@@ -1489,7 +954,7 @@ if (phoneNumber) {
 								</FormGroup>
 							</div>
 							{/* Media */}
-							<div className='col-2'>
+							<div className='col-6 col-md-4'>
 								<FormGroup id='isSold' isFloating>
 								<Controller name="isSold"
                                             rules={{ required: false }}
@@ -1508,38 +973,7 @@ if (phoneNumber) {
 
 								</FormGroup>
 							</div>
-							
-							<div className='col-6'>
-							<FormGroup id='mediaPrice' label='Media Ücret' isFloating>
-						        <Controller name="mediaPrice"
-	                                            control={control}
-	                                            rules={{ required: false }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Giriniz'
-												type='number'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-4'>
-							<FormGroup id='mediaPaid' label='Media Ödenen' isFloating>
-						        <Controller name="mediaPaid"
-	                                            control={control}
-	                                            rules={{ required: false }}
-	                                            render={({ field }) => (
-													<Input
-												placeholder='Giriniz'
-												type='number'
-												{...field}
-											/>
-                                                         )}
-								/>
-							</FormGroup>
-							</div>
-							<div className='col-6'>
+							<div className='col-6 col-md-4'>
 						    <FormGroup id='mediaType' label='Tipi' isFloating>
 						        <Controller name="mediaType"
 	                                            control={control}
@@ -1564,9 +998,41 @@ if (phoneNumber) {
 							</FormGroup>
 							 {errors.paymentMethod && <span>Bu alan gerekli</span>}
 							</div>
+							
+							<div className='col-6 col-md-4'>
+							<FormGroup id='mediaPrice' label='Media Ücret' isFloating>
+						        <Controller name="mediaPrice"
+	                                            control={control}
+	                                            rules={{ required: false }}
+	                                            render={({ field }) => (
+													<Input
+												placeholder='Giriniz'
+												type='number'
+												{...field}
+											/>
+                                                         )}
+								/>
+							</FormGroup>
+							</div>
+							<div className='col-6 col-md-4'>
+							<FormGroup id='mediaPaid' label='Media Ödenen' isFloating>
+						        <Controller name="mediaPaid"
+	                                            control={control}
+	                                            rules={{ required: false }}
+	                                            render={({ field }) => (
+													<Input
+												placeholder='Giriniz'
+												type='number'
+												{...field}
+											/>
+                                                         )}
+								/>
+							</FormGroup>
+							</div>
+							
 
 						
-							<div className='col-7'>
+							<div className='col-12'>
 							<FormGroup id='note' label='Not' isFloating>
 						        <Controller name="note"
 	                                            control={control}
@@ -1670,7 +1136,7 @@ console.log('fragments', fragments);
 		{fragments.map((fragment: any, index: number) => (
 			fragment.id !== 11 &&
 		  <React.Fragment key={fragment.id} >
-							 <div className='col-2'>
+							<div className='col-5 col-md-4'>
 							<FormGroup id={`customerName${index +1}`} label='Müşteri Adı' isFloating>
 						        <Controller name={`customerName${index +1}`}
 	                                            control={control}
@@ -1684,7 +1150,7 @@ console.log('fragments', fragments);
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-2'>
+							<div className='col-6 col-md-4'>
 							<FormGroup id={`customerSurname${index +1}`} label='Müşteri Soyadı' isFloating>
 						        <Controller name={`customerSurname${index +1}`}
 	                                            control={control}
@@ -1698,7 +1164,7 @@ console.log('fragments', fragments);
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-3'>
+							<div className='col-6 col-md-4'>
 							<FormGroup id={`customerIdentityNumber${index +1}`} label='Müşteri TC/PP' isFloating>
 						        <Controller name={`customerIdentityNumber${index +1}`}
 	                                            control={control}
@@ -1712,7 +1178,7 @@ console.log('fragments', fragments);
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-2'>
+							<div className='col-6 col-md-4'>
 							<FormGroup id={`customerPhoneNumber${index +1}`} label='Müşteri Telefon' isFloating>
 						        <Controller name={`customerPhoneNumber${index +1}`}
 	                                            control={control}
@@ -1727,7 +1193,7 @@ console.log('fragments', fragments);
 								/>
 							</FormGroup>
 							</div>
-							<div className='col-2'>
+							<div className='col-6 col-md-4'>
 							<FormGroup id={`customerDateOfBirth${index +1}`} label='Müşteri Doğum Tarihi' isFloating>
 						        <Controller name={`customerDateOfBirth${index +1}`}
 	                                            control={control}
