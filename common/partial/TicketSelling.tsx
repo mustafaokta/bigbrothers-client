@@ -293,6 +293,11 @@ if (phoneNumber) {
 			newFormRef.current.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
 		}
 	  };
+	  const handleEditButtonClick = () => {
+		if (editFormRef.current) {
+			editFormRef.current.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+		}
+	  };
     
     const mediaPaymentTypes =[{id : 1, name : 'Standart'}, {id : 2, name : 'Ekstra 360'}]
 
@@ -513,8 +518,8 @@ if (phoneNumber) {
 					<ModalHeader setIsOpen={setEditOffcanvas}>
 						<OffCanvasTitle id='newRecordIncomingTitle'>Kayıt Düzenle</OffCanvasTitle>
 					</ModalHeader>
-					<form onSubmit={handleSubmit((data) => handleUpdateAction(data))}>
 					<ModalBody>
+					<form ref={editFormRef}  onSubmit={handleSubmit((data) => handleUpdateAction(data))}>
 						<div className='row g-4'>
 						<div className='col-4'>
 						    <FormGroup id='sellingType' label='Satış Tipi' isFloating>
@@ -1031,17 +1036,19 @@ if (phoneNumber) {
 							</div>
 
 						</div>
+						</form>
 					</ModalBody>
 					<ModalFooter className='bg-transparent'>
-						<Button
+					<Button
 							color='info'
-							type='submit'
-							className='w-100'
+							type='button'
+//							onClick={handleSubmit((data) => handleSaveAction(data))}
+							onClick={handleEditButtonClick}
+ 						className='w-100'
 							>
 							Kaydet
 						</Button>
 					</ModalFooter>
-					</form>
 			</Modal>
 
 			{/* New Record Modal */}
@@ -1058,7 +1065,7 @@ if (phoneNumber) {
 					<ModalBody>
 					<form ref={newFormRef}  onSubmit={handleSubmit((data) => handleSaveAction(data))}>
 						<div className='row g-4'>
-							<div className='col-4'>
+							<div className='col-6 col-md-4'>
 						    <FormGroup id='sellingType' label='Satış Tipi' isFloating>
 						        <Controller name="sellingType"
 	                                            control={control}
@@ -1083,7 +1090,7 @@ if (phoneNumber) {
 							</FormGroup>
 							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
-							<div className='col-4'>
+							<div className='col-6 col-md-4'>
 						    <FormGroup id='sellerAgencyId' label='Satıcı Acente' isFloating>
 						        <Controller name="sellerAgencyId"
 	                                            control={control}
@@ -1110,7 +1117,7 @@ if (phoneNumber) {
 							</FormGroup>
 							 {errors.typeId && <span>Bu alan gerekli</span>}
 							</div>
-							<div className='col-4'>
+							<div className='col-6 col-md-4'>
 						    <FormGroup id='tourTypeId' label='Tur Adı' isFloating>
 						        <Controller name="tourTypeId"
 	                                            control={control}
