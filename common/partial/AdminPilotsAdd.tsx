@@ -78,7 +78,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 						medicalReportExpirationDate : '',
 						wingControlExpirationDate : '',
 						 firsAidExpirationDate : '',
-						  foreignLangTestExpirationDate :''						 
+						  foreignLangTestExpirationDate :''
 					});
 					setIsOpen(false);
 
@@ -100,7 +100,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 				</ModalHeader>
 				<form onSubmit={handleSubmit((data) => handleSaveAction(data))}>
 				<ModalBody className='px-4'>
-					<div className='row g-4'>
+					{/* <div className='row g-4'>
 												<div className='col-xl-auto'>
 												{selectedImage && (
                     <Avatar src={URL.createObjectURL(selectedImage)} />
@@ -141,7 +141,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen 
 														</div>
 													</div>
 												</div>
-										</div>
+										</div> */}
 										<div className='row g-4'>
 												<div className='col-3'>
 													<FormGroup id='name' label='Ad' isFloating>

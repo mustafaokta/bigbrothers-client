@@ -109,7 +109,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({
         </ModalHeader>
         <form onSubmit={handleSubmit((data) => handleSaveAction(data))}>
           <ModalBody className="px-4">
-            <div className="row g-4">
+            {/* <div className="row g-4">
               <div className="col-xl-auto">
                 {selectedImage && (
                   <Avatar src={URL.createObjectURL(selectedImage)} />
@@ -150,7 +150,7 @@ const CustomerEditModal: FC<ICustomerEditModalProps> = ({
                 </div>
               </div>
             </div>
-            <br />
+            <br /> */}
             <div className="row g-4">
               <div className="col-6">
                 <FormGroup id="name" label="Ad" isFloating>

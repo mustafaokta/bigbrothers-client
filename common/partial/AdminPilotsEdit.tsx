@@ -37,7 +37,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 	const { user } = useUserContext();
 	const { themeStatus, darkModeStatus } = useDarkMode();
 	const [selectedImage, setSelectedImage] = useState<File | null>(null);
- 
+
 	const gender = [
 		{ value:'erkek', label: 'Erkek' },
 		{ value:'kadin', label: 'Kadın' }
@@ -79,7 +79,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 				</ModalHeader>
 				<form onSubmit={handleSubmit((data:any) => handleSaveAction(data))}>
 				<ModalBody className='px-4'>
-					<div className='row g-4'>
+					{/* <div className='row g-4'>
 												<div className='col-xl-auto'>
 												{selectedImage && (
                     <Avatar src={URL.createObjectURL(selectedImage)} />
@@ -120,7 +120,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 														</div>
 													</div>
 												</div>
-										</div>
+										</div> */}
 										<div className='row g-4'>
 												<div className='col-3'>
 													<FormGroup id='name' label='Ad' isFloating>

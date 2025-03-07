@@ -74,7 +74,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 				</ModalHeader>
 				<form onSubmit={handleSubmit((data:any) => handleSaveAction(data))}>
 				<ModalBody className='px-4'>
-				<div className='row g-4'>
+				{/* <div className='row g-4'>
 												<div className='col-xl-auto'>
 												{selectedImage && (
                     <Avatar src={URL.createObjectURL(selectedImage)} />
@@ -115,7 +115,7 @@ const CustomerEditModal: FC<any> = ({ id, isOpen, setIsOpen, reset, control, get
 														</div>
 													</div>
 												</div>
-										</div>
+										</div> */}
 										<br />
 										<div className='row g-4'>
 												<div className='col-6'>
